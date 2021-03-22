@@ -8,8 +8,33 @@
 <!DOCTYPE html>
 <%@include file="header.jsp" %>
     <body>
-        <h1>Hello World!</h1>
-        <button type="button" class="btn btn-primary">Primary</button>
+        <h1>Contenu vide</h1>
+        <p>5</p>
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        <p>5</p> 
+        
         
     </body>
 <%@include file="footer.jsp" %>
