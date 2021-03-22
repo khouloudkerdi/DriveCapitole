@@ -9,7 +9,7 @@
 <%@include file="header.jsp" %>
     <body>
         <h1>Hello World!</h1>
-        <button type="button" class="btn btn-primary">Primary</button>
         
+        <%@include file="menu.jsp" %>
     </body>
 <%@include file="footer.jsp" %>
