@@ -8,9 +8,7 @@
 <!DOCTYPE html>
 <%@include file="header.jsp" %>
     <body>
-        <h1>Contenu vide</h1>
-        <div>
-            <%@include file="menu.jsp" %>
-        </div>
+        <h1>Hello World!</h1>
+        <%@include file="menu.jsp" %>
     </body>
 <%@include file="footer.jsp" %>
