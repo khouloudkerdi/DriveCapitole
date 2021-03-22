@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="../css/style.css " type="text/css" />
     </head>
     
-    <body>
+    <body id="header_body">
 	<header style="display: flex; background-color:ivory; ">
 
             <div class="mainbar_logo">

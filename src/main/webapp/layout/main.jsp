@@ -9,32 +9,8 @@
 <%@include file="header.jsp" %>
     <body>
         <h1>Contenu vide</h1>
-        <p>5</p>
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        <p>5</p> 
-        
-        
+        <div>
+            <%@include file="menu.jsp" %>
+        </div>
     </body>
 <%@include file="footer.jsp" %>
