@@ -9,7 +9,6 @@
 <%@include file="header.jsp" %>
     <body>
         <h1>Hello World!</h1>
-        
         <%@include file="menu.jsp" %>
     </body>
 <%@include file="footer.jsp" %>
