@@ -1,41 +1,43 @@
+<%@page import="neopro.dao.TestHibernate"%>
+<%@page import="neopro.metier.Categorie"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="neopro.metier.Rayon"%>
+<%@page import="neopro.metier.ListRayon"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 
-<ul class="nav flex-column">
-  <li class="nav-item">
-    <div class="btn-group dropend">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        Rayon 1
-      </button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Cat 1-1</a></li>
-        <li><a class="dropdown-item" href="#">Cat 1-2</a></li>
-        <li><a class="dropdown-item" href="#">Cat 1-3</a></li>
-      </ul>
-    </div>    
-  </li>
-  <li class="nav-item">
-    <div class="btn-group dropend">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        Rayon 2
-      </button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Cat 2-1</a></li>
-        <li><a class="dropdown-item" href="#">Cat 2-2</a></li>
-        <li><a class="dropdown-item" href="#">Cat 2-3</a></li>
-      </ul>
-    </div> 
-  </li>
-  <li class="nav-item">
-    <div class="btn-group dropend">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        Rayon 3
-      </button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Cat 3-1</a></li>
-        <li><a class="dropdown-item" href="#">Cat 3-2</a></li>
-        <li><a class="dropdown-item" href="#">Cat 3-3</a></li>
-      </ul>
-    </div> 
-  </li>
+<!DOCTYPE html>
+<div width:100px;">
+<ul id="menu" class="nav flex-column">
+    
+    <li class="nav-item">
+        <div class="btn-group dropend">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="width:100px">
+                Voir tout
+            </button>
+        </div>
+    </li>
+    
+    <%
+       ArrayList<Rayon> listR = (ArrayList)TestHibernate.getListRayon();
+       
+       for (Rayon r : listR){
+            out.println("<li class=\"nav-item\">");
+            out.println("<div class=\"btn-group dropend\">");
+            out.println("<button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\" style=\"width:100px\">");
+            out.println(r.getLibelleRay());
+            out.println("</button>");
+            out.println("<ul class=\"dropdown-menu\">");
+            out.println("<li><a class=\"dropdown-item\" href=\"#\">");
+            out.println("Voir tout");
+            out.println("</a></li>");
+            for (Categorie c : r.getCategories()){
+                out.println("<li><a class=\"dropdown-item\" href=\"#\">");
+                out.println(c.getLibelleCat());
+                out.println("</a></li>");
+            }
+            out.println("</ul></div></li>");
+        }
+    %>
+
 </ul>
+</div>

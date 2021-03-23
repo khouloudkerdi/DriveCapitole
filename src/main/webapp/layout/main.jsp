@@ -7,8 +7,49 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@include file="header.jsp" %>
-    <body>
-        <h1>Hello World!</h1>
+
+        <div style="display: flex; padding-top: 100px;">
         <%@include file="menu.jsp" %>
+        <div>
+        <h1>Page accueil</h1>
+        <br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>    
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>
+        5<br/>   
+        </div>
+        </div>
     </body>
 <%@include file="footer.jsp" %>

@@ -9,7 +9,7 @@
     </head>
     
     <body id="header_body">
-	<header style="display: flex; background-color:ivory; ">
+	<header style="display: flex; background-color:ivory; position: fixed; width: 100%; ">
 
             <div class="mainbar_logo">
                 <img src="../css/image/neo.JPG" alt="logo_neopro" width="80px" height="55px"/>
