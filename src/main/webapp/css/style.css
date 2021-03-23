@@ -1,12 +1,13 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 2021-3-22, 11:19:36
-    Author     : namgi
-*/
+#header_body{
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    background-color:white;
+    font-family:Arial;
+    color:#000000;
+}
+
 
 /*--------------------------------------------*/
 /* Basic */
@@ -71,4 +72,5 @@ and open the template in the editor.
       padding: 3px;
     margin: 0 10px;
 }
+
 
