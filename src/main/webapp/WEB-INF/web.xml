@@ -4,9 +4,17 @@
         <servlet-name>VisualiserPanier</servlet-name>
         <jsp-file>/vue/VisualiserPanier.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>Accueil</servlet-name>
+        <jsp-file>/vue/Accueil.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>VisualiserPanier</servlet-name>
         <url-pattern>/Panier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Accueil</servlet-name>
+        <url-pattern>/Accueil</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
