@@ -19,8 +19,22 @@ public class HibernateUtil {
              * Ajout des classes
              */
             
+            configuration.addAnnotatedClass(neopro.metier.Rayon.class);
+            configuration.addAnnotatedClass(neopro.metier.Categorie.class);
+            configuration.addAnnotatedClass(neopro.metier.Marque.class);
+            configuration.addAnnotatedClass(neopro.metier.Magasin.class);
+            configuration.addAnnotatedClass(neopro.metier.Label.class);
             configuration.addAnnotatedClass(neopro.metier.Article.class);
-
+            configuration.addAnnotatedClass(neopro.metier.Promotion.class);
+            configuration.addAnnotatedClass(neopro.metier.AvoirPromo.class);
+            configuration.addAnnotatedClass(neopro.metier.AvoirPromoID.class);
+            configuration.addAnnotatedClass(neopro.metier.Client.class);
+            configuration.addAnnotatedClass(neopro.metier.Preferences.class);
+            configuration.addAnnotatedClass(neopro.metier.Panier.class);
+            configuration.addAnnotatedClass(neopro.metier.AvoirQuantitePanier.class);
+            configuration.addAnnotatedClass(neopro.metier.AvoirQuantitePanierID.class);
+            configuration.addAnnotatedClass(neopro.metier.ListeCourses.class);
+            
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             System.out.println("Hibernate serviceRegistry created");
 

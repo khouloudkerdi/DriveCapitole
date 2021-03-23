@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import neopro.dao.MethodesDAO;
 
 /**
  *
@@ -19,8 +20,16 @@ import javax.servlet.http.HttpServletResponse;
 public class CtrlAjouterCrouses extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      
-        request.getRequestDispatcher("ListeCourses").forward(request, response);
+        String p=request.getParameter("nouvelleliste");
+        if (p==""){
+            request.setAttribute("msg_ajouter", "Saisissez le nom de nouvelle liste");
+            request.getRequestDispatcher("AjouterCourses").forward(request, response);
+        }else{
+            long id=(long) request.getSession().getAttribute("idClient");
+            MethodesDAO.ajouterListeCourses(id, p);
+            request.getRequestDispatcher("ListeCourses").forward(request, response);  
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
