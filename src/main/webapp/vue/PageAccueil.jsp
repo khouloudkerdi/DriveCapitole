@@ -1,7 +1,7 @@
 <%-- 
-    Document   : newjsp
-    Created on : 2021-3-22, 11:03:15
-    Author     : namgi
+    Document   : PageAccueil
+    Created on : 2021年3月23日, 下午2:07:21
+    Author     : rende
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
