@@ -2,6 +2,7 @@ package neopro.dao;
 
 import java.text.ParseException;
 import java.util.List;
+import neopro.metier.Article;
 import neopro.metier.Rayon;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -18,6 +19,18 @@ public class MethodesDAO {
             List<Rayon> liste1 = session.createQuery("from Rayon").list();
             return liste1;
         }        
+    }
+    
+    public static List<Article> listeArticle() {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+            {
+
+                Transaction t = session.beginTransaction();
+                    
+                List<Article> liste1 = session.createQuery("from Article ").list();
+                return liste1;
+      
+            }
     }
     
     
