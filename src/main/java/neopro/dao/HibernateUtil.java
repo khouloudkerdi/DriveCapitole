@@ -31,6 +31,8 @@ public class HibernateUtil {
             configuration.addAnnotatedClass(neopro.metier.Client.class);
             configuration.addAnnotatedClass(neopro.metier.Preferences.class);
             configuration.addAnnotatedClass(neopro.metier.Panier.class);
+            configuration.addAnnotatedClass(neopro.metier.ListeCourses.class);
+            
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             System.out.println("Hibernate serviceRegistry created");
 
