@@ -32,6 +32,7 @@ public class Promotion implements Serializable{
     private String typePro ;
     private int pourcentagePro ;
     private int  nbArticle ; 
+    
     @OneToMany(mappedBy = "promotion", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = "idArt")
     private Map<Article, AvoirPromo> promotions = new HashMap<>();
