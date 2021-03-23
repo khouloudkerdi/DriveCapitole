@@ -2,7 +2,6 @@
 <%@page import="neopro.metier.Categorie"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="neopro.metier.Rayon"%>
-<%@page import="neopro.metier.ListRayon"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
