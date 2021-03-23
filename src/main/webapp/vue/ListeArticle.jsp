@@ -34,7 +34,6 @@
                 out.println("<img src="+basePath+"css/image/neo.JPG class=card-img-top >");
                 out.println("<div class=card-body>");
                 out.println("<h5 class=card-title>"+a.getLibelleArt()+"</h5>");
-                out.println("<p class=card-text ><font size=1 color=grey> "+a.getDescriptionArt()+"</font></p>");
                 out.println("<font size=10 color=red>"+a.getPrixArt()+" €</font> &nbsp "+a.getTypePrix()+"&nbsp&nbsp"+ a.getCondArt()+" <br/>");
                 out.println("<font size=2>Format: "+a.getFormatArt()+"</font>");
                 if (a.isBioArt()){
