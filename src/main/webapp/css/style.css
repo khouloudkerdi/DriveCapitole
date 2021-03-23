@@ -14,3 +14,51 @@
     right:20px;
     top:20px;
 }
+#bodyPanier{
+    background: #f2f2f2;
+}
+#bodyPanier .panierProduit{
+    background: #fff;
+    margin-bottom: 20px;
+  
+}
+#bodyPanier .recapPanier{
+    background: #fff;
+    margin-bottom: 20px;
+  
+}
+#bodyPanier .panierProduit{
+    padding: 5px 15px;
+}
+#bodyPanier .recapPanierInfo{
+    padding: 10px 20px;
+}
+#bodyPanier .valeurPanier,
+#bodyPanier .valeurEconomiePanier,
+#bodyPanier .valeurTotalPanier{
+    float: right;
+        
+}
+#bodyPanier .titreTotalPanier{
+   font-size: 18px;
+   font-weight: 700;
+   
+}
+#bodyPanier .valeurTotalPanier{
+    color: red;
+}
+#bodyPanier .produitPrix{
+    font-size: 18px;
+    line-height: 24px;
+    float: right;
+    margin-bottom: 25px;
+}
+#bodyPanier .colPrixQte{
+    display: flex;
+    flex-direction: column
+}
+
+#bodyPanier .colPrixQte .qteProduit{
+      padding: 3px;
+    margin: 0 10px;
+}
