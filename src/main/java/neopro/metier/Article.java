@@ -64,12 +64,17 @@ public class Article implements Serializable{
     @MapKeyJoinColumn(name = "idPro")
     private Map<Promotion, AvoirPromo> promotions = new HashMap<>();
     
-    //Relation Contenir
+    //Relation AvoirQuantitePanier  
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "idPan")
+    private Map<Panier, AvoirQuantitePanier> paniers = new HashMap<>();
+    
+    //Relation ContenirArticle
     @ManyToMany 
-    @JoinTable ( name="Contenir",
+    @JoinTable ( name="ContenirArticle",
                  joinColumns = @JoinColumn(name="idArt"),
-                 inverseJoinColumns = @JoinColumn (name="idPan"))
-    private Set<Panier> paniers = new HashSet<>(0);
+                 inverseJoinColumns = @JoinColumn (name="idLis"))
+    private Set<ListeCourses> listeCourses = new HashSet<>(0);
     
     //Constructeurs 
     public Article() {}
@@ -125,8 +130,10 @@ public class Article implements Serializable{
     public void setLabels(Set<Label> labels) { this.labels = labels;}
     public Map<Promotion, AvoirPromo> getPromotions() {return promotions;}
     public void setPromotions(Map<Promotion, AvoirPromo> promotions) { this.promotions = promotions;}
-    public Set<Panier> getPaniers() {return paniers;}
-    public void setPaniers(Set<Panier> paniers) { this.paniers = paniers;}
+    public Map<Panier, AvoirQuantitePanier> getPaniers() {return paniers;}
+    public void setPaniers(Map<Panier, AvoirQuantitePanier> paniers) {this.paniers = paniers;}
+    public Set<ListeCourses> getListeCourses() {return listeCourses;}
+    public void setListeCourses(Set<ListeCourses> listeCourses) { this.listeCourses = listeCourses;}
     
     //Methodes.
     //Methodes Surchargées.

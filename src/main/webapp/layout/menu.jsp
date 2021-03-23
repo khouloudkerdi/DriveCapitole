@@ -6,12 +6,12 @@
 
 <!DOCTYPE html>
 
-<div style="width:100px; position: fixed;margin-top: 100px;">
-<ul id="menu" class="nav flex-column">
+<div id="menu-div">
+<ul class="nav flex-column">
     
     <li class="nav-item">
         <div class="btn-group dropend">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="width:100px">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="width:120px">
                 Voir tout
             </button>
         </div>
@@ -23,7 +23,7 @@
        for (Rayon r : listR){
             out.println("<li class=\"nav-item\">");
             out.println("<div class=\"btn-group dropend\">");
-            out.println("<button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\" style=\"width:100px\">");
+            out.println("<button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\" style=\"width:120px\">");
             out.println(r.getLibelleRay());
             out.println("</button>");
             out.println("<ul class=\"dropdown-menu\">");
