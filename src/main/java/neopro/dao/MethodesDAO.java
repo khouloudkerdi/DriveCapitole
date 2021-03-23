@@ -33,5 +33,12 @@ public class MethodesDAO {
             }
     }
     
+    public static List<Article> listeArticlePromo(){
+        try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+            Transaction t = session.beginTransaction();
+            List<Article> liste1 = session.createQuery("from Article a, AvoirPromo ap where a.idArt = ap.idArt").list();
+            return liste1;
+        }
+    }
     
 }
