@@ -34,7 +34,7 @@ public class Rayon implements Serializable{
     private String libelleRay ;
     
     //Réferences. Relation Rattacher  
-    @OneToMany (mappedBy ="rayon" , cascade =CascadeType.ALL ,fetch =FetchType.LAZY)
+    @OneToMany (mappedBy ="rayon" , cascade =CascadeType.ALL ,fetch =FetchType.EAGER)
     private Set<Categorie> categories = new HashSet<>(0);
     
     //Constructeurs.
@@ -52,6 +52,8 @@ public class Rayon implements Serializable{
     public void setIdRay(long idRay) { this.idRay = idRay;}
     public String getLibelleRay() {return libelleRay;}
     public void setLibelleRay(String libelleRay) { this.libelleRay = libelleRay;}
+    public Set<Categorie> getCategories() {return categories;}
+    public void setCategories(Set<Categorie> categories) {this.categories = categories;}
     
     //Méthodes.
     //Méthodes surchargées.

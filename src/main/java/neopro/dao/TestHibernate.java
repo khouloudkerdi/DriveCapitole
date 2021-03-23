@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import neopro.metier.Article;
 import neopro.metier.AvoirPromo;
 import neopro.metier.AvoirPromoID;
@@ -165,15 +166,37 @@ public class TestHibernate {
             t.commit(); // Commit et flush automatique de la session.
         }
     }
-
+                 
+    //Function pour obtenir tous les rayons est les categories
+    public static List<Rayon> getListRayon() throws ParseException {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            /** 
+             * HQL   
+             * select * from Rayon;
+             */
+            List<Rayon> liste1 = session.createQuery("from Rayon").list();
+//            // test pour afficher la liste des rayons et leurs categories
+//            for(Rayon r:liste1){
+//                System.out.println(r.getLibelleRay());   
+//                System.out.println(r.getCategories());   
+//                // session.get(Rayon.class,r.getIdRay());
+//            }
+            return liste1;
+        }        
+    }
+    
+    
     /**
      * Programme de test.
      */
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
-      TestHibernate.ajouterPromoArticle();
-     
+      // TestHibernate.ajouterPromoArticle();
+        TestHibernate.getListRayon();
         
         /*----- Exit -----*/
         System.exit(0);
