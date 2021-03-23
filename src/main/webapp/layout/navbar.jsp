@@ -1,9 +1,3 @@
-<%-- 
-    Document   : navbar
-    Created on : 2021年3月23日, 下午2:19:05
-    Author     : rende
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -24,7 +18,7 @@
                 </div>
             </nav>
             
-            <div class="btn-group" role="group" aria-label="Basic example">
+            <div id="navbar_btn_group" class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-primary">Compte</button>
                 <button type="button" class="btn btn-primary">Listes</button>
                 <button type="button" class="btn btn-primary">Panier</button>

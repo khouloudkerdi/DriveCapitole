@@ -10,10 +10,8 @@ package neopro.metier;
  * @author khoul
  */
 public enum TypePreference {
-
     Produit,
     Categorie,
     Marque,
     Label,
-    Nutriscore;
-}
+    Nutriscore}
