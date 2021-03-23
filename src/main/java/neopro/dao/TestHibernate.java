@@ -6,6 +6,7 @@
  * Copyright     : nabil 
  */
 package neopro.dao;
+import com.google.protobuf.TypeProto;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,13 +16,18 @@ import neopro.metier.Article;
 import neopro.metier.AvoirPromo;
 import neopro.metier.AvoirPromoID;
 import neopro.metier.Categorie;
+import neopro.metier.Client;
+import neopro.metier.EtatPanier;
 import neopro.metier.Label;
 import neopro.metier.Magasin;
 import neopro.metier.Marque;
 import neopro.metier.NutriscoreArticle;
 import static neopro.metier.NutriscoreArticle.A;
+import neopro.metier.Panier;
+import neopro.metier.Preferences;
 import neopro.metier.Promotion;
 import neopro.metier.Rayon;
+import neopro.metier.TypePreference;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -66,6 +72,33 @@ public class TestHibernate {
             t.commit(); // Commit et flush automatique de la session.
         }
     }
+    
+    //Function pour ajouter un Client.
+    
+    public static void ajouterClient() {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Client c1 = new Client("durond","Chloe","Chloe@gmail.com","1234");
+            System.out.println("client-----------------------"+c1);
+            session.save(c1);
+            t.commit(); // Commit et flush automatique de la session.
+        }
+    }
+    
+    //Function pour ajouter une preference.
+    
+    public static void ajouterPreferences() {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Preferences p1 = new Preferences(TypePreference.Produit,1l);
+            session.save(p1);
+            t.commit(); // Commit et flush automatique de la session.
+        }
+    }
 
     //Function pour ajouter un magasin
     
@@ -106,13 +139,13 @@ public class TestHibernate {
             Article a1 = new Article ("Nestlé Naturnes carotte haricot vert potiron","pot","","c"
                     + "6x130g","NATURNES sélectionne avec le plus grand soin de bons ingrédients 100% d’origine naturelle* et préserve leur saveur pour faire découvrir à votre bébé le bon goût des différents ingrédients."
                             + "",NutriscoreArticle.A,1,1223,true,"ty",c1,m1);
-              
+            System.out.println("Article Insere:-------------"+a1);
             session.save(a1);
             t.commit(); // Commit et flush automatique de la session.
         }
     }
     
-     //Function pour ajouter un Label
+     //Function pour ajouter un Label a un article 
     
     public static void ajouterLabelArticle( long id_art,long id_lab ) {
         /*----- Ouverture de la session -----*/
@@ -125,6 +158,23 @@ public class TestHibernate {
             System.out.println("infoArticle"+a.toString());
             l.getArticles().add(a);
             a.getLabels().add(l);
+            t.commit(); // Commit et flush automatique de la session.
+        }
+    }
+    
+     //Function pour ajouter une preference a un client
+    
+    public static void ajouterPrefClient( long id_cli,long id_pref ) {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Preferences p = session.get(Preferences.class,id_pref);
+            Client c = session.get(Client.class,id_cli);
+            System.out.println("infopreference"+p.toString());
+            System.out.println("infoClient"+c.toString());
+            p.getClients().add(c);
+            c.getPreferences().add(p);
             t.commit(); // Commit et flush automatique de la session.
         }
     }
@@ -165,6 +215,35 @@ public class TestHibernate {
             t.commit(); // Commit et flush automatique de la session.
         }
     }
+    
+    //Function pour ajouter un panier
+    
+    public static void ajouterPanier() {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Client c1 = session.get(Client.class, 1l);
+            Panier p1 = new Panier (EtatPanier.EnCours,c1);
+            session.save(p1);
+            t.commit(); // Commit et flush automatique de la session.
+        }
+    }
+    
+      //Function pour ajouter un article a un panier 
+    
+    public static void ajouterArticlePanier( long id_art,long id_pan) {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Panier p = session.get(Panier.class,id_pan);
+            Article a = session.get(Article.class,id_art);
+            p.getArticles().add(a);
+            a.getPaniers().add(p);
+            t.commit(); // Commit et flush automatique de la session.
+        }
+    }
 
     /**
      * Programme de test.
@@ -172,7 +251,7 @@ public class TestHibernate {
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
-      TestHibernate.ajouterPromoArticle();
+      TestHibernate.ajouterArticlePanier(1l,1l);
      
         
         /*----- Exit -----*/

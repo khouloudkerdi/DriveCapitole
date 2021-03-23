@@ -64,6 +64,13 @@ public class Article implements Serializable{
     @MapKeyJoinColumn(name = "idPro")
     private Map<Promotion, AvoirPromo> promotions = new HashMap<>();
     
+    //Relation Contenir
+    @ManyToMany 
+    @JoinTable ( name="Contenir",
+                 joinColumns = @JoinColumn(name="idArt"),
+                 inverseJoinColumns = @JoinColumn (name="idPan"))
+    private Set<Panier> paniers = new HashSet<>(0);
+    
     //Constructeurs 
     public Article() {}
 
@@ -118,6 +125,8 @@ public class Article implements Serializable{
     public void setLabels(Set<Label> labels) { this.labels = labels;}
     public Map<Promotion, AvoirPromo> getPromotions() {return promotions;}
     public void setPromotions(Map<Promotion, AvoirPromo> promotions) { this.promotions = promotions;}
+    public Set<Panier> getPaniers() {return paniers;}
+    public void setPaniers(Set<Panier> paniers) { this.paniers = paniers;}
     
     //Methodes.
     //Methodes Surchargées.
