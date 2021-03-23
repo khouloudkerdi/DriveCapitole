@@ -1,3 +1,4 @@
+<%@page import="neopro.dao.MethodesDAO"%>
 <%@page import="neopro.dao.TestHibernate"%>
 <%@page import="neopro.metier.Categorie"%>
 <%@page import="java.util.ArrayList"%>
@@ -17,7 +18,7 @@
     </li>
     
     <%
-       ArrayList<Rayon> listR = (ArrayList)TestHibernate.getListRayon();
+       ArrayList<Rayon> listR = (ArrayList)MethodesDAO.getListRayon();
        
        for (Rayon r : listR){
             out.println("<li class=\"nav-item\">");
