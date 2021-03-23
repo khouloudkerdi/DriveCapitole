@@ -47,11 +47,6 @@ public class Client implements Serializable{
     //Réferences. Relation Disposer
     @OneToMany (mappedBy ="client" , cascade =CascadeType.ALL ,fetch =FetchType.LAZY)
     private Set<Panier> paniers = new HashSet<>(0);
-    
-    //Réferences. Relation Faire
-    @OneToMany (mappedBy ="client" , cascade =CascadeType.ALL ,fetch =FetchType.LAZY)
-    private Set<ListeCourses> listeCourses = new HashSet<>(0);
-    
     //Constructeurs.
 
     public Client() {
@@ -80,8 +75,6 @@ public class Client implements Serializable{
     public void setPreferences(Set<Preferences> preferences) { this.preferences = preferences;}
     public Set<Panier> getPaniers() {return paniers;}
     public void setPaniers(Set<Panier> paniers) { this.paniers = paniers;}
-    public Set<ListeCourses> getListeCourses() {return listeCourses;}
-    public void setListeCourses(Set<ListeCourses> listeCourses) { this.listeCourses = listeCourses;}
     
     //Méthodes.
     //Méthodes surchargées.

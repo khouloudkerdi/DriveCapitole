@@ -71,13 +71,6 @@ public class Article implements Serializable{
                  inverseJoinColumns = @JoinColumn (name="idPan"))
     private Set<Panier> paniers = new HashSet<>(0);
     
-    //Relation ContenirArticle
-    @ManyToMany 
-    @JoinTable ( name="ContenirArticle",
-                 joinColumns = @JoinColumn(name="idArt"),
-                 inverseJoinColumns = @JoinColumn (name="idLis"))
-    private Set<ListeCourses> listeCourses = new HashSet<>(0);
-    
     //Constructeurs 
     public Article() {}
 
@@ -134,8 +127,6 @@ public class Article implements Serializable{
     public void setPromotions(Map<Promotion, AvoirPromo> promotions) { this.promotions = promotions;}
     public Set<Panier> getPaniers() {return paniers;}
     public void setPaniers(Set<Panier> paniers) { this.paniers = paniers;}
-    public Set<ListeCourses> getListeCourses() {return listeCourses;}
-    public void setListeCourses(Set<ListeCourses> listeCourses) { this.listeCourses = listeCourses;}
     
     //Methodes.
     //Methodes Surchargées.
