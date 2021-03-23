@@ -99,3 +99,26 @@ header{
     
 }
 
+/***************************/
+/***Accueil.jsp**/
+/***Redimensionnement de l'affichage de l'image**/
+/****************************/
+
+.div_image_size{
+    width:200px;
+    height:200px;
+    text-align:center;
+    overflow:hidden;
+    margin:0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.div_image_size img{
+    height: auto;
+    max-height: 200px;
+    width:auto; 
+    max-width:200px;
+}
