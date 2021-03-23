@@ -1,6 +1,5 @@
 #header_body{
     margin-left: 20px;
-    margin-top: 20px;
     margin-right: 20px;
     margin-bottom: 20px;
     background-color:white;
@@ -67,5 +66,20 @@
 
 #contenuAccueil {
     padding-top: 100px; 
-    padding-left: 120px;
+    padding-left: 140px;
+}
+
+header{
+    display: flex; 
+    background-color:white; 
+    position: fixed; 
+    width: 100%; 
+    z-index: 999;
+    
+}
+
+#menu-div{
+    width:100px; 
+    position: fixed;
+    margin-top: 100px;
 }
