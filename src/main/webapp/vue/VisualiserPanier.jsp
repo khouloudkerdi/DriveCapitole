@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@include file="../layout/header.jsp" %>
+<%@include file="../layout/headerFix.jsp" %>
 <body id="bodyPanier">
     <h3>Visualisation du panier  </h3>
     <div class="container-fluid">
@@ -64,4 +64,4 @@
 
 
 </body>
-<%@include file="../layout/footer.jsp" %>
+<%@include file="../layout/footerFix.jsp" %>

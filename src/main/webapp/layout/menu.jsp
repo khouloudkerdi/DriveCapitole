@@ -1,12 +1,12 @@
 <%@page import="neopro.dao.MethodesDAO"%>
-<%@page import="neopro.dao.TestHibernate"%>
 <%@page import="neopro.metier.Categorie"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="neopro.metier.Rayon"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<div width:100px;">
+
+<div style="width:100px; position: fixed;margin-top: 100px;">
 <ul id="menu" class="nav flex-column">
     
     <li class="nav-item">

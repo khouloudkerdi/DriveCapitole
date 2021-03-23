@@ -7,9 +7,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@include file="header.jsp" %>
-
-        <div style="display: flex; padding-top: 100px;">
+        
         <%@include file="menu.jsp" %>
+        
+<div style=" padding-top: 100px; margin-left: 100px;">
         <div>
         <h1>Page accueil</h1>
         <br/>
@@ -50,6 +51,7 @@
         5<br/>
         5<br/>   
         </div>
+    
         </div>
-    </body>
+</body><!-- comment -->
 <%@include file="footer.jsp" %>
