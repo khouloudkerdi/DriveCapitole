@@ -82,4 +82,11 @@ header{
     width:100px; 
     position: fixed;
     margin-top: 100px;
+    z-index: 999;
+}
+
+#navbar_search{
+    margin-right: 200px; 
+    width:100%; 
+    
 }
