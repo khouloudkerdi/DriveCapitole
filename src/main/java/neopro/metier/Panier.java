@@ -6,8 +6,11 @@
 package neopro.metier;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,6 +21,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyJoinColumn;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -39,9 +44,12 @@ public class Panier implements Serializable{
     @JoinColumn(name = "idCli")   
     private Client client ;
     
-    //Relation  "Contenir" 
-    @ManyToMany(mappedBy ="paniers")
-    private Set<Article> articles = new HashSet<>(0);
+    //Relation AvoirQuantite 
+    
+    @OneToMany(mappedBy = "panier", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "idArt")
+    private Map<Article, AvoirQuantitePanier> paniers = new HashMap<>();
+ 
     
     //Constructeurs.
 
@@ -60,9 +68,9 @@ public class Panier implements Serializable{
     public void setEtatPan(EtatPanier etatPan) { this.etatPan = etatPan;}
     public Client getClient() {return client;}
     public void setClient(Client client) { this.client = client;}
-    public Set<Article> getArticles() {return articles;}
-    public void setArticles(Set<Article> articles) { this.articles = articles;}
-    
+    public Map<Article, AvoirQuantitePanier> getPaniers() {return paniers;}
+    public void setPaniers(Map<Article, AvoirQuantitePanier> paniers) { this.paniers = paniers;}
+
     //Methodes.
     //Methodes Surchargées.
 
