@@ -35,6 +35,6 @@
              <div><font color="#FF0000">${requestScope.msg_ajouter}</font></div>
         </form>
         
-         <a href="">Retour</a>
+         <a href="ListeCourses">Retour</a>
     </body>
 </html>
