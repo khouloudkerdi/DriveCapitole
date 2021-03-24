@@ -8,5 +8,5 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../css/style.css " type="text/css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css " type="text/css" />
     </head>

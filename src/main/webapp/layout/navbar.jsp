@@ -5,7 +5,7 @@
 	<header >
 
             <div class="mainbar_logo">
-                <img src="../css/image/neo.JPG" alt="logo_neopro" width="80px" height="55px"/>
+                <img src="${pageContext.request.contextPath}/css/image/neo.JPG" alt="logo_neopro" width="80px" height="55px"/>
             </div>
             
 
@@ -19,9 +19,9 @@
             </nav>
             
             <div id="navbar_btn_group" class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-primary">Compte</button>
-                <button type="button" class="btn btn-primary">Listes</button>
-                <button type="button" class="btn btn-primary">Panier</button>
+                <a class="btn btn-primary">Compte</a>
+                <a class="btn btn-primary" href="CtrlMenu?method=Liste">Listes</a>
+                <a href="Panier" class="btn btn-primary">Panier</a>
             </div>
             
         </header>

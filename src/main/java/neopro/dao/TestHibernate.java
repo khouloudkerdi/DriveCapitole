@@ -9,7 +9,6 @@ package neopro.dao;
 import com.google.protobuf.TypeProto;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -281,15 +280,17 @@ public class TestHibernate {
     }
     
 
+    
 
- 
     /**
      * Programme de test.
      */
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
-
+        TestHibernate.ajouterArticleListeCourse(5l,2l);
+     
+        
         /*----- Exit -----*/
         System.exit(0);
     }

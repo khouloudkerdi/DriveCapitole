@@ -30,11 +30,13 @@
             <div class="col-md-10 containerArticle">
 
                 <div class="row row-cols-1 row-cols-md-3 g-4 containerCard" >
-                    <% List<Article> liste = MethodesDAO.listeArticle();
+                    <%  long idClient=1;
+                        request.getSession().setAttribute("idClient", idClient);
+                        List<Article> liste = MethodesDAO.listeArticle();
                         for (Article a : liste) {
                             out.println("<div class=col>");
                             out.println("<div class=card h-100>");
-                            
+
                             out.println("<div class=card-body>");
                             out.println("<h5 class=card-title>" + a.getLibelleArt() + "</h5>");
                             out.println("<div class=div_image_size>");
