@@ -1,6 +1,8 @@
+/***************************/
+/***Accueil.jsp**/
+/****************************/
 #header_body{
     margin-left: 20px;
-    margin-top: 20px;
     margin-right: 20px;
     margin-bottom: 20px;
     background-color:white;
@@ -14,7 +16,12 @@
     right:20px;
     top:5px;
 }
-
+#bodyAccueil .containerArticle{
+    margin-top: 15px;
+}
+/***************************/
+/***VisualisationPanier.jsp**/
+/****************************/
 #bodyPanier{
     background: #f2f2f2;
 }
@@ -67,5 +74,51 @@
 
 #contenuAccueil {
     padding-top: 100px; 
-    padding-left: 120px;
+    padding-left: 140px;
+}
+
+header{
+    display: flex; 
+    background-color:white; 
+    position: fixed; 
+    width: 100%; 
+    z-index: 999;
+    
+}
+
+#menu-div{
+    width:100px; 
+    position: fixed;
+    margin-top: 100px;
+    z-index: 999;
+}
+
+#navbar_search{
+    margin-right: 200px; 
+    width:100%; 
+    
+}
+
+/***************************/
+/***Accueil.jsp**/
+/***Redimensionnement de l'affichage de l'image**/
+/****************************/
+
+.div_image_size{
+    width:200px;
+    height:200px;
+    text-align:center;
+    overflow:hidden;
+    margin:0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.div_image_size img{
+    height: auto;
+    max-height: 200px;
+    width:auto; 
+    max-width:200px;
 }

@@ -280,18 +280,16 @@ public class TestHibernate {
         }
     }
     
-    
-    
-    
 
-    
 
+ 
     /**
      * Programme de test.
      */
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
+
         /*----- Exit -----*/
         System.exit(0);
     }
