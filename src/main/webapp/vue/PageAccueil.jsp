@@ -11,7 +11,7 @@
 <%@include file="../layout/menu.jsp" %>
 <body>    
     <div id="contenuAccueil">
-        <h1>Hello World!</h1>
+      
     </div>
 </body>
 
