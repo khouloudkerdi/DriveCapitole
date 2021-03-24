@@ -34,7 +34,7 @@
                         for (Article a : liste) {
                             out.println("<div class=col>");
                             out.println("<div class=card h-100>");
-                            
+
                             out.println("<div class=card-body>");
                             out.println("<h5 class=card-title>" + a.getLibelleArt() + "</h5>");
                             out.println("<div class=div_image_size>");

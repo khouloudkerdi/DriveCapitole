@@ -18,7 +18,7 @@
 
                     <div class="panierProduit">
                         <div class="row">
-                            <div class="col-md-3"> <img src="../image/neo.JPG"></div>
+                            <div class="col-md-3"> <img src="${pageContext.request.contextPath}/image/noix.JPG"></div>
                             <div class="col-md-3" > Titre produit </div>
                             <div class="col-md-3"></div> 
                             <div class="col-md-3 colPrixQte">
