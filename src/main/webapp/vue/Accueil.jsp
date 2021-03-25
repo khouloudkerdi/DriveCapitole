@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="neopro.metier.ListeCourses"%>
 <%@page import="java.util.List"%>
 <%@page import="neopro.metier.Article"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -78,7 +79,3 @@
                             out.print(" </div>");
                         }
                     %>
-                </div>                
-            </div>     
-            </body>
-            <%@include file="../layout/footerFix.jsp" %>

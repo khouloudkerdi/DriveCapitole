@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import neopro.metier.Article;
 import neopro.metier.AvoirPromo;
 import neopro.metier.AvoirPromoID;
@@ -281,15 +282,15 @@ public class TestHibernate {
 
     
 
-
     /**
      * Programme de test.
      */
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
-        TestHibernate.ajouterArticleListeCourse(5l,2l);
-     
+        long a=1;
+
+        System.out.println(MethodesDAO.loadPanierClient(a));
         
         /*----- Exit -----*/
         System.exit(0);
