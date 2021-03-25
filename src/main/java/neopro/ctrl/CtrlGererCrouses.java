@@ -25,7 +25,7 @@ public class CtrlGererCrouses extends HttpServlet {
                        request.getRequestDispatcher("ListeCourses").forward(request, response);
                    }else{
                        for (String lc_sup:listeSup){
-                          // MethodesDAO.supprimerListeCourses(Long.parseLong(lc_sup));
+                          MethodesDAO.supprimerListeCourses(Long.parseLong(lc_sup));
                        }
 
                         request.getRequestDispatcher("ListeCourses").forward(request, response);

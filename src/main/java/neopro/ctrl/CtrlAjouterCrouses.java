@@ -21,12 +21,13 @@ public class CtrlAjouterCrouses extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String p=request.getParameter("nouvelleliste");
+        System.out.println(p);
         if (p==""){
             request.setAttribute("msg_ajouter", "Saisissez le nom de nouvelle liste");
             request.getRequestDispatcher("AjouterCourses").forward(request, response);
         }else{
             long id=(long) request.getSession().getAttribute("idClient");
-           // MethodesDAO.ajouterListeCourses(id, p);
+            MethodesDAO.ajouterListeCourses(id, p);
             request.getRequestDispatcher("ListeCourses").forward(request, response);  
         }
         

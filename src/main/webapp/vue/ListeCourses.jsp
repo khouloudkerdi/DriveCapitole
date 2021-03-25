@@ -31,8 +31,8 @@
         <table border="1" class="table table-striped" >
             <tr><th>Supprimez des liste</th> <th>Nom de liste de courses</th> </tr>
             <%
- 
-            long idClient=(long) request.getSession().getAttribute("idClient");
+            long idClient=1;
+            request.getSession().setAttribute("idClient", idClient);
             ArrayList<ListeCourses> lc=MethodesDAO.getListeCourses(idClient);
             for (ListeCourses courses:lc){
             out.println("<tr> <th><input type=checkbox name=supprimer value="+courses.getIdLis()+"></th> <th>"+courses.getNomLis()+"</th> </tr>");

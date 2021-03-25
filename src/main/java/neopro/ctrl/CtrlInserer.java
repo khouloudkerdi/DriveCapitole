@@ -29,8 +29,8 @@ public class CtrlInserer extends HttpServlet {
               //Conversion using parseLong(String) method
 	    long idArt = Long.parseLong(idA);
             MethodesDAO.insererArticlePanier(idArt,MethodesDAO.loadPanierClient(idClient));
-
          }
+        
          //Liste Courses
         String l=(request.getParameter("btnListeCourses"));
         if (l!=null){
