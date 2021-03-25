@@ -9,9 +9,8 @@ function panierProduitOptions(){
         const spanQte = node.querySelector('.qteProduit');
         const btnQtePlus = node.querySelector("button[action='plus']");
         const btnQteMoins = node.querySelector("button[action='moins']");
-        
-        btnQtePlus.addEventListener("click",function (){
-          
+        // Ajouter une quantite au panier
+        btnQtePlus.addEventListener("click",function (){          
             spanQte.innerHTML = parseInt(spanQte.innerHTML)+1;
         });
         btnQteMoins.addEventListener("click",function (){
@@ -25,6 +24,8 @@ function panierProduitOptions(){
         });         
     });
 }
+
+
 function panierSuppressionProduit(){
     const panierProduits= document.querySelectorAll(".panierProduit");
     var parentNode= null;
@@ -42,6 +43,11 @@ function panierSuppressionProduit(){
          }
     
 }
+
+function produitQtePlus (){
+    // appeler la servlet 
+}
+
  document.addEventListener("DOMContentLoaded", () => {
         panierProduitOptions();
 

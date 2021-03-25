@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import neopro.metier.Article;
 import neopro.metier.AvoirPromo;
@@ -279,7 +280,90 @@ public class TestHibernate {
         }
     }
     
+    public static void insererArticlePanier(long idA,long idpanier) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+            {
+                Transaction t = session.beginTransaction();
+                AvoirQuantitePanier qtePanier=null;
+                Panier p=session.get(Panier.class, idpanier);
+                Article a=session.get(Article.class, idA);
+                boolean existe=false;
+                Map<Article, AvoirQuantitePanier> listeArticle=p.getPaniers();
+                
+                for(Map.Entry<Article, AvoirQuantitePanier> entry : listeArticle.entrySet()){
+	            if (entry.getKey().equals(a)){
+                        qtePanier=entry.getValue();
+                        existe=true;                 
+                    }     
+                }    
+                //AvoirQuantitePanier aqp2=listeArticle.get(a);
+                if (existe){
+                    int qte=qtePanier.getQuantite();
+                    qte=qte+1;
+                    qtePanier.setQuantite(qte);
+                    listeArticle.put(a, qtePanier);
+                    p.setPaniers(listeArticle);
+                    session.save(p);                 
+                    t.commit();
+                }else{
+                    AvoirQuantitePanier aqp = new AvoirQuantitePanier(new AvoirQuantitePanierID(idA, idpanier), 1);
+                    session.save(aqp);                 
+                    t.commit(); // Commit et flush automatique de la session.
+                }
+            }
+        }
 
+    
+        public static void supprimerArticlePanier(long idA,long idpanier) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+            {
+                Transaction t = session.beginTransaction();
+                AvoirQuantitePanier qtePanier=null;
+                Panier p=session.get(Panier.class, idpanier);
+                Article a=session.get(Article.class, idA);
+                boolean existe=false;
+                Map<Article, AvoirQuantitePanier> listeArticle=p.getPaniers();
+                
+                //Verifier si le produit 
+                for(Map.Entry<Article, AvoirQuantitePanier> entry : listeArticle.entrySet()){
+	            if (entry.getKey().equals(a)){
+                        qtePanier=entry.getValue();
+                        existe=true;                 
+                    }     
+                }              
+                if (existe){
+                    int qte=qtePanier.getQuantite();
+                    qte=qte-1;
+                    if (qte==0){
+                        qtePanier.setQuantite(qte);
+                        //listeArticle.remove();
+                        p.setPaniers(listeArticle);
+                        session.save(p); 
+                    }else {
+                        qtePanier.setQuantite(qte);
+                        listeArticle.put(a, qtePanier);
+                        p.setPaniers(listeArticle);
+                        session.save(p);                 
+                        t.commit();
+                    }
+
+                }else{
+                    AvoirQuantitePanier aqp = new AvoirQuantitePanier(new AvoirQuantitePanierID(idA, idpanier), 1);
+                    session.save(aqp);                 
+                    t.commit(); // Commit et flush automatique de la session.
+                }
+            }
+        }
+        
+//        
+//        /*----- Ouverture de la session -----*/
+//        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+//            /*----- Ouverture d'une transaction -----*/
+//            Transaction t = session.beginTransaction();          
+//            ListeCourses l1 = session.get(ListeCourses.class,id);
+//            session.delete(l1);
+//            t.commit(); // Commit et flush automatique de la session.
+//        }
     
 
     /**
