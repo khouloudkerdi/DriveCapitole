@@ -4,10 +4,12 @@
     Author     : 21911890
 --%>
 
+<%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="neopro.metier.Article"%>
 <%@page import="neopro.dao.MethodesDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page  %>
 <!DOCTYPE html>
 <%@include file="../layout/headerFix.jsp" %>
 <body id="bodyPanier">
@@ -18,14 +20,32 @@
                 <div class="col-md-8">
                     <h4> Panier </h4>
                     <% ArrayList<Article> listeArt = MethodesDAO.listeArtcilesPanierClient(1l); %>
+                    <% List<Article> listeArticlesPromo = MethodesDAO.listePromo(); %>
                     <% float montant = MethodesDAO.montantPanier(1l); %>
                     <% for (Article a :listeArt){ %>
+                    <%! private double produitPromo; %>
                     <% int qte = MethodesDAO.QuantiteArticlePanier(1l,a.getIdArt()); %>
                     <div class="panierProduit">
                         <div class="row">
+                            <%if (listeArticlesPromo.contains(a)) {
+                                out.print("<span class='spanPromo'>Promotion</span>");
+                                produitPromo = MethodesDAO.calculerPrixPromo(a.getIdArt());
+                            }   %>
                             <div class="col-md-3"> <img src="${pageContext.request.contextPath}/image/<% out.print(a.getUrlImageArt()); %>"></div>
-                            <div class="col-md-3" ><% out.print(a.getLibelleArt()); %></div>
-                            <div class="col-md-3"></div> 
+                            <div class="col-md-3" >
+                                <% out.print(a.getLibelleArt()); %></br>
+                                <% out.print(a.getCondArt()); %></br>
+                                <% out.print(a.getFormatArt()); %></br>
+                            </div>
+                            <div class="col-md-3">
+                                <%if (!listeArticlesPromo.contains(a)) {
+                                                out.print(a.getPrixArt() + " €");
+                                            } else {
+                                                out.print("<span class='spanPrixSansPromo'>" + a.getPrixArt() + "€ </span>");
+                                                out.print("<span class='spanPrixAvecPromo'>" + (a.getPrixArt() - produitPromo) + " € </span></br>");
+                                                out.print("<span>Vous économisez: " + produitPromo + " € </span>");
+                                            }%>
+                            </div> 
                             <div class="col-md-3 colPrixQte">
                                 <div><span class="produitPrix"><% out.print(a.getPrixArt()); %>€ </span></div>
                                 <div class="produitOptions">

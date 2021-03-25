@@ -93,7 +93,7 @@ public class Article implements Serializable{
         this.categorie= cat ;
         this.marque = mr ;
     }
-
+    
     public Article(String l) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
