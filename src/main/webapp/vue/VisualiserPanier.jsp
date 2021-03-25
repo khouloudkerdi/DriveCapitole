@@ -45,13 +45,15 @@
                                 <% out.print(a.getFormatArt()); %></br>
                             </div>
                             <div class="col-md-3">
+                                <div><span class="produitPrix"><% out.print(montantArticle); %>€ </span></div>
                                 <%if (listeArticlesPromo.contains(a)) {
                                 out.print("<div>" + pourcentage + "% d'économies</div>");
                             }   %>
-                                <div><span class="produitPrix"><% out.print(montantArticle); %>€ </span></div>
+                                </br>
                             </div>
                             <div class="col-md-3 colPrixQte">
                                 <div class="produitOptions">
+                                    </br>
                                     <button type="button" action="moins" class="btn btn-secondary btn-sm">-</button>
                                     <span class="qteProduit"><% out.print(qte); %></span>
                                     <button type="button" action="plus" class="btn btn-success btn-sm">+</button>
