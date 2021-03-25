@@ -37,9 +37,9 @@
                 %>
 
                 <% if (colCount % numCol == 0) {
-                    out.print("<div class='row'>");
-                    colCount++;
-                } %>
+                        out.print("<div class='row'>");
+                        colCount++;
+                    } %>
                 <div class="col-md-4 cardProduit">
 
 
@@ -60,22 +60,21 @@
                                     <h5 class="mt-4">
                                         <%if (!listeArticlesPromo.contains(a)) {
                                                 out.print(a.getPrixArt() + " €");
-                                            }else{
-                                           
-                                            out.print("<span class='spanPrixSansPromo'>"+a.getPrixArt() +"€ </span>");
-                                            out.print("<span class='spanPrixAvecPromo'>" + (a.getPrixArt()- produitPromo) +" € </span>");
-                                            
-                                            
-                                        }%>
+                                            } else {
+
+                                                out.print("<span class='spanPrixSansPromo'>" + a.getPrixArt() + "€ </span>");
+                                                out.print("<span class='spanPrixAvecPromo'>" + (a.getPrixArt() - produitPromo) + " € </span>");
+
+                                            }%>
                                     </h5></div>
                                     <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" class="btn btn-secondary mt-3"><i class="fas fa-shopping-cart"></i>Panier</a>
-                                    <a href="Panier" class="btn btn-info mt-3">Liste</a>      
+                                    <a href="Panier" class="btn btn-info mt-3">Liste</a> 
                                 </div>
-                            </div>
                         </div>
                     </div>
-                    <%}
-                        if (colCount % numCol == 0) {
-                            out.print(" </div>");
-                        }
-                    %>
+                </div>
+                <%}
+                    if (colCount % numCol == 0) {
+                        out.print(" </div>");
+                    }
+                %>
