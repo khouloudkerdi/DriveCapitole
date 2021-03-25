@@ -4,6 +4,7 @@
     Author     : 21911890
 --%>
 
+<%@page import="java.math.BigDecimal"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="neopro.metier.Article"%>
@@ -24,16 +25,20 @@
                     <% double montant = MethodesDAO.montantPanier(idp); %>
                     <% List<Article> listeArticlesPromo = MethodesDAO.listePromo(); %>
                     <% for (Article a :listeArt){ %>
-                    <%! private double produitPromo; %>
+                    <%! private double produitPromo; 
+                        private int pourcentage;%>
                     <% int qte = MethodesDAO.QuantiteArticlePanier(1l,a.getIdArt()); %>
                     <% double montantArticle = MethodesDAO.montantTotaleArticlePanier(idp, a.getIdArt()); %>
                     <div class="panierProduit">
                         <div class="row">
-                            <%if (listeArticlesPromo.contains(a)) {
-                                out.print("<span class='spanPromo'>Promotion</span>");
+                            <div class="col-md-3"> 
+                                <%if (listeArticlesPromo.contains(a)) {
+                                out.print("<span class='spanPromo'>Promotion</span></br>");
                                 produitPromo = MethodesDAO.calculerPrixPromo(a.getIdArt());
+                                pourcentage = MethodesDAO.getPromoPourcentage(a.getIdArt());
                             }   %>
-                            <div class="col-md-3"> <img src="${pageContext.request.contextPath}/image/<% out.print(a.getUrlImageArt()); %>"></div>
+                                <img src="${pageContext.request.contextPath}/image/<% out.print(a.getUrlImageArt()); %>">
+                            </div>
                             <div class="col-md-3" >
                                 <% out.print(a.getLibelleArt()); %></br>
                                 <% out.print(a.getCondArt()); %></br>
@@ -41,17 +46,22 @@
                             </div>
                             <div class="col-md-3">
                                 <%if (listeArticlesPromo.contains(a)) {
-                                            out.print("<span>Vous économisez: " + produitPromo + " € </span>");
-                                            }%>
+                                out.print("<div>" + pourcentage + "% d'économies</div>");
+                            }   %>
+                                <div><span class="produitPrix"><% out.print(montantArticle); %>€ </span></div>
                             </div>
                             <div class="col-md-3 colPrixQte">
-                                <div><span class="produitPrix"><% out.print(montantArticle); %>€ </span></div>
                                 <div class="produitOptions">
                                     <button type="button" action="moins" class="btn btn-secondary btn-sm">-</button>
                                     <span class="qteProduit"><% out.print(qte); %></span>
                                     <button type="button" action="plus" class="btn btn-success btn-sm">+</button>
                                 </div>
-
+                                <%if (listeArticlesPromo.contains(a)) {
+                                    double montanteco = produitPromo*qte;
+                                    BigDecimal montantEcoDecim = new BigDecimal(montanteco); 
+                                    double eco = montantEcoDecim.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue(); 
+                                    out.print("<div><span class='spanPromo'>" + eco + " € éco!</span></div>");
+                                }%>
                             </div>
                         </div>
                     </div>

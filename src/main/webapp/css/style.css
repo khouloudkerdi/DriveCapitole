@@ -101,7 +101,7 @@
 #bodyPanier .produitPrix{
     font-size: 18px;
     line-height: 24px;
-    float: right;
+    /*float: right;*/
     margin-bottom: 25px;
 }
 #bodyPanier .colPrixQte{
@@ -112,6 +112,17 @@
 #bodyPanier .colPrixQte .qteProduit{
     padding: 3px;
     margin: 0 10px;
+}
+
+#bodyPanier .spanPromo{
+/*    float: right;
+    margin: 15px;
+    color: red;*/
+    background-color: yellow;
+/*    width: 50%;
+    font-weight: bold;
+    text-align: center;*/
+       
 }
 
 #contenuAccueil {

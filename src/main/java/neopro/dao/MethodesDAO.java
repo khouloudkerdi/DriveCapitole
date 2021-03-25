@@ -86,6 +86,26 @@ public class MethodesDAO {
         }
     }
     
+        public static Integer getPromoPourcentage(Long idArt){
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Article a = session.get(Article.class,idArt);
+            Float prix = a.getPrixArt();
+            
+            String hql = "select p.pourcentagePro "
+                    + "from Promotion p, AvoirPromo ap "
+                    + "where ap.article.idArt = :id "
+                    + "and p.idPro = ap.promotion.idPro "
+                    + "and ap.dateDebut < now() "
+                    + "and ap.datefin > now()";
+            Query query = session.createQuery(hql);
+            query.setParameter("id",a.getIdArt());
+            List<Integer> list = query.list();
+            Integer nbPourcentage = list.get(0);
+            return nbPourcentage;
+        }
+    }
+    
     public static List<Article> listePref() {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
             {
