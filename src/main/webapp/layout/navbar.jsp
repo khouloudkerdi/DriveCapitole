@@ -1,15 +1,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-    <body id="header_body" >
-	<header >
 
-            <div class="mainbar_logo">
+<header id="headerAccueil">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
                 <img src="${pageContext.request.contextPath}/css/image/neo.JPG" alt="logo_neopro" width="80px" height="55px"/>
             </div>
-            
-
-            <nav id="navbar_search" class="navbar navbar-light justify-content-center" >
+            <div class="col-md-6">
+                <nav id="navbar_search" class="navbar sticky-top navbar-light justify-content-center" >
                 <div class="container-fluid justify-content-center">
                     <form class="d-flex" id="search_form" action="" method="GET">
                         <input id="search-input" class="form-control me-2" type="search" placeholder="Rechercher un article ..." aria-label="Search">
@@ -17,12 +17,15 @@
                     </form>
                 </div>
             </nav>
-            
-            <div id="navbar_btn_group" class="btn-group" role="group" aria-label="Basic example">
+            </div>
+            <div class="col-md-3">
+                <div class="btn-group" role="group" aria-label="Basic example">
                 <a class="btn btn-primary">Compte</a>
                 <a class="btn btn-primary">Listes</a>
                 <a href="Panier" class="btn btn-primary">Panier</a>
             </div>
+            </div>
+        </div>   
+    </div>
+</header>
             
-        </header>
-    </body>

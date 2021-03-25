@@ -1,24 +1,61 @@
+*{
+    font-family: 'Roboto', sans-serif;
+   
+   
+}
+
 /***************************/
 /***Accueil.jsp**/
 /****************************/
-#header_body{
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    background-color:white;
-    font-family:Arial;
-    color:#000000;
+#bodyAccueil{
+     background: #f2f2f2;
 }
 
-#navbar_btn_group{
-    height: 45px;
-    position:absolute;
-    right:20px;
-    top:5px;
+#bodyAccueil .imgProduit{ 
+    width: 40%;
+    height:40%;
+    
+    
 }
-#bodyAccueil .containerArticle{
-    margin-top: 15px;
+#bodyAccueil .spanPromo{
+    float: right;
+    margin: 15px;
+    color: red;
+    background-color: yellow;
+    width: 50%;
+    font-weight: bold;
+    text-align: center;
+       
 }
+#bodyAccueil .spanPrixSansPromo{
+    text-decoration: line-through;
+    margin-right: 5px;
+}
+#bodyAccueil .row {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+#bodyAccueil .row > div[class*='col-'] {
+  display: flex;
+}
+#bodyAccueil .card{
+    width:18rem;
+}
+#bodyAccueil .cardProduit {
+    margin-bottom: 15px;
+}
+#bodyAccueil a{
+    cursor: pointer;
+}
+#headerAccueil {
+   margin-bottom:  20px;
+   margin-top:   20px;
+   z-index: 99;
+   
+}
+
+
 /***************************/
 /***VisualisationPanier.jsp**/
 /****************************/
@@ -30,6 +67,11 @@
     background: #fff;
     margin-bottom: 20px;
   
+}
+#bodyPanier img {
+    width: 50%;
+    height:50%;
+    
 }
 #bodyPanier .recapPanier{
     background: #fff;
@@ -104,21 +146,3 @@
 /***Redimensionnement de l'affichage de l'image**/
 /****************************/
 
-.div_image_size{
-    width:100px;
-    height:100px;
-    text-align:center;
-    overflow:hidden;
-    margin:0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.div_image_size img{
-    height: auto;
-    max-height: 100px;
-    width:auto; 
-    max-width:100px;
-}
