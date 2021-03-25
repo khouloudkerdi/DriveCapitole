@@ -18,16 +18,18 @@
                 <div class="col-md-8">
                     <h4> Panier </h4>
                     <% ArrayList<Article> listeArt = MethodesDAO.listeArtcilesPanierClient(1l); %>
-                    <% float montant = MethodesDAO.montantPanier(1l); %>
+                    <% long idp = 1l ; %> 
+                    <% double montant = MethodesDAO.montantPanier(idp); %>
                     <% for (Article a :listeArt){ %>
                     <% int qte = MethodesDAO.QuantiteArticlePanier(1l,a.getIdArt()); %>
+                    <% double montantArticle = MethodesDAO.montantTotaleArticlePanier(idp, a.getIdArt()); %>
                     <div class="panierProduit">
                         <div class="row">
                             <div class="col-md-3"> <img src="${pageContext.request.contextPath}/image/<% out.print(a.getUrlImageArt()); %>"></div>
                             <div class="col-md-3" ><% out.print(a.getLibelleArt()); %></div>
                             <div class="col-md-3"></div> 
                             <div class="col-md-3 colPrixQte">
-                                <div><span class="produitPrix"><% out.print(a.getPrixArt()); %>€ </span></div>
+                                <div><span class="produitPrix"><% out.print(montantArticle); %>€ </span></div>
                                 <div class="produitOptions">
                                     <button type="button" action="moins" class="btn btn-secondary btn-sm">-</button>
                                     <span class="qteProduit"><% out.print(qte); %></span>
