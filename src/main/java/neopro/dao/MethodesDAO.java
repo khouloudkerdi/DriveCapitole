@@ -131,7 +131,7 @@ public class MethodesDAO {
   }}
     
     //Fonction pour recuperer le montant d'un panier
-    public static float montantPanier(long idcli)
+    public static double montantPanier(long idcli)
      {
       try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
           /*----- Ouverture d'une transaction -----*/
@@ -148,8 +148,7 @@ public class MethodesDAO {
                     long idp = panier.getIdPan();
                     Panier p =session.get(Panier.class, idp);
                     Map<Article, AvoirQuantitePanier> listeA = p.getPaniers();
-                    for (Map.Entry mapentry : listeA.entrySet()) {
-                             
+                    for (Map.Entry mapentry : listeA.entrySet()) {   
                              lc.add((Article) mapentry.getKey());
                              Article a=(Article) mapentry.getKey();
                              AvoirQuantitePanier aqp=(AvoirQuantitePanier ) mapentry.getValue();
@@ -158,8 +157,9 @@ public class MethodesDAO {
                     
                 }
             }
-
-            return montant; 
+             BigDecimal montantDecim = new BigDecimal(montant); 
+             double montantfinal = montantDecim.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue(); 
+             return montantfinal;
             }
       
     }
@@ -184,6 +184,31 @@ public class MethodesDAO {
             }
                  System.out.println(quantite);
                   return quantite; 
+                  
+       }
+}
+     //Fonction pour recuperer le montant total d'un article dans un panier d'un client 
+   public static double montantTotaleArticlePanier(long idp,  long idArt)
+     {
+      try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+          /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Panier p =session.get(Panier.class, idp);
+            Article a =session.get(Article.class, idArt);
+            Map<Article, AvoirQuantitePanier> listeA = p.getPaniers();
+            float montant = 0 ;
+            for (Map.Entry mapentry : listeA.entrySet()) 
+            {
+                if(mapentry.getKey().equals(a))
+                {   AvoirQuantitePanier aqp=(AvoirQuantitePanier ) mapentry.getValue();
+                    montant=aqp.getQuantite() * a.getPrixArt();
+                    
+                }
+            }
+                 System.out.println("MontantArticlePanier----------------------"+montant);
+                 BigDecimal montantDecim = new BigDecimal(montant); 
+                 double eco = montantDecim.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue(); 
+                 return eco;  
                   
        }
 }

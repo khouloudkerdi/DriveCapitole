@@ -20,11 +20,13 @@
                 <div class="col-md-8">
                     <h4> Panier </h4>
                     <% ArrayList<Article> listeArt = MethodesDAO.listeArtcilesPanierClient(1l); %>
+                    <% long idp = 1l ; %> 
+                    <% double montant = MethodesDAO.montantPanier(idp); %>
                     <% List<Article> listeArticlesPromo = MethodesDAO.listePromo(); %>
-                    <% float montant = MethodesDAO.montantPanier(1l); %>
                     <% for (Article a :listeArt){ %>
                     <%! private double produitPromo; %>
                     <% int qte = MethodesDAO.QuantiteArticlePanier(1l,a.getIdArt()); %>
+                    <% double montantArticle = MethodesDAO.montantTotaleArticlePanier(idp, a.getIdArt()); %>
                     <div class="panierProduit">
                         <div class="row">
                             <%if (listeArticlesPromo.contains(a)) {
@@ -38,16 +40,12 @@
                                 <% out.print(a.getFormatArt()); %></br>
                             </div>
                             <div class="col-md-3">
-                                <%if (!listeArticlesPromo.contains(a)) {
-                                                out.print(a.getPrixArt() + " €");
-                                            } else {
-                                                out.print("<span class='spanPrixSansPromo'>" + a.getPrixArt() + "€ </span>");
-                                                out.print("<span class='spanPrixAvecPromo'>" + (a.getPrixArt() - produitPromo) + " € </span></br>");
-                                                out.print("<span>Vous économisez: " + produitPromo + " € </span>");
+                                <%if (listeArticlesPromo.contains(a)) {
+                                            out.print("<span>Vous économisez: " + produitPromo + " € </span>");
                                             }%>
-                            </div> 
+                            </div>
                             <div class="col-md-3 colPrixQte">
-                                <div><span class="produitPrix"><% out.print(a.getPrixArt()); %>€ </span></div>
+                                <div><span class="produitPrix"><% out.print(montantArticle); %>€ </span></div>
                                 <div class="produitOptions">
                                     <button type="button" action="moins" class="btn btn-secondary btn-sm">-</button>
                                     <span class="qteProduit"><% out.print(qte); %></span>

@@ -7,11 +7,14 @@
  */
 package neopro.dao;
 import com.google.protobuf.TypeProto;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import neopro.metier.Article;
 import neopro.metier.AvoirPromo;
@@ -278,8 +281,31 @@ public class TestHibernate {
             t.commit(); // Commit et flush automatique de la session.
         }
     }
-    
-
+ //Fonction pour recuperer le montant total d'un article dans un panier d'un client 
+   public static double montantTotaleArticlePanier(long idp,  long idArt)
+     {
+      try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+          /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Panier p =session.get(Panier.class, idp);
+            Article a =session.get(Article.class, idArt);
+            Map<Article, AvoirQuantitePanier> listeA = p.getPaniers();
+            float montant = 0 ;
+            for (Map.Entry mapentry : listeA.entrySet()) 
+            {
+                if(mapentry.getKey().equals(a))
+                {   AvoirQuantitePanier aqp=(AvoirQuantitePanier ) mapentry.getValue();
+                    montant=aqp.getQuantite() * a.getPrixArt();
+                    
+                }
+            }
+                 System.out.println("MontantArticlePanier----------------------"+montant);
+                 BigDecimal eco1 = new BigDecimal(montant); 
+                 double eco = eco1.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue(); 
+                 return eco; 
+                  
+       }
+}
     
 
     /**
@@ -288,9 +314,7 @@ public class TestHibernate {
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
-      long a=15;
-      long b=1;
-       MethodesDAO.insererArticlePanier(a,b);
+      TestHibernate.montantTotaleArticlePanier(1, 3);
       
         
         /*----- Exit -----*/

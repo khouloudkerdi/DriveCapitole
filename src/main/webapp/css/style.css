@@ -114,11 +114,6 @@
     margin: 0 10px;
 }
 
-#bodyPanier .spanPrixSansPromo{
-    text-decoration: line-through;
-    margin-right: 5px;
-}
-
 #contenuAccueil {
     padding-top: 100px; 
     padding-left: 140px;
