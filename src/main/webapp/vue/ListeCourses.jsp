@@ -22,13 +22,12 @@
         <h1>Votre liste de courses</h1>
         <form action="CtrlGererCrouses" method="get" class="row g-3">
         <table border="1" class="table table-striped" >
-            <tr><th>Supprimez des liste</th> <th>Nom de liste de courses</th> </tr>
+            <tr><th>Supprimez des liste</th> <th>Nom de liste de courses</th> <th></th></tr>
             <%
-            long idClient=1;
-            request.getSession().setAttribute("idClient", idClient);
+            long idClient=(long) request.getSession().getAttribute("idClient");
             ArrayList<ListeCourses> lc=MethodesDAO.getListeCourses(idClient);
             for (ListeCourses courses:lc){
-            out.println("<tr> <th><input type=checkbox name=supprimer value="+courses.getIdLis()+"></th> <th>"+courses.getNomLis()+"</th> </tr>");
+            out.println("<tr> <th><input type=checkbox name=supprimer value="+courses.getIdLis()+"></th> <th>"+courses.getNomLis()+"</th> <th> <a href=\"CtrlTransmettreListePanier?idListeCourses="+courses.getIdLis()+"\" >ajouter au panier </a> </th> </tr>");
             }
             %>
             
