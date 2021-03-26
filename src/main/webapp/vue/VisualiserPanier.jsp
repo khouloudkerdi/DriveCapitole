@@ -69,7 +69,7 @@
                                 }   %>
                             <div class="row">
                                 <div class="col-sm-6 styleFontGris"><% out.print(a.getFormatArt()); %></div>
-                                <div class="col-sm-6 atCenterHorizontal"><% out.print(montantArticle); %>€</div>
+                                <div class="col-sm-6 atCenterHorizontal"><span class="montantArt"><% out.print(montantArticle); %>€</span></div>
                             </div>
                         </div>
 
@@ -77,8 +77,8 @@
                         <div class="col-md-3 colPrixQte">
                             <div class="atCenterAll">
                                 <div class="produitOptions">
-                                    <span class="ida" style="display: block"><% out.print(a.getIdArt()); %></span>
-                                    <span class="idp" style="display: block"><% out.print(idp); %></span>
+                                    <span class="ida" style="display: none"><% out.print(a.getIdArt()); %></span>
+                                    <span class="idp" style="display: none"><% out.print(idp); %></span>
                                     <button type="button" name="moins" class="btn btn-secondary btn-sm">-</button>
                                     <span class="qteProduit"><% out.print(qte); %></span>
                                     <button type="button" name="plus" class="btn btn-success btn-sm">+</button>
