@@ -7,32 +7,45 @@ package neopro.ctrl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import neopro.dao.MethodesDAO;
+import javax.servlet.http.HttpSession;
 
+/**
+ *
+ * @author khoul
+ */
+public class CtrlValiderPanier extends HttpServlet {
 
-public class CtrlGererCrouses extends HttpServlet {
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         
-                   String[] listeSup=request.getParameterValues("supprimer");
-                   if (listeSup == null){
-                       //selectionner aucun liste de courses
-                       request.setAttribute("msg_sup", "Sélectionnez la liste que vous souhaitez supprimer  ");
-                       request.getRequestDispatcher("ListeCourses").forward(request, response);
-                   }else{
-                       //supprimer tous les liste de courses selectionné
-                       for (String lc_sup:listeSup){
-                          MethodesDAO.supprimerListeCourses(Long.parseLong(lc_sup));
-                       }
-
-                        request.getRequestDispatcher("ListeCourses").forward(request, response);
-                   }
-
+            // ouverture de la session et récuperation de l'identifiant.
+//            HttpSession s = request.getSession(false);
+//            String idClient=  (String) s.getAttribute("idCli");
+            try
+            {
+                //Chainage vers la page choixCreneauMagasin.
+                request.getRequestDispatcher("choix").forward(request, response);
+                System.out.println("666666666666666666666666aaaaaaaaaaakkkkkkkkkkkkk");
+            }
+            catch(Exception ex)
+            {
+                //Chainage vers la page visualiserPanier avec un message.
+                request.setAttribute("msg_erreur", ex.getMessage());
+                request.getRequestDispatcher("Panier").forward(request, response);
+            }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

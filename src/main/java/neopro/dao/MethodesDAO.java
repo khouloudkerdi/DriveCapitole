@@ -68,7 +68,7 @@ public class MethodesDAO {
     }
 
     // Fonction pour calculer l'économie sur un article en promotion.
-    public static double calculerPrixPromo(Long idArt) {
+    public static float calculerPrixPromo(Long idArt) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Article a = session.get(Article.class, idArt);
@@ -86,7 +86,7 @@ public class MethodesDAO {
             Integer pourcentage = list.get(0);
             Float ecof = prix * (pourcentage.floatValue() / 100);
             BigDecimal eco1 = new BigDecimal(ecof);
-            double eco = eco1.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            float eco = eco1.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
             return eco;
         }
     }
@@ -127,7 +127,7 @@ public class MethodesDAO {
             return liste2;
         }
     }
-    
+
     // Fonction qui récupère la liste des articles d'un panier pour un client donné.
     public static ArrayList<Article> listeArtcilesPanierClient(long idcli) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -156,7 +156,7 @@ public class MethodesDAO {
     }
 
     // Fonction pour récupérer le montant d'un panier.
-    public static double montantPanier(long idcli) {
+    public static float montantPanier(long idcli) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
@@ -181,7 +181,7 @@ public class MethodesDAO {
                 }
             }
             BigDecimal montantDecim = new BigDecimal(montant);
-            double montantfinal = montantDecim.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            float montantfinal = montantDecim.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
             return montantfinal;
         }
     }
@@ -206,9 +206,9 @@ public class MethodesDAO {
             return quantite;
         }
     }
-    
+
     // Fonction pour recuperer le montant total d'un article dans un panier d'un client.
-    public static double montantTotaleArticlePanier(long idp, long idArt) {
+    public static float montantTotaleArticlePanier(long idp, long idArt) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
@@ -225,13 +225,12 @@ public class MethodesDAO {
             }
             System.out.println("MontantArticlePanier----------------------" + montant);
             BigDecimal montantDecim = new BigDecimal(montant);
-            double eco = montantDecim.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            float eco = montantDecim.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
             return eco;
         }
     }
 
-
-   
+  
     // Fonction pour supprimer un produit d'un panier
     public static void insererArticlePanier(long idA,long idP) {        
         /*----- Ouverture de la session -----*/
@@ -311,7 +310,7 @@ public class MethodesDAO {
         }
     }
 
-    // 
+    // Fonction pour obtenir l'identifiant de panier d'un client
     public static long loadPanierClient(long idCli) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
@@ -326,7 +325,7 @@ public class MethodesDAO {
         }
     }
 
-    // 
+    // Fonction pour obtenir la liste de courses d'un client
     public static ArrayList<ListeCourses> getListeCourses(long id) throws ParseException {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
@@ -341,7 +340,7 @@ public class MethodesDAO {
         }
     }
 
-    // 
+    // Fonction pour ajouter une liste de courses
     public static void ajouterListeCourses(long idClient, String NomListe) {
         /*----- Ouverture de la session -----*/
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -382,4 +381,52 @@ public class MethodesDAO {
         }
     }
 
+    // calcule le nombre d'article dans un panier 
+    public static long nbArt(long idPan) {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            long liste1 = (long) session.createQuery("select sum(a.quantite) "
+                    + "from AvoirQuantitePanier a "
+                    + "where a.panier.idPan = 1 ").uniqueResult();
+            t.commit();// Commit et flush automatique de la session. 
+            /*----- Exit -----*/
+            return liste1;
+        }
+    }
+
+    // recherche dans libelle court des articles 
+    public static List<Article> listRecherche(String search) {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            String var = search;
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            // Récupération des la liste de recherche.          
+            String hql = "select a from Article a where a.libelleArt like :rollNumber";
+            Query query = session.createQuery(hql);
+            query.setParameter("rollNumber", "%" + var + "%");
+            List result = query.list();
+            // Envoi du résultat de la requête.
+            return result;
+        }
+    }
+    
+    //verifier l'adresse de mail et mot de passe et retourner l'identifiant de client
+    //si l'adresse de mail et mot de passe n'est pas correst, retourner 0
+    public static long verifierCompte(String mail, String mdp) { 
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            List<Client> listeC = session.createQuery("from Client ").list();
+            for (Client c : listeC) {
+                if ((c.getEmail().equals(mail)) & (c.getMotdepasse().equals(mdp))) {
+                    return c.getIdCli();
+                }
+            }
+            long f = 0;
+            return f;
+        }
+    }
+   
 }

@@ -43,6 +43,24 @@
     <servlet>
         <servlet-name>CtrlSupprimerProduitPanier</servlet-name>
         <servlet-class>neopro.ctrl.CtrlSupprimerProduitPanier</servlet-class>
+        <servlet-name>Search</servlet-name>
+        <jsp-file>/vue/Search.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>CtrlConnexion</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlConnexion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Connexion</servlet-name>
+        <jsp-file>/vue/Connexion.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>CtrlValiderPanier</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlValiderPanier</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>choix</servlet-name>
+        <jsp-file>/vue/choixCreneauMagasin.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>VisualiserPanier</servlet-name>
@@ -77,6 +95,24 @@
         <url-pattern>/CtrlInserer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/Search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlConnexion</servlet-name>
+        <url-pattern>/CtrlConnexion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Connexion</servlet-name>
+        <url-pattern>/Connexion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlValiderPanier</servlet-name>
+        <url-pattern>/CtrlValiderPanier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>choix</servlet-name>
+        <url-pattern>/choix</url-pattern>
         <servlet-name>CtrlModificationQuantite</servlet-name>
         <url-pattern>/CtrlModificationQuantite</url-pattern>
     </servlet-mapping>

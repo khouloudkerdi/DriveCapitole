@@ -7,32 +7,29 @@ package neopro.ctrl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import neopro.dao.MethodesDAO;
 
-
-public class CtrlGererCrouses extends HttpServlet {
+public class CtrlConnexion extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String mail=request.getParameter("mail");
+        String mdp=request.getParameter("motDePasse");
+        long noValide=0;//Si le compte ou le mot de passe est incorrect, renvoyer 0 
+        if (MethodesDAO.verifierCompte(mail,mdp)==noValide){
+            //retour à la page connexion si ce n'est pas correst
+            request.setAttribute("msg_connexion", "Votre adresse e-mail ou mot de passe est incorrect ! ");
+            request.setAttribute("mail", mail);
+            request.getRequestDispatcher("Connexion").forward(request, response);
+        }else{
+            //retour à la page accueil si c'est correst
+            request.getSession().setAttribute("idClient",MethodesDAO.verifierCompte(mail,mdp));
+            response.sendRedirect("Accueil");
+        }
         
-                   String[] listeSup=request.getParameterValues("supprimer");
-                   if (listeSup == null){
-                       //selectionner aucun liste de courses
-                       request.setAttribute("msg_sup", "Sélectionnez la liste que vous souhaitez supprimer  ");
-                       request.getRequestDispatcher("ListeCourses").forward(request, response);
-                   }else{
-                       //supprimer tous les liste de courses selectionné
-                       for (String lc_sup:listeSup){
-                          MethodesDAO.supprimerListeCourses(Long.parseLong(lc_sup));
-                       }
-
-                        request.getRequestDispatcher("ListeCourses").forward(request, response);
-                   }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
