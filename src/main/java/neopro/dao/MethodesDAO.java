@@ -127,7 +127,7 @@ public class MethodesDAO {
             return liste2;
         }
     }
-    
+
     // Fonction qui récupère la liste des articles d'un panier pour un client donné.
     public static ArrayList<Article> listeArtcilesPanierClient(long idcli) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -206,7 +206,7 @@ public class MethodesDAO {
             return quantite;
         }
     }
-    
+
     // Fonction pour recuperer le montant total d'un article dans un panier d'un client.
     public static float montantTotaleArticlePanier(long idp, long idArt) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -230,35 +230,65 @@ public class MethodesDAO {
         }
     }
 
-    // 
-    public static void insererArticlePanier(long idA, long idpanier) {
+    // Fonction pour supprimer un produit d'un panier
+    public static void insererArticlePanier(long idA, long idP) {
+        /*----- Ouverture de la session -----*/
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
-            AvoirQuantitePanier qtePanier = null;
-            Panier p = session.get(Panier.class, idpanier);
-            Article a = session.get(Article.class, idA);
-            boolean existe = false;
-            Map<Article, AvoirQuantitePanier> listeArticle = p.getPaniers();
 
-            for (Map.Entry<Article, AvoirQuantitePanier> entry : listeArticle.entrySet()) {
-                if (entry.getKey().equals(a)) {
-                    qtePanier = entry.getValue();
-                    existe = true;
-                }
-            }
-            if (existe) {
-                int qte = qtePanier.getQuantite();
-                qte = qte + 1;
-                qtePanier.setQuantite(qte);
-                listeArticle.put(a, qtePanier);
-                p.setPaniers(listeArticle);
-                session.save(p);
-                t.commit();
+            // Recuperer l'assosiation 'AvoirQuantitePanier'
+            AvoirQuantitePanier aqp = session.get(AvoirQuantitePanier.class, new AvoirQuantitePanierID(idA, idP));;
+            // Recuperer l'objet 'Panier' par 'idpanier'
+            Panier p = session.get(Panier.class, idP);
+            // Recuperer l'objet 'Article' par 'idA' 
+            Article a = session.get(Article.class, idA);
+
+            // si ce produit n'existe pas dans le panier, on l'ajoute a la panier
+            if (aqp == null) {
+                AvoirQuantitePanier aqp1 = new AvoirQuantitePanier(new AvoirQuantitePanierID(idA, idP), 1);
+                session.save(aqp1);
             } else {
-                AvoirQuantitePanier aqp = new AvoirQuantitePanier(new AvoirQuantitePanierID(idA, idpanier), 1);
-                session.save(aqp);
-                t.commit(); // Commit et flush automatique de la session.
+                // si la quantite n'est pas de 0, on fait plus 1 de la quantite de ce produit du panier 
+                aqp.setQuantite(aqp.getQuantite() + 1);
+                p.getPaniers().put(a, aqp);
             }
+
+            // enregistrer sur BD
+            t.commit();
+        }
+    }
+
+    // Fonction pour supprimer un produit d'un panier
+    public static void supprimerArticlePanier(long idA, long idP) {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+
+            // Recuperer l'assosiation 'AvoirQuantitePanier'
+            AvoirQuantitePanier aqp = session.get(AvoirQuantitePanier.class, new AvoirQuantitePanierID(idA, idP));;
+            // Recuperer l'objet 'Panier' par 'idpanier'
+            Panier p = session.get(Panier.class, idP);
+            // Recuperer l'objet 'Article' par 'idA' 
+            Article a = session.get(Article.class, idA);
+
+            // calculer la quantite d'un produit dans ce panier
+            int qte = aqp.getQuantite();
+            qte = qte - 1;
+            // si la quantite est de 0, on supprime ce ligne de contenue du panier
+            if (qte == 0) {
+                p.getPaniers().remove(a);
+                a.getPaniers().remove(p);
+                session.delete(aqp);
+            } else {
+                // si la quantite n'est pas de 0, on change la quantite de ce produit du panier                
+                aqp.setQuantite(qte);
+                p.getPaniers().put(a, aqp);
+                session.save(p);
+            }
+            // enregistrer sur BD
+            t.commit();
         }
     }
 
@@ -322,7 +352,7 @@ public class MethodesDAO {
     // Fonction pour supprimer une liste de courses
     public static void supprimerListeCourses(long id) {
         /*----- Ouverture de la session -----*/
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             ListeCourses l = session.get(ListeCourses.class, id);
@@ -346,47 +376,49 @@ public class MethodesDAO {
             return c;
         }
     }
+
     // calcule le nombre d'article dans un panier 
-     public static long nbArt(long idPan){
-         /*----- Ouverture de la session -----*/
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
-             /*----- Ouverture d'une transaction -----*/
-                        Transaction t = session.beginTransaction();
-                     long liste1 = (long) session.createQuery("select sum(a.quantite) " +
-                                         "from AvoirQuantitePanier a " +
-                                         "where a.panier.idPan = 1 ").uniqueResult();       
-        t.commit();// Commit et flush automatique de la session. 
-        /*----- Exit -----*/        
-        return liste1;       
+    public static long nbArt(long idPan) {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            long liste1 = (long) session.createQuery("select sum(a.quantite) "
+                    + "from AvoirQuantitePanier a "
+                    + "where a.panier.idPan = 1 ").uniqueResult();
+            t.commit();// Commit et flush automatique de la session. 
+            /*----- Exit -----*/
+            return liste1;
         }
     }
+
     // recherche dans libelle court des articles 
     public static List<Article> listRecherche(String search) {
-        /*----- Ouverture de la session -----*/        
+        /*----- Ouverture de la session -----*/
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             String var = search;
-             /*----- Ouverture d'une transaction -----*/
+            /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
-             // Récupération des la liste de recherche.          
-                    String hql = "select a from Article a where a.libelleArt like :rollNumber";
-                    Query query = session.createQuery(hql);
-                    query.setParameter("rollNumber", "%" + var + "%");
-                    List result = query.list();
+            // Récupération des la liste de recherche.          
+            String hql = "select a from Article a where a.libelleArt like :rollNumber";
+            Query query = session.createQuery(hql);
+            query.setParameter("rollNumber", "%" + var + "%");
+            List result = query.list();
             // Envoi du résultat de la requête.
             return result;
         }
     }
-    
-    public static long verifierCompte(String mail, String mdp) { 
+
+    public static long verifierCompte(String mail, String mdp) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            Transaction t = session.beginTransaction();     
+            Transaction t = session.beginTransaction();
             List<Client> listeC = session.createQuery("from Client ").list();
-            for (Client c:listeC){
-                if ((c.getEmail().equals(mail)) & (c.getMotdepasse().equals(mdp))){
+            for (Client c : listeC) {
+                if ((c.getEmail().equals(mail)) & (c.getMotdepasse().equals(mdp))) {
                     return c.getIdCli();
                 }
             }
-            long f=0;
+            long f = 0;
             return f;
         }
     }
