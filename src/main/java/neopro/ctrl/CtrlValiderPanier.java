@@ -37,14 +37,14 @@ public class CtrlValiderPanier extends HttpServlet {
             try
             {
                 //Chainage vers la page choixCreneauMagasin.
-                request.getRequestDispatcher("choixCreneauMagasin").forward(request, response);
-                System.out.println("aaaaaaaaaaakkkkkkkkkkkkk");
+                request.getRequestDispatcher("choix").forward(request, response);
+                System.out.println("666666666666666666666666aaaaaaaaaaakkkkkkkkkkkkk");
             }
             catch(Exception ex)
             {
                 //Chainage vers la page visualiserPanier avec un message.
                 request.setAttribute("msg_erreur", ex.getMessage());
-                request.getRequestDispatcher("VisualiserPanier").forward(request, response);
+                request.getRequestDispatcher("Panier").forward(request, response);
             }
     }
 

@@ -138,7 +138,7 @@
                 </div>
                 <%--Button Valider--%>
                 <div class="atCenterHorizontal">
-                    <button type="submit"  class="btn btn-primary">Valider</button>
+                    <button type="submit" class="btn btn-primary">Valider</button>
                 </div>
                 <div class="messageErreur">${requestScope.msg_erreur}</div>
             </div>

@@ -22,16 +22,16 @@ public class CtrlInserer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {  
         
-        // Récuperation des parametres 
+        // Ajouter au panier
         long idClient=1;
         String idA = request.getParameter("idArt");
         if (idA!=null){
-              //Conversion using parseLong(String) method
+             //Conversion using parseLong(String) method
 	    long idArt = Long.parseLong(idA);
             MethodesDAO.insererArticlePanier(idArt,MethodesDAO.loadPanierClient(idClient));
          }
         
-         //Liste Courses
+         //// Ajouter à la liste de courses
         String l=(request.getParameter("btnListeCourses"));
         if (l!=null){
         String[] ls = l.split(",");

@@ -11,38 +11,24 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import neopro.dao.MethodesDAO;
 
-/**
- *
- * @author 13520
- */
-public class CtrlMenu extends HttpServlet {
+public class CtrlConnexion extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
-        String m = request.getParameter("method");
-            
-        // Traitement.
-        switch (m)
-            {
-            case "Liste" :
-                // Chainage vers la page ListeCourses.jsp
-                request.getRequestDispatcher("ListeCourses").forward(request, response);
-                break;
-                
-            case "Connexion" :
-                if (request.getSession().getAttribute("idClient")==null){
-                    // Chainage vers la page Connexion.jsp
-                    request.getRequestDispatcher("Connexion").forward(request, response);
-                   
-                }else{
-                   request.getRequestDispatcher("Accueil").forward(request, response);
-                }
-               break;
-            
-            }
-            
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String mail=request.getParameter("mail");
+        String mdp=request.getParameter("motDePasse");
+        long noValide=0;//Si le compte ou le mot de passe est incorrect, renvoyer 0 
+        if (MethodesDAO.verifierCompte(mail,mdp)==noValide){
+            //retour à la page connexion si ce n'est pas correst
+            request.setAttribute("msg_connexion", "Votre adresse e-mail ou mot de passe est incorrect ! ");
+            request.getRequestDispatcher("Connexion").forward(request, response);
+        }else{
+            //retour à la page accueil si c'est correst
+            request.getSession().setAttribute("idClient",MethodesDAO.verifierCompte(mail,mdp));
+            response.sendRedirect("Accueil");
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
