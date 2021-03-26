@@ -37,6 +37,7 @@ import neopro.metier.Rayon;
 import neopro.metier.TypePreference;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 public class TestHibernate {
 
@@ -281,6 +282,7 @@ public class TestHibernate {
             t.commit(); // Commit et flush automatique de la session.
         }
     }
+    
  //Fonction pour recuperer le montant total d'un article dans un panier d'un client 
    public static double montantTotaleArticlePanier(long idp,  long idArt)
      {
@@ -336,6 +338,8 @@ public class TestHibernate {
     }
    
 
+
+
     /**
      * Programme de test.
      */
@@ -343,8 +347,9 @@ public class TestHibernate {
         /*----- Test -----*/
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
      TestHibernate.ListeArticlesParRayon("1");
+     // TestHibernate.ListeArticlesNonPromoParRayon(1);
+
       
-        
         /*----- Exit -----*/
         System.exit(0);
     }

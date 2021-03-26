@@ -1,30 +1,39 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package neopro.ctrl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import neopro.dao.MethodesDAO;
+import neopro.metier.Article;
 
-public class CtrlAjouterProduitPanier extends HttpServlet {
+/**
+ *
+ * @author 13520
+ */
+public class CtrlTransmettreListePanier extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {  
-        
-        // Récuperation des parametres 
-        /*----- Récupération des paramètres -----*/
-        long ida = Long.parseLong(request.getParameter("ida"));        
-        long idp = Long.parseLong(request.getParameter("idp"));
-        System.out.println("-----------------in servlet------------------------------------");
-        System.out.println("---------------- ida = "+ida);
-        System.out.println("---------------- idp = "+idp);
-        /*----- Modification de la BD -----*/
-        MethodesDAO.insererArticlePanier(ida, idp);
-
-//             response.sendRedirect("Panier");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //obtenir identifiant de liste de courses
+        String idListe=request.getParameter("idListeCourses");
+        //obtenir les articles de la liste
+        ArrayList<Article> listeArticle=MethodesDAO.articleListeCourses(Long.parseLong(idListe));
+        //récuperer le identifiant de client
+        long idClient=(long) request.getSession().getAttribute("idClient");
+        //ajouter les articles au panier
+        for (Article a:listeArticle){
+            MethodesDAO.insererArticlePanier(a.getIdArt(), MethodesDAO.loadPanierClient(idClient));
+        }
+        MethodesDAO.supprimerListeCourses(Long.parseLong(idListe));
+        request.getRequestDispatcher("ListeCourses").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -67,4 +76,3 @@ public class CtrlAjouterProduitPanier extends HttpServlet {
     }// </editor-fold>
 
 }
-

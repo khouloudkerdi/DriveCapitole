@@ -14,39 +14,34 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author 13520
+ * @author rende
  */
-public class CtrlMenu extends HttpServlet {
+public class CtrlModificationQuantite extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        String m = request.getParameter("method");
-            
-        // Traitement.
-        switch (m)
-            {
-            case "Liste" :
-                if (request.getSession().getAttribute("idClient")==null){
-                    request.getRequestDispatcher("Connexion").forward(request, response);
-                }else{
-                // Chainage vers la page ListeCourses.jsp
-                    request.getRequestDispatcher("ListeCourses").forward(request, response);   
-                }
-                    break; 
-          
-            case "Connexion" :
-                if (request.getSession().getAttribute("idClient")==null){
-                    // Chainage vers la page Connexion.jsp
-                    request.getRequestDispatcher("Connexion").forward(request, response);
-                   
-                }else{
-                   request.getRequestDispatcher("Accueil").forward(request, response);
-                }
-               break;
-            
-            }
-            
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet CtrlModificationQuantite</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet CtrlModificationQuantite at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
