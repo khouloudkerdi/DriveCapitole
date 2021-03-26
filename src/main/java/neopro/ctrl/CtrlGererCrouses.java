@@ -21,9 +21,11 @@ public class CtrlGererCrouses extends HttpServlet {
         
                    String[] listeSup=request.getParameterValues("supprimer");
                    if (listeSup == null){
+                       //selectionner aucun liste de courses
                        request.setAttribute("msg_sup", "Sélectionnez la liste que vous souhaitez supprimer  ");
                        request.getRequestDispatcher("ListeCourses").forward(request, response);
                    }else{
+                       //supprimer tous les liste de courses selectionné
                        for (String lc_sup:listeSup){
                           MethodesDAO.supprimerListeCourses(Long.parseLong(lc_sup));
                        }

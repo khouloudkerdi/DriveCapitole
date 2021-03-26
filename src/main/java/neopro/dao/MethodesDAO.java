@@ -292,7 +292,7 @@ public class MethodesDAO {
         }
     }
 
-    // 
+    // Fonction pour recuperer la liste d'un panier 
     public static void ajouterArticleListeCourse(long id_art, long id_lis) {
         /*----- Ouverture de la session -----*/
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -306,7 +306,7 @@ public class MethodesDAO {
         }
     }
 
-    // 
+    // Fonction pour obtenir l'identifiant de panier d'un client
     public static long loadPanierClient(long idCli) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
@@ -321,7 +321,7 @@ public class MethodesDAO {
         }
     }
 
-    // 
+    // Fonction pour obtenir la liste de courses d'un client
     public static ArrayList<ListeCourses> getListeCourses(long id) throws ParseException {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
@@ -336,7 +336,7 @@ public class MethodesDAO {
         }
     }
 
-    // 
+    // Fonction pour ajouter une liste de courses
     public static void ajouterListeCourses(long idClient, String NomListe) {
         /*----- Ouverture de la session -----*/
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -408,8 +408,10 @@ public class MethodesDAO {
             return result;
         }
     }
-
-    public static long verifierCompte(String mail, String mdp) {
+    
+    //verifier l'adresse de mail et mot de passe et retourner l'identifiant de client
+    //si l'adresse de mail et mot de passe n'est pas correst, retourner 0
+    public static long verifierCompte(String mail, String mdp) { 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             List<Client> listeC = session.createQuery("from Client ").list();
@@ -422,5 +424,5 @@ public class MethodesDAO {
             return f;
         }
     }
-
+   
 }
