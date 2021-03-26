@@ -87,7 +87,7 @@ public class TestHibernate {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
-            Client c1 = new Client("durond","Chloe","Chloe@gmail.com","1234");
+            Client c1 = new Client("durond","Chloe","Chloe@gmail.com","1234", 20);
             System.out.println("client-----------------------"+c1);
             session.save(c1);
             t.commit(); // Commit et flush automatique de la session.

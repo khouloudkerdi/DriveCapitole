@@ -4,6 +4,7 @@
     Author     : 21911890
 --%>
 
+<%@page import="neopro.metier.Client"%>
 <%@page import="java.math.BigDecimal"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
@@ -15,16 +16,19 @@
 <%@include file="../layout/headerFix.jsp" %>
 <body id="bodyPanier">
 
+    <%-- <a href="Accueil" style="padding-left: 10px;padding-top: 5px;">Retour</a> --%>
     <div class="container">
-        <div class="row header">
-            <h3>Votre panier  </h3>
+        <div class="row headerPanier">
+            <h3>Votre panier</h3>
         </div>
-
 
         <div class="row" >
             <div class="col-md-8">
-                <h4> Détails panier </h4>
-                <% ArrayList<Article> listeArt = MethodesDAO.listeArtcilesPanierClient(1l); %>
+                <h4>Détails panier</h4>
+                <% long idcli = 1;
+                    ArrayList<Article> listeArt = MethodesDAO.listeArtcilesPanierClient(idcli);
+                    Client client = MethodesDAO.infosClient(idcli);
+                %>
                 <% long idp = 1l; %> 
                 <% double montant = MethodesDAO.montantPanier(idp); %>
                 <% List<Article> listeArticlesPromo = MethodesDAO.listePromo(); %>
@@ -33,43 +37,53 @@
                     private int pourcentage;
                     private double montantEconomieTotal = 0;
                 %>
-                <% int qte = MethodesDAO.QuantiteArticlePanier(1l, a.getIdArt()); %>
+                <% int qte = MethodesDAO.QuantiteArticlePanier(idcli, a.getIdArt()); %>
                 <% double montantArticle = MethodesDAO.montantTotaleArticlePanier(idp, a.getIdArt());
 
                 %>
                 <div class="panierProduit">
                     <div class="row">
+                        <%--1ere partie: promo, image, cond--%>
                         <div class="col-md-3"> 
                             <%if (listeArticlesPromo.contains(a)) {
-                                    out.print("<span class='spanPromo'>Promotion</span></br>");
+                                    out.print("<span class='spanPromo atCenterHorizontal'>Promotion</span></br>");
                                     produitPromo = MethodesDAO.calculerPrixPromo(a.getIdArt());
                                     pourcentage = MethodesDAO.getPromoPourcentage(a.getIdArt());
                                 }
                             %>
-                            <img src="${pageContext.request.contextPath}/image/<% out.print(a.getUrlImageArt()); %>">
+                            <div class="atCenterHorizontal"><img src="${pageContext.request.contextPath}/image/<% out.print(a.getUrlImageArt()); %>"></div>
+                            <div class="styleFontGris atCenterHorizontal"><% out.print(a.getCondArt()); %></div>
                         </div>
-                        <div class="col-md-3" >
-                            <% out.print(a.getLibelleArt()); %></br>
-                            <% out.print(a.getCondArt()); %></br>
-                            <% out.print(a.getFormatArt()); %></br>
-                        </div>
-                        <div class="col-md-3">
+
+                        <%--2eme partie: libelle, format, typePromo(pourcentage), montantTotalArticle--%>
+                        <div class="col-md-6" >
+                            <div class="styleLib"><% out.print(a.getLibelleArt()); %></div>
                             <%if (listeArticlesPromo.contains(a)) {
-                                        out.print("<div>" + pourcentage + "% d'économies</div>");
-                                    }   %>
-                            <div><span class="produitPrix"><% out.print(montantArticle); %>€ </span></div>
+                                    out.print("<div class='row'>");
+                                    out.print("<div class='col-sm-6'> </div>");
+                                    out.print("<div class='col-sm-6 spanPromo atCenterHorizontal'>" + pourcentage + "% d'économies</div>");
+                                    out.print("</div>");
+                                }   %>
+                            <div class="row">
+                                <div class="col-sm-6 styleFontGris"><% out.print(a.getFormatArt()); %></div>
+                                <div class="col-sm-6 atCenterHorizontal"><% out.print(montantArticle); %>€</div>
+                            </div>
                         </div>
+
+                        <%--3eme partie: button, qte, montantEcoTotalArticle--%>
                         <div class="col-md-3 colPrixQte">
-                            <div class="produitOptions">
-                                <button type="button" action="moins" class="btn btn-secondary btn-sm">-</button>
-                                <span class="qteProduit"><% out.print(qte); %></span>
-                                <button type="button" action="plus" class="btn btn-success btn-sm">+</button>
+                            <div class="atCenterAll">
+                                <div class="produitOptions">
+                                    <button type="button" action="moins" class="btn btn-secondary btn-sm">-</button>
+                                    <span class="qteProduit"><% out.print(qte); %></span>
+                                    <button type="button" action="plus" class="btn btn-success btn-sm">+</button>
+                                </div>
                             </div>
                             <%if (listeArticlesPromo.contains(a)) {
                                     double montanteco = produitPromo * qte;
                                     BigDecimal montantEcoDecim = new BigDecimal(montanteco);
                                     double eco = montantEcoDecim.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                                    out.print("<div><span class='spanPromo'>" + eco + " € éco!</span></div>");
+                                    out.print("<div class='atCenterHorizontal'><span class='spanPromo'>" + eco + " € d'éco!</span></div>");
                                     montantEconomieTotal = montantEconomieTotal + eco;
                                 }
                             %>
@@ -80,31 +94,49 @@
                     }
                 %>
             </div>
+            
             <div class="col-md-4">
+                
+                <%--Partie Récapitulatif--%>
                 <h4> Récapitulatif </h4>
                 <div class="recapPanier">
                     <div class="recapPanierInfo">
-                        <span class="titreValeurPanier">Panier</span>
-                        <span class="valeurPanier"><% out.print(montant);%> € </span>    
+                        <span class="titreValeurPanier">Sous total :</span>
+                        <span class="valeurPanier"><% out.print(montant);%> € </span>
                     </div>
                     <div class="recapPanierInfo">
-                        <span class="titreEconomiePanier">Economie</span>
+                        <span class="titreEconomiePanier">Economie :</span>
                         <span class="valeurEconomiePanier"><% out.print("<span class='spanPromo'>" + montantEconomieTotal + "€</span>");%>  </span>    
                     </div>
                     <div class="recapPanierInfo">
-                        <span class="titreTotalPanier">Total</span>
+                        <span class="titreTotalPanier">Total à payer :</span>
                         <% double montantTotalPanier = montant - montantEconomieTotal;  %>
-                        <span class="valeurTotalPanier"> <% out.print(montantTotalPanier);%> € </span>    
+                        <span class="valeurTotalPanier"> <% out.print(montantTotalPanier);%> € </span>   
                     </div>
-
+                </div>
+                    
+                <%--Partie Fidélité--%>
+                <h4>Avantages fidélités</h4>
+                <div class="recapFidelite">
+                    <div class="recapFideliteInfo">
+                        <span class="titrePointsFidelite">Points disponibles :</span>
+                        <span class="valeurPointsFidelite"><% out.print(client.getPointFedelitéCli()); %></span>                         
+                    </div>
+                    <div class="recapFideliteInfo">
+                        <span class="titrePointsFidelite">Gain sur cette commande :</span>
+                        <% float m = ((float) montantTotalPanier / 10);
+                        %>
+                        <span class="valeurPointsFidelite"><% out.print((int) (m));%></span>                         
+                    </div>
+                </div>
+                <p class="styleFontGris styleFontItalic">* Vous avez besoin de vous connecter pour profiter des avantages</p>
+                <%--Button Valider--%>
+                <div class="atCenterHorizontal">
+                    <button type="button" action="" class="btn btn-primary">Valider</button>
                 </div>
             </div>
-
-
         </div>
     </div>
-
-
 
 </body>
 <%@include file="../layout/footerFix.jsp" %>

@@ -36,6 +36,7 @@ public class Client implements Serializable{
     private String prenomCli;
     private String email;
     private String motdepasse;
+    private int pointFedelitéCli;
     
     //Relation AvoirLabel
     @ManyToMany 
@@ -58,11 +59,13 @@ public class Client implements Serializable{
     public Client() {
     }
 
-    public Client( String NomCli, String PrenomCli, String email, String Motdepasse) {
-        this.nomCli = NomCli;
-        this.prenomCli = PrenomCli;
+    public Client( String nomCli, String prenomCli, String email, String motdepasse, int pointFedelitéCli) {
+        this.idCli = idCli;
+        this.nomCli = nomCli;
+        this.prenomCli = prenomCli;
         this.email = email;
-        this.motdepasse = Motdepasse;
+        this.motdepasse = motdepasse;
+        this.pointFedelitéCli = pointFedelitéCli;
     }
     
     //Getters / Setters.
@@ -83,13 +86,15 @@ public class Client implements Serializable{
     public void setPaniers(Set<Panier> paniers) { this.paniers = paniers;}
     public Set<ListeCourses> getListeCourses() {return listeCourses;}
     public void setListeCourses(Set<ListeCourses> listeCourses) { this.listeCourses = listeCourses;}
+    public int getPointFedelitéCli() {return pointFedelitéCli;}
+    public void setPointFedelitéCli(int pointFedelitéCli) { this.pointFedelitéCli = pointFedelitéCli;}
     
     //Méthodes.
     //Méthodes surchargées.
 
     @Override
     public String toString() {
-        return "Client{" + "idCli=" + idCli + ", nomCli=" + nomCli + ", prenomCli=" + prenomCli + ", email=" + email + ", motdepasse=" + motdepasse + '}';
+        return "Client{" + "idCli=" + idCli + ", nomCli=" + nomCli + ", prenomCli=" + prenomCli + ", email=" + email + ", motdepasse=" + motdepasse + ", pointFedelit\u00e9Cli=" + pointFedelitéCli + ", preferences=" + preferences + ", paniers=" + paniers + ", listeCourses=" + listeCourses + '}';
     }
 
     @Override
