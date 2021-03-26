@@ -17,7 +17,7 @@
                          <h1>S'identifier </h1>
                         <div class="form-group">
                             <label class="control-label" for="mail">Adresse mail </label>
-                            <input class="form-control" type="email" name="mail" id="mail">
+                            <input class="form-control" type="email" name="mail" id="mail" value="${param.mail}">
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="motDePasse">Mot de passe</label>
