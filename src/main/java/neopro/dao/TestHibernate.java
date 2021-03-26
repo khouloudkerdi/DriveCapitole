@@ -314,7 +314,8 @@ public class TestHibernate {
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
-      TestHibernate.montantTotaleArticlePanier(1, 3);
+        long a=2;
+        System.out.println(MethodesDAO.articleListeCourses(2));
       
         
         /*----- Exit -----*/

@@ -259,6 +259,7 @@ public class MethodesDAO {
                 session.save(aqp);
                 t.commit(); // Commit et flush automatique de la session.
             }
+            t.commit();
         }
     }
 
@@ -390,6 +391,19 @@ public class MethodesDAO {
             }
             long f=0;
             return f;
+        }
+    }
+    
+    //obtenir tous les produit d'une liste de courses
+    public static ArrayList<Article> articleListeCourses(long idListe) { 
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();     
+            Set<Article> lc=session.get(ListeCourses.class,idListe).getArticles();
+            ArrayList<Article> liste2 = new ArrayList<Article>();
+            for (Article a : lc) {
+                    liste2.add(a);
+            }
+            return liste2;
         }
     }
    
