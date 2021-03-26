@@ -68,7 +68,7 @@ public class MethodesDAO {
     }
 
     // Fonction pour calculer l'économie sur un article en promotion.
-    public static double calculerPrixPromo(Long idArt) {
+    public static float calculerPrixPromo(Long idArt) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Article a = session.get(Article.class, idArt);
@@ -86,7 +86,7 @@ public class MethodesDAO {
             Integer pourcentage = list.get(0);
             Float ecof = prix * (pourcentage.floatValue() / 100);
             BigDecimal eco1 = new BigDecimal(ecof);
-            double eco = eco1.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            float eco = eco1.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
             return eco;
         }
     }
@@ -156,7 +156,7 @@ public class MethodesDAO {
     }
 
     // Fonction pour récupérer le montant d'un panier.
-    public static double montantPanier(long idcli) {
+    public static float montantPanier(long idcli) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
@@ -181,7 +181,7 @@ public class MethodesDAO {
                 }
             }
             BigDecimal montantDecim = new BigDecimal(montant);
-            double montantfinal = montantDecim.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            float montantfinal = montantDecim.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
             return montantfinal;
         }
     }
@@ -208,7 +208,7 @@ public class MethodesDAO {
     }
     
     // Fonction pour recuperer le montant total d'un article dans un panier d'un client.
-    public static double montantTotaleArticlePanier(long idp, long idArt) {
+    public static float montantTotaleArticlePanier(long idp, long idArt) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
@@ -225,7 +225,7 @@ public class MethodesDAO {
             }
             System.out.println("MontantArticlePanier----------------------" + montant);
             BigDecimal montantDecim = new BigDecimal(montant);
-            double eco = montantDecim.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            float eco = montantDecim.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
             return eco;
         }
     }
