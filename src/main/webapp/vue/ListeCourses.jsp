@@ -12,16 +12,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%
-        String path = request.getContextPath();
-        String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-        request.setAttribute("path", basePath);
-        %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Listes de Courses</title>
-        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
-
         <link rel="stylesheet" href="${path}css/style.css " type="text/css" />
     </head>
     <body>
@@ -35,7 +28,7 @@
             request.getSession().setAttribute("idClient", idClient);
             ArrayList<ListeCourses> lc=MethodesDAO.getListeCourses(idClient);
             for (ListeCourses courses:lc){
-            out.println("<tr> <th><input type=checkbox name=supprimer value="+courses.getIdLis()+"></th> <th>"+courses.getNomLis()+"</th> <th> <a href=CtrlListeAjouterPanier?idListeCourses="+courses.getIdLis()+">ajouter au panier </a> </th> </tr>");
+            out.println("<tr> <th><input type=checkbox name=supprimer value="+courses.getIdLis()+"></th> <th>"+courses.getNomLis()+"</th> <th> <a href=\"CtrlTransmettreListePanier?idListeCourses="+courses.getIdLis()+"\" >ajouter au panier </a> </th> </tr>");
             }
             %>
             

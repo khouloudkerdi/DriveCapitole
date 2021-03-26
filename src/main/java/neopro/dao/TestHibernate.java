@@ -315,7 +315,9 @@ public class TestHibernate {
         /*----- Test -----*/
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
         long a=2;
-        System.out.println(MethodesDAO.articleListeCourses(2));
+        for (Article b:MethodesDAO.articleListeCourses(2) ){
+            System.out.println(b.getDescriptionArt());
+        }
       
         
         /*----- Exit -----*/
