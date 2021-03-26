@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <%@include file="../layout/headerFix.jsp" %>
 <body id="bodyPanier">
-
+    
     <%-- <a href="Accueil" style="padding-left: 10px;padding-top: 5px;">Retour</a> --%>
     <div class="container">
         <div class="row headerPanier">
@@ -132,11 +132,11 @@
                 <p class="styleFontGris styleFontItalic">* Vous avez besoin de vous connecter pour profiter des avantages</p>
                 <%--Button Valider--%>
                 <div class="atCenterHorizontal">
-                    <button type="button" action="" class="btn btn-primary">Valider</button>
+                    <button type="button" action="CtrlValiderPanier" class="btn btn-primary">Valider</button>
                 </div>
+                <div class="messageErreur">${requestScope.msg_erreur}</div>
             </div>
         </div>
     </div>
-
 </body>
 <%@include file="../layout/footerFix.jsp" %>
