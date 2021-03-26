@@ -37,7 +37,7 @@
                 %>
 
                 <% if (colCount % numCol == 0) {
-                        out.print("<div class='row' style='100%;'>");
+                        out.print("<div class='row' style='width:100%;'>");
                         colCount++;
                     } %>
                 <div class="col-md-4 cardProduit">
