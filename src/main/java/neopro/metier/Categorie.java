@@ -61,6 +61,8 @@ public class Categorie implements Serializable{
     public void setLibelleCat(String libelleCat) { this.libelleCat = libelleCat;}
     public Rayon getRayon() {return rayon;}
     public void setRayon(Rayon rayon) { this.rayon = rayon;}
+    public Set<Article> getArticles() {return articles;}
+    public void setArticles(Set<Article> articles) { this.articles = articles;}
 
     //Méthodes.
     //Méthodes surchargées.

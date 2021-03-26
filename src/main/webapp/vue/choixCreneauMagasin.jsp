@@ -6,12 +6,14 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@include file="../layout/headerFix.jsp" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>ChoixCreneauMagasin</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Récapitulatif</h1>
     </body>
+<%@include file="../layout/footerFix.jsp" %>
 </html>

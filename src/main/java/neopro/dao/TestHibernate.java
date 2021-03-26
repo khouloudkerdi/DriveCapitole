@@ -306,7 +306,32 @@ public class TestHibernate {
                   
        }
 }
-    
+    public static List<Article> ListeArticlesNonPromoParRayon(long idRay){
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+          /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Rayon rayon = session.get(Rayon.class,idRay);
+            Set<Categorie> l_categories = rayon.getCategories();
+            List<Article> listearticles = new ArrayList<Article>();
+            for(Categorie c :l_categories)
+            {
+               long idCat = c.getIdCat() ;
+               Categorie cat = session.get(Categorie.class, idCat);
+               Set<Article> l_articles = cat.getArticles() ;
+               
+               for(Article a :l_articles)
+               {
+                  listearticles.add(a);
+               }
+            }   
+                for(Article a :listearticles)
+                {
+                    System.out.println(a.toString());
+                }
+                return listearticles ;     
+        }
+           
+    }
 
     /**
      * Programme de test.
@@ -314,7 +339,7 @@ public class TestHibernate {
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
-      TestHibernate.montantTotaleArticlePanier(1, 3);
+      TestHibernate.ListeArticlesNonPromoParRayon(1);
       
         
         /*----- Exit -----*/

@@ -32,12 +32,13 @@ public class CtrlValiderPanier extends HttpServlet {
             throws ServletException, IOException {
         
             // ouverture de la session et récuperation de l'identifiant.
-            HttpSession s = request.getSession(false);
-            String idClient=  (String) s.getAttribute("idCli");
+//            HttpSession s = request.getSession(false);
+//            String idClient=  (String) s.getAttribute("idCli");
             try
             {
                 //Chainage vers la page choixCreneauMagasin.
                 request.getRequestDispatcher("choixCreneauMagasin").forward(request, response);
+                System.out.println("aaaaaaaaaaakkkkkkkkkkkkk");
             }
             catch(Exception ex)
             {

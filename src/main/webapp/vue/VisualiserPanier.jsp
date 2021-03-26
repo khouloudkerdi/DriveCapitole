@@ -15,13 +15,13 @@
 <!DOCTYPE html>
 <%@include file="../layout/headerFix.jsp" %>
 <body id="bodyPanier">
-    
+    <form action="CtrlValiderPanier" method="GET">
     <%-- <a href="Accueil" style="padding-left: 10px;padding-top: 5px;">Retour</a> --%>
     <div class="container">
         <div class="row headerPanier">
             <h3>Votre panier</h3>
         </div>
-
+        
         <div class="row" >
             <div class="col-md-8">
                 <h4>Détails panier</h4>
@@ -138,11 +138,13 @@
                 </div>
                 <%--Button Valider--%>
                 <div class="atCenterHorizontal">
-                    <button type="button" action="CtrlValiderPanier" class="btn btn-primary">Valider</button>
+                    <button type="submit"  class="btn btn-primary">Valider</button>
                 </div>
                 <div class="messageErreur">${requestScope.msg_erreur}</div>
             </div>
         </div>
     </div>
+    </form>
+
 </body>
 <%@include file="../layout/footerFix.jsp" %>
