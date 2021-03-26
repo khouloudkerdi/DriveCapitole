@@ -71,9 +71,12 @@
 #bodyPanier img {
     width: 50%;
     height:50%;
+    max-height: 150px;
+    max-width: 150px;
     
 }
-#bodyPanier .recapPanier{
+#bodyPanier .recapPanier,
+#bodyPanier .recapFidelite{
     background: #fff;
     margin-bottom: 20px;
   
@@ -81,22 +84,25 @@
 #bodyPanier .panierProduit{
     padding: 5px 15px;
 }
-#bodyPanier .recapPanierInfo{
+#bodyPanier .recapPanierInfo,
+#bodyPanier .recapFideliteInfo{
     padding: 10px 20px;
 }
 #bodyPanier .valeurPanier,
 #bodyPanier .valeurEconomiePanier,
-#bodyPanier .valeurTotalPanier{
+#bodyPanier .valeurTotalPanier, 
+#bodyPanier .valeurPointsFidelite{
     float: right;
         
 }
 #bodyPanier .titreTotalPanier{
    font-size: 18px;
    font-weight: 700;
-   
+   font-weight: bold;
 }
 #bodyPanier .valeurTotalPanier{
-    color: red;
+    font-size: 18px;
+    font-weight: 700;
 }
 #bodyPanier .produitPrix{
     font-size: 18px;
@@ -115,14 +121,41 @@
 }
 
 #bodyPanier .spanPromo{
-/*    float: right;
-    margin: 15px;
-    color: red;*/
-    background-color: yellow;
-/*    width: 50%;
+    color: red;
+    text-shadow: 3px 4px 2px yellow;
     font-weight: bold;
-    text-align: center;*/
-       
+}
+
+#bodyPanier .styleFontGris{
+    color:gray;
+}
+
+#bodyPanier .styleFontItalic{
+    font-style: italic;
+}
+
+#bodyPanier .styleLib{
+    font-size: large;
+    font-weight: bold;
+}
+
+#bodyPanier .atCenterAll {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50% auto 0;
+    transform: translateY(-50%);
+}
+
+#bodyPanier .atCenterHorizontal{
+    display: flex;
+    justify-content: center;
+}
+
+#bodyPanier .headerPanier{
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 #contenuAccueil {
@@ -151,9 +184,3 @@
     width:100%; 
     
 }*/
-
-/***************************/
-/***Accueil.jsp**/
-/***Redimensionnement de l'affichage de l'image**/
-/****************************/
-
