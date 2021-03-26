@@ -38,7 +38,7 @@
                 <%!
                     private int numCol = 3;
                     private int colCount = 0;
-                    private double produitPromo;
+                    private float produitPromo;
                 %>
 
                 <% if (colCount % numCol == 0) {
