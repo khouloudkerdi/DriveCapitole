@@ -28,7 +28,7 @@ public class CtrlMenu extends HttpServlet {
             {
             case "Liste" :
                 if (request.getSession().getAttribute("idClient")==null){
-                    request.getRequestDispatcher("Accueil").forward(request, response);
+                    request.getRequestDispatcher("Connexion").forward(request, response);
                 }else{
                 // Chainage vers la page ListeCourses.jsp
                     request.getRequestDispatcher("ListeCourses").forward(request, response);   
