@@ -20,7 +20,7 @@
             </div>
             <div class="col-md-3">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                <a class="btn btn-primary">Compte</a>
+                <a class="btn btn-primary" href="CtrlMenu?method=Connexion">Compte</a>
                 <a class="btn btn-primary" href="CtrlMenu?method=Liste">Listes</a>
                 <a href="Panier" class="btn btn-primary">Panier</a>
             </div>
