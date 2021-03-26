@@ -17,9 +17,9 @@
     </li>
     
     <%
-       ArrayList<Rayon> listR = (ArrayList)MethodesDAO.getListRayon();
-       
-       for (Rayon r : listR){
+        ArrayList<Rayon> listR = (ArrayList) MethodesDAO.getListRayon();
+
+        for (Rayon r : listR) {
             out.println("<li class=\"nav-item\">");
             out.println("<div class=\"btn-group dropend\">");
             out.println("<button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\" style=\"width:120px\">");
@@ -29,7 +29,7 @@
             out.println("<li><a class=\"dropdown-item\" href=\"#\">");
             out.println("Voir tout");
             out.println("</a></li>");
-            for (Categorie c : r.getCategories()){
+            for (Categorie c : r.getCategories()) {
                 out.println("<li><a class=\"dropdown-item\" href=\"#\">");
                 out.println(c.getLibelleCat());
                 out.println("</a></li>");
