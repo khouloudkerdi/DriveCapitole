@@ -37,10 +37,6 @@
         <servlet-class>neopro.ctrl.CtrlModificationQuantite</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CtrlAjouterProduitPanier</servlet-name>
-        <servlet-class>neopro.ctrl.CtrlAjouterProduitPanier</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CtrlSupprimerProduitPanier</servlet-name>
         <servlet-class>neopro.ctrl.CtrlSupprimerProduitPanier</servlet-class>
     </servlet>
@@ -75,6 +71,10 @@
     <servlet>
         <servlet-name>CtrlTransmettreListePanier</servlet-name>
         <servlet-class>neopro.ctrl.CtrlTransmettreListePanier</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CtrlAjouterProduitPanier</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlAjouterProduitPanier</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>VisualiserPanier</servlet-name>
@@ -141,16 +141,16 @@
         <url-pattern>/CtrlModificationQuantite</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CtrlAjouterProduitPanier</servlet-name>
-        <url-pattern>/CtrlAjouterProduitPanier</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>CtrlSupprimerProduitPanier</servlet-name>
         <url-pattern>/CtrlSupprimerProduitPanier</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CtrlTransmettreListePanier</servlet-name>
         <url-pattern>/CtrlTransmettreListePanier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlAjouterProduitPanier</servlet-name>
+        <url-pattern>/CtrlAjouterProduitPanier</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
