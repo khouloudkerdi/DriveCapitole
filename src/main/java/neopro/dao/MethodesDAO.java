@@ -319,14 +319,18 @@ public class MethodesDAO {
         }
     }
 
-    // 
+    // Fonction pour supprimer une liste de courses
     public static void supprimerListeCourses(long id) {
         /*----- Ouverture de la session -----*/
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
-            ListeCourses l1 = session.get(ListeCourses.class, id);
-            session.delete(l1);
+            ListeCourses l = session.get(ListeCourses.class, id);
+            for (Article b : l.getArticles()) {
+                l.getArticles().remove(b);
+                b.getListeCourses().remove(l);
+            }
+            session.delete(l);
             t.commit(); // Commit et flush automatique de la session.
         }
     }
@@ -370,6 +374,20 @@ public class MethodesDAO {
                     List result = query.list();
             // Envoi du résultat de la requête.
             return result;
+        }
+    }
+    
+    public static long verifierCompte(String mail, String mdp) { 
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();     
+            List<Client> listeC = session.createQuery("from Client ").list();
+            for (Client c:listeC){
+                if ((c.getEmail().equals(mail)) & (c.getMotdepasse().equals(mdp))){
+                    return c.getIdCli();
+                }
+            }
+            long f=0;
+            return f;
         }
     }
 
