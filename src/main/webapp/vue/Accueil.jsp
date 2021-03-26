@@ -66,9 +66,9 @@
 
                                             }%>
                                     </h5></div>
-                                    <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" class="btn btn-secondary mt-3"><i class="fas fa-shopping-cart"></i>Panier</a>
-                                    <a href="Panier" class="btn btn-info mt-3">Liste</a> 
-                                </div>
+                                <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" class="btn btn-secondary mt-3"><i class="fas fa-shopping-cart"></i>Panier</a>
+                                <a href="Panier" class="btn btn-info mt-3">Liste</a> 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -77,3 +77,8 @@
                         out.print(" </div>");
                     }
                 %>
+            </div>
+        </div>
+    </div>
+</body>
+<%@include file="../layout/footerFix.jsp" %>
