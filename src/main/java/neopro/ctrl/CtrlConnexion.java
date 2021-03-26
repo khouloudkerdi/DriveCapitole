@@ -20,10 +20,11 @@ public class CtrlConnexion extends HttpServlet {
         String mdp=request.getParameter("motDePasse");
         long noValide=0;//Si le compte ou le mot de passe est incorrect, renvoyer 0 
         if (MethodesDAO.verifierCompte(mail,mdp)==noValide){
+            //retour à la page connexion si ce n'est pas correst
             request.setAttribute("msg_connexion", "Votre adresse e-mail ou mot de passe est incorrect ! ");
             request.getRequestDispatcher("Connexion").forward(request, response);
         }else{
-           
+            //retour à la page accueil si c'est correst
             request.getSession().setAttribute("idClient",MethodesDAO.verifierCompte(mail,mdp));
             response.sendRedirect("Accueil");
         }
