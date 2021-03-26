@@ -33,7 +33,7 @@
                 <%!
                     private int numCol = 3;
                     private int colCount = 0;
-                    private double produitPromo;
+                    private float produitPromo;
                 %>
 
                 <% if (colCount % numCol == 0) {
@@ -47,7 +47,6 @@
                         <%if (listeArticlesPromo.contains(a)) {
                                 out.print("<span class='spanPromo'>Promotion </span>");
                                 produitPromo = MethodesDAO.calculerPrixPromo(a.getIdArt());
-                                ;
                             }   %>
 
                         <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="Vans">
