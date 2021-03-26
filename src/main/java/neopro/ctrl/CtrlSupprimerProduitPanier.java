@@ -13,19 +13,12 @@ public class CtrlSupprimerProduitPanier extends HttpServlet {
     @Override
     protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
         {    
-        /*----- Type de la réponse -----*/
-        response.setContentType("application/xml;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        
         /*----- Récupération des paramètres -----*/
         long ida = Long.parseLong(request.getParameter("ida"));        
         long idp = Long.parseLong(request.getParameter("idp"));
 
         /*----- Modification de la BD -----*/
         MethodesDAO.supprimerArticlePanier(ida, idp);
-        
-//        request.getRequestDispatcher("VisualiserPanier").forward(request, response);   
-        response.sendRedirect("Panier");
         
         }     
     

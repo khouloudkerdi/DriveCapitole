@@ -74,11 +74,8 @@
                         <div class="col-md-3 colPrixQte">
                             <div class="atCenterAll">
                                 <div class="produitOptions">
-                                    <div style="display: none">
-                                    <%
-                                    out.print(a.getIdArt());
-                                    %>
-                                    </div>
+                                    <span class="ida" style="display: block"><% out.print(a.getIdArt()); %></span>
+                                    <span class="idp" style="display: block"><% out.print(idp); %></span>
                                     <button type="button" name="moins" class="btn btn-secondary btn-sm">-</button>
                                     <span class="qteProduit"><% out.print(qte); %></span>
                                     <button type="button" name="plus" class="btn btn-success btn-sm">+</button>

@@ -78,3 +78,4 @@
                         out.print(" </div>");
                     }
                 %>
+                <%@include file="../layout/footerFix.jsp" %>

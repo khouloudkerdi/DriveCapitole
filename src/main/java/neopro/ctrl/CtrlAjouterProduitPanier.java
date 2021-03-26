@@ -13,20 +13,14 @@ public class CtrlAjouterProduitPanier extends HttpServlet {
 
     @Override
     protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-        {    
-        /*----- Type de la réponse -----*/
-        response.setContentType("application/xml;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        
+        {           
         /*----- Récupération des paramètres -----*/
         long ida = Long.parseLong(request.getParameter("ida"));        
         long idp = Long.parseLong(request.getParameter("idp"));
 
-        /*----- Insertion de la BD -----*/
+        /*----- Modification de la BD -----*/
         MethodesDAO.insererArticlePanier(ida, idp);
-            
-//        request.getRequestDispatcher("VisualiserPanier").forward(request, response);
-        response.sendRedirect("Panier");
+        
         }     
     
     @Override
