@@ -43,6 +43,8 @@
     <servlet>
         <servlet-name>CtrlSupprimerProduitPanier</servlet-name>
         <servlet-class>neopro.ctrl.CtrlSupprimerProduitPanier</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Search</servlet-name>
         <jsp-file>/vue/Search.jsp</jsp-file>
     </servlet>
@@ -113,6 +115,8 @@
     <servlet-mapping>
         <servlet-name>choix</servlet-name>
         <url-pattern>/choix</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>CtrlModificationQuantite</servlet-name>
         <url-pattern>/CtrlModificationQuantite</url-pattern>
     </servlet-mapping>
