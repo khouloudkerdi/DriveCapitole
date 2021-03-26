@@ -342,5 +342,35 @@ public class MethodesDAO {
             return c;
         }
     }
+    // calcule le nombre d'article dans un panier 
+     public static long nbArt(long idPan){
+         /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+             /*----- Ouverture d'une transaction -----*/
+                        Transaction t = session.beginTransaction();
+                     long liste1 = (long) session.createQuery("select sum(a.quantite) " +
+                                         "from AvoirQuantitePanier a " +
+                                         "where a.panier.idPan = 1 ").uniqueResult();       
+        t.commit();// Commit et flush automatique de la session. 
+        /*----- Exit -----*/        
+        return liste1;       
+        }
+    }
+    // recherche dans libelle court des articles 
+    public static List<Article> listRecherche(String search) {
+        /*----- Ouverture de la session -----*/        
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            String var = search;
+             /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+             // Récupération des la liste de recherche.          
+                    String hql = "select a from Article a where a.libelleArt like :rollNumber";
+                    Query query = session.createQuery(hql);
+                    query.setParameter("rollNumber", "%" + var + "%");
+                    List result = query.list();
+            // Envoi du résultat de la requête.
+            return result;
+        }
+    }
 
 }
