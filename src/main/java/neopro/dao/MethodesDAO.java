@@ -86,6 +86,26 @@ public class MethodesDAO {
         }
     }
     
+        public static Integer getPromoPourcentage(Long idArt){
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Article a = session.get(Article.class,idArt);
+            Float prix = a.getPrixArt();
+            
+            String hql = "select p.pourcentagePro "
+                    + "from Promotion p, AvoirPromo ap "
+                    + "where ap.article.idArt = :id "
+                    + "and p.idPro = ap.promotion.idPro "
+                    + "and ap.dateDebut < now() "
+                    + "and ap.datefin > now()";
+            Query query = session.createQuery(hql);
+            query.setParameter("id",a.getIdArt());
+            List<Integer> list = query.list();
+            Integer nbPourcentage = list.get(0);
+            return nbPourcentage;
+        }
+    }
+    
     public static List<Article> listePref() {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
             {
@@ -131,7 +151,7 @@ public class MethodesDAO {
   }}
     
     //Fonction pour recuperer le montant d'un panier
-    public static float montantPanier(long idcli)
+    public static double montantPanier(long idcli)
      {
       try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
           /*----- Ouverture d'une transaction -----*/
@@ -148,8 +168,7 @@ public class MethodesDAO {
                     long idp = panier.getIdPan();
                     Panier p =session.get(Panier.class, idp);
                     Map<Article, AvoirQuantitePanier> listeA = p.getPaniers();
-                    for (Map.Entry mapentry : listeA.entrySet()) {
-                             
+                    for (Map.Entry mapentry : listeA.entrySet()) {   
                              lc.add((Article) mapentry.getKey());
                              Article a=(Article) mapentry.getKey();
                              AvoirQuantitePanier aqp=(AvoirQuantitePanier ) mapentry.getValue();
@@ -158,8 +177,9 @@ public class MethodesDAO {
                     
                 }
             }
-
-            return montant; 
+             BigDecimal montantDecim = new BigDecimal(montant); 
+             double montantfinal = montantDecim.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue(); 
+             return montantfinal;
             }
       
     }
@@ -187,39 +207,99 @@ public class MethodesDAO {
                   
        }
 }
-    public static void insererArticlePanier(long idA,long idpanier) {
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+     //Fonction pour recuperer le montant total d'un article dans un panier d'un client 
+   public static double montantTotaleArticlePanier(long idp,  long idArt)
+     {
+      try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+          /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Panier p =session.get(Panier.class, idp);
+            Article a =session.get(Article.class, idArt);
+            Map<Article, AvoirQuantitePanier> listeA = p.getPaniers();
+            float montant = 0 ;
+            for (Map.Entry mapentry : listeA.entrySet()) 
             {
-                Transaction t = session.beginTransaction();
-                AvoirQuantitePanier qtePanier=null;
-                Panier p=session.get(Panier.class, idpanier);
-                Article a=session.get(Article.class, idA);
-                boolean existe=false;
-                Map<Article, AvoirQuantitePanier> listeArticle=p.getPaniers();
-                
-                for(Map.Entry<Article, AvoirQuantitePanier> entry : listeArticle.entrySet()){
-	            if (entry.getKey().equals(a)){
-                        qtePanier=entry.getValue();
-                        existe=true;                 
-                    }     
-                }              
-                if (existe){
-                    int qte=qtePanier.getQuantite();
-                    qte=qte+1;
-                    qtePanier.setQuantite(qte);
-                    listeArticle.put(a, qtePanier);
-                    p.setPaniers(listeArticle);
-                    session.save(p);                 
-                    t.commit();
-                }else{
-                    AvoirQuantitePanier aqp = new AvoirQuantitePanier(new AvoirQuantitePanierID(idA, idpanier), 1);
-                    session.save(aqp);                 
-                    t.commit(); // Commit et flush automatique de la session.
+                if(mapentry.getKey().equals(a))
+                {   AvoirQuantitePanier aqp=(AvoirQuantitePanier ) mapentry.getValue();
+                    montant=aqp.getQuantite() * a.getPrixArt();
+                    
                 }
             }
+                 System.out.println("MontantArticlePanier----------------------"+montant);
+                 BigDecimal montantDecim = new BigDecimal(montant); 
+                 double eco = montantDecim.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue(); 
+                 return eco;  
+                  
+       }
+}
+
+   
+    // Fonction pour supprimer un produit d'un panier
+    public static void insererArticlePanier(long idA,long idP) {        
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+        {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            
+            // Recuperer l'assosiation 'AvoirQuantitePanier'
+            AvoirQuantitePanier aqp = session.get(AvoirQuantitePanier.class, new AvoirQuantitePanierID(idA,idP));;
+            // Recuperer l'objet 'Panier' par 'idpanier'
+            Panier p = session.get(Panier.class, idP);
+            // Recuperer l'objet 'Article' par 'idA' 
+            Article a = session.get(Article.class, idA);   
+            
+            // si ce produit n'existe pas dans le panier, on l'ajoute a la panier
+            if (aqp==null){
+                AvoirQuantitePanier aqp1 = new AvoirQuantitePanier(new AvoirQuantitePanierID(idA, idP), 1);
+                session.save(aqp1);                 
+            } else {
+                // si la quantite n'est pas de 0, on fait plus 1 de la quantite de ce produit du panier 
+                aqp.setQuantite(aqp.getQuantite()+1);                
+                p.getPaniers().put(a, aqp); 
+            }
+
+            // enregistrer sur BD
+            t.commit();
         }
+    }
 
 
+    // Fonction pour supprimer un produit d'un panier
+    public static void supprimerArticlePanier(long idA,long idP) {        
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+        {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            
+            // Recuperer l'assosiation 'AvoirQuantitePanier'
+            AvoirQuantitePanier aqp = session.get(AvoirQuantitePanier.class, new AvoirQuantitePanierID(idA,idP));;
+            // Recuperer l'objet 'Panier' par 'idpanier'
+            Panier p = session.get(Panier.class, idP);
+            // Recuperer l'objet 'Article' par 'idA' 
+            Article a = session.get(Article.class, idA);               
+
+            // calculer la quantite d'un produit dans ce panier
+            int qte = aqp.getQuantite();
+            qte = qte - 1;
+            // si la quantite est de 0, on supprime ce ligne de contenue du panier
+            if (qte==0){
+                p.getPaniers().remove(a);
+                a.getPaniers().remove(p);
+                session.delete(aqp);                   
+            } else {
+                // si la quantite n'est pas de 0, on change la quantite de ce produit du panier                
+                aqp.setQuantite(qte);
+                p.getPaniers().put(a, aqp); 
+                session.save(p); 
+            } 
+            // enregistrer sur BD
+            t.commit();
+        }
+    }
+
+    
   public static void ajouterArticleListeCourse( long id_art,long id_lis ) {
         /*----- Ouverture de la session -----*/
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -274,16 +354,22 @@ public static long loadPanierClient(long idCli) {
         }
     }
     
+    // Fonction pour supprimer une liste de courses
     public static void supprimerListeCourses(long id) {
         /*----- Ouverture de la session -----*/
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
-            Transaction t = session.beginTransaction();          
-            ListeCourses l1 = session.get(ListeCourses.class,id);
-            session.delete(l1);
+            Transaction t = session.beginTransaction();
+            ListeCourses l = session.get(ListeCourses.class, id);
+            for (Article b : l.getArticles()) {
+                l.getArticles().remove(b);
+                b.getListeCourses().remove(l);
+            }
+            session.delete(l);
             t.commit(); // Commit et flush automatique de la session.
         }
     }
+
     
     
     

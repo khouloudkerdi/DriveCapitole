@@ -7,8 +7,10 @@
  */
 package neopro.dao;
 import com.google.protobuf.TypeProto;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -35,6 +37,7 @@ import neopro.metier.Rayon;
 import neopro.metier.TypePreference;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 public class TestHibernate {
 
@@ -280,91 +283,36 @@ public class TestHibernate {
         }
     }
     
-    public static void insererArticlePanier(long idA,long idpanier) {
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+ //Fonction pour recuperer le montant total d'un article dans un panier d'un client 
+   public static double montantTotaleArticlePanier(long idp,  long idArt)
+     {
+      try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+          /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Panier p =session.get(Panier.class, idp);
+            Article a =session.get(Article.class, idArt);
+            Map<Article, AvoirQuantitePanier> listeA = p.getPaniers();
+            float montant = 0 ;
+            for (Map.Entry mapentry : listeA.entrySet()) 
             {
-                Transaction t = session.beginTransaction();
-                AvoirQuantitePanier qtePanier=null;
-                Panier p=session.get(Panier.class, idpanier);
-                Article a=session.get(Article.class, idA);
-                boolean existe=false;
-                Map<Article, AvoirQuantitePanier> listeArticle=p.getPaniers();
-                
-                for(Map.Entry<Article, AvoirQuantitePanier> entry : listeArticle.entrySet()){
-	            if (entry.getKey().equals(a)){
-                        qtePanier=entry.getValue();
-                        existe=true;                 
-                    }     
-                }    
-                //AvoirQuantitePanier aqp2=listeArticle.get(a);
-                if (existe){
-                    int qte=qtePanier.getQuantite();
-                    qte=qte+1;
-                    qtePanier.setQuantite(qte);
-                    listeArticle.put(a, qtePanier);
-                    p.setPaniers(listeArticle);
-                    session.save(p);                 
-                    t.commit();
-                }else{
-                    AvoirQuantitePanier aqp = new AvoirQuantitePanier(new AvoirQuantitePanierID(idA, idpanier), 1);
-                    session.save(aqp);                 
-                    t.commit(); // Commit et flush automatique de la session.
+                if(mapentry.getKey().equals(a))
+                {   AvoirQuantitePanier aqp=(AvoirQuantitePanier ) mapentry.getValue();
+                    montant=aqp.getQuantite() * a.getPrixArt();
+                    
                 }
             }
-        }
+                 System.out.println("MontantArticlePanier----------------------"+montant);
+                 BigDecimal eco1 = new BigDecimal(montant); 
+                 double eco = eco1.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue(); 
+                 return eco; 
+                  
+       }
+}
+   
 
     
-        public static void supprimerArticlePanier(long idA,long idpanier) {
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
-            {
-                Transaction t = session.beginTransaction();
-                AvoirQuantitePanier qtePanier=null;
-                Panier p=session.get(Panier.class, idpanier);
-                Article a=session.get(Article.class, idA);
-                boolean existe=false;
-                Map<Article, AvoirQuantitePanier> listeArticle=p.getPaniers();
-                
-                //Verifier si le produit 
-                for(Map.Entry<Article, AvoirQuantitePanier> entry : listeArticle.entrySet()){
-	            if (entry.getKey().equals(a)){
-                        qtePanier=entry.getValue();
-                        existe=true;                 
-                    }     
-                }              
-                if (existe){
-                    int qte=qtePanier.getQuantite();
-                    qte=qte-1;
-                    if (qte==0){
-                        qtePanier.setQuantite(qte);
-                        //listeArticle.remove();
-                        p.setPaniers(listeArticle);
-                        session.save(p); 
-                    }else {
-                        qtePanier.setQuantite(qte);
-                        listeArticle.put(a, qtePanier);
-                        p.setPaniers(listeArticle);
-                        session.save(p);                 
-                        t.commit();
-                    }
 
-                }else{
-                    AvoirQuantitePanier aqp = new AvoirQuantitePanier(new AvoirQuantitePanierID(idA, idpanier), 1);
-                    session.save(aqp);                 
-                    t.commit(); // Commit et flush automatique de la session.
-                }
-            }
-        }
-        
-//        
-//        /*----- Ouverture de la session -----*/
-//        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-//            /*----- Ouverture d'une transaction -----*/
-//            Transaction t = session.beginTransaction();          
-//            ListeCourses l1 = session.get(ListeCourses.class,id);
-//            session.delete(l1);
-//            t.commit(); // Commit et flush automatique de la session.
-//        }
-    
+
 
     /**
      * Programme de test.
@@ -372,10 +320,8 @@ public class TestHibernate {
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
-      long a=15;
-      long b=1;
-       MethodesDAO.insererArticlePanier(a,b);
-      
+      // TestHibernate.montantTotaleArticlePanier(1, 3);
+//        TestHibernate.insererArticlePanier(1l, 1l);
         
         /*----- Exit -----*/
         System.exit(0);

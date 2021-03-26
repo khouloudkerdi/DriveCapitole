@@ -23,7 +23,7 @@ public class CtrlInserer extends HttpServlet {
             throws ServletException, IOException {  
         
         // Récuperation des parametres 
-        long idClient=(long) request.getSession().getAttribute("idClient");
+        long idClient=1;
         String idA = request.getParameter("idArt");
         if (idA!=null){
               //Conversion using parseLong(String) method
