@@ -7,46 +7,33 @@ package neopro.ctrl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import neopro.dao.MethodesDAO;
+import neopro.metier.Article;
 
 /**
  *
  * @author 13520
  */
-public class CtrlMenu extends HttpServlet {
+public class CtrlTransmettreListePanier extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
-        String m = request.getParameter("method");
-            
-        // Traitement.
-        switch (m)
-            {
-            case "Liste" :
-                if (request.getSession().getAttribute("idClient")==null){
-                    request.getRequestDispatcher("Connexion").forward(request, response);
-                }else{
-                // Chainage vers la page ListeCourses.jsp
-                    request.getRequestDispatcher("ListeCourses").forward(request, response);   
-                }
-                    break; 
-          
-            case "Connexion" :
-                if (request.getSession().getAttribute("idClient")==null){
-                    // Chainage vers la page Connexion.jsp
-                    request.getRequestDispatcher("Connexion").forward(request, response);
-                   
-                }else{
-                   request.getRequestDispatcher("Accueil").forward(request, response);
-                }
-               break;
-            
-            }
-            
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //obtenir identifiant de liste de courses
+        String idListe=request.getParameter("idListeCourses");
+        //obtenir les articles de la liste
+        ArrayList<Article> listeArticle=MethodesDAO.articleListeCourses(Long.parseLong(idListe));
+        //récuperer le identifiant de client
+        long idClient=(long) request.getSession().getAttribute("idClient");
+        //ajouter les articles au panier
+        for (Article a:listeArticle){
+            MethodesDAO.insererArticlePanier(a.getIdArt(), MethodesDAO.loadPanierClient(idClient));
+        }
+        MethodesDAO.supprimerListeCourses(Long.parseLong(idListe));
+        request.getRequestDispatcher("ListeCourses").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -27,17 +27,17 @@
                     List<Article> listeArticles = new ArrayList();
                     listeArticles.addAll(listeArticlesPromo);
                     listeArticles.addAll(listeArticlesNonPromo);
+                    int numCol = 3;
+                    int colCount = 0;
 
                     for (Article a : listeArticles) {
                 %>
                 <%!
-                    private int numCol = 3;
-                    private int colCount = 0;
                     private float produitPromo;
                 %>
 
                 <% if (colCount % numCol == 0) {
-                        out.print("<div class='row'>");
+                        out.print("<div class='row' style='100%;'>");
                         colCount++;
                     } %>
                 <div class="col-md-4 cardProduit">
@@ -66,9 +66,9 @@
 
                                             }%>
                                     </h5></div>
-                                    <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" class="btn btn-secondary mt-3"><i class="fas fa-shopping-cart"></i>Panier</a>
-                                    <a href="Panier" class="btn btn-info mt-3">Liste</a> 
-                                </div>
+                                <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" class="btn btn-secondary mt-3"><i class="fas fa-shopping-cart"></i>Panier</a>
+                                <a href="Panier" class="btn btn-info mt-3">Liste</a> 
+                            </div>
                         </div>
                     </div>
                 </div>

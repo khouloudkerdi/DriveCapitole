@@ -22,9 +22,12 @@
         for (Rayon r : listR) {
             out.println("<li class=\"nav-item\">");
             out.println("<div class=\"btn-group dropend\">");
-            out.println("<button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\" style=\"width:120px\">");
+            out.println("<form action=CtrlFiltrageParRayon method=GET>");
+            out.println("<button type=\"submit\" class=\"btn btn-primary aria-expanded=\"false\" style=\"width:120px\">");
             out.println(r.getLibelleRay());
             out.println("</button>");
+            out.println("<input type='hidden' id='idRay' name='idRay' value=" + r.getIdRay() + " />");
+            out.println("</form>");
             out.println("<ul class=\"dropdown-menu\">");
             out.println("<li><a class=\"dropdown-item\" href=\"#\">");
             out.println("Voir tout");
