@@ -33,6 +33,18 @@
         <servlet-class>neopro.ctrl.CtrlInserer</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CtrlModificationQuantite</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlModificationQuantite</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CtrlAjouterProduitPanier</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlAjouterProduitPanier</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CtrlSupprimerProduitPanier</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlSupprimerProduitPanier</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Search</servlet-name>
         <jsp-file>/vue/Search.jsp</jsp-file>
     </servlet>
@@ -43,6 +55,18 @@
     <servlet>
         <servlet-name>Connexion</servlet-name>
         <jsp-file>/vue/Connexion.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>CtrlValiderPanier</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlValiderPanier</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>choix</servlet-name>
+        <jsp-file>/vue/choixCreneauMagasin.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>CtrlTransmettreListePanier</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlTransmettreListePanier</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>VisualiserPanier</servlet-name>
@@ -87,6 +111,30 @@
     <servlet-mapping>
         <servlet-name>Connexion</servlet-name>
         <url-pattern>/Connexion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlValiderPanier</servlet-name>
+        <url-pattern>/CtrlValiderPanier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>choix</servlet-name>
+        <url-pattern>/choix</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlModificationQuantite</servlet-name>
+        <url-pattern>/CtrlModificationQuantite</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlAjouterProduitPanier</servlet-name>
+        <url-pattern>/CtrlAjouterProduitPanier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlSupprimerProduitPanier</servlet-name>
+        <url-pattern>/CtrlSupprimerProduitPanier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlTransmettreListePanier</servlet-name>
+        <url-pattern>/CtrlTransmettreListePanier</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

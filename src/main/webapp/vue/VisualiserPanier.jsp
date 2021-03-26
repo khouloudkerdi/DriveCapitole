@@ -15,13 +15,13 @@
 <!DOCTYPE html>
 <%@include file="../layout/headerFix.jsp" %>
 <body id="bodyPanier">
-
+    <form action="CtrlValiderPanier" method="GET">
     <%-- <a href="Accueil" style="padding-left: 10px;padding-top: 5px;">Retour</a> --%>
     <div class="container">
         <div class="row headerPanier">
             <h3>Votre panier</h3>
         </div>
-
+        
         <div class="row" >
             <div class="col-md-8">
                 <h4>Détails panier</h4>
@@ -77,9 +77,11 @@
                         <div class="col-md-3 colPrixQte">
                             <div class="atCenterAll">
                                 <div class="produitOptions">
-                                    <button type="button" action="moins" class="btn btn-secondary btn-sm">-</button>
+                                    <span class="ida" style="display: block"><% out.print(a.getIdArt()); %></span>
+                                    <span class="idp" style="display: block"><% out.print(idp); %></span>
+                                    <button type="button" name="moins" class="btn btn-secondary btn-sm">-</button>
                                     <span class="qteProduit"><% out.print(qte); %></span>
-                                    <button type="button" action="plus" class="btn btn-success btn-sm">+</button>
+                                    <button type="button" name="plus" class="btn btn-success btn-sm">+</button>
                                 </div>
                             </div>
                             <%if (listeArticlesPromo.contains(a)) {
@@ -138,11 +140,13 @@
                 </div>
                 <%--Button Valider--%>
                 <div class="atCenterHorizontal">
-                    <button type="button" action="" class="btn btn-primary">Valider</button>
+                    <button type="submit" class="btn btn-primary">Valider</button>
                 </div>
+                <div class="messageErreur">${requestScope.msg_erreur}</div>
             </div>
         </div>
     </div>
+    </form>
 
 </body>
 <%@include file="../layout/footerFix.jsp" %>

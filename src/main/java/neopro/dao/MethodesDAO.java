@@ -230,28 +230,30 @@ public class MethodesDAO {
         }
     }
 
+  
     // Fonction pour supprimer un produit d'un panier
-    public static void insererArticlePanier(long idA, long idP) {
+    public static void insererArticlePanier(long idA,long idP) {        
         /*----- Ouverture de la session -----*/
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+        {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
-
+            
             // Recuperer l'assosiation 'AvoirQuantitePanier'
-            AvoirQuantitePanier aqp = session.get(AvoirQuantitePanier.class, new AvoirQuantitePanierID(idA, idP));;
+            AvoirQuantitePanier aqp = session.get(AvoirQuantitePanier.class, new AvoirQuantitePanierID(idA,idP));;
             // Recuperer l'objet 'Panier' par 'idpanier'
             Panier p = session.get(Panier.class, idP);
             // Recuperer l'objet 'Article' par 'idA' 
-            Article a = session.get(Article.class, idA);
-
+            Article a = session.get(Article.class, idA);   
+            
             // si ce produit n'existe pas dans le panier, on l'ajoute a la panier
-            if (aqp == null) {
+            if (aqp==null){
                 AvoirQuantitePanier aqp1 = new AvoirQuantitePanier(new AvoirQuantitePanierID(idA, idP), 1);
-                session.save(aqp1);
+                session.save(aqp1);                 
             } else {
                 // si la quantite n'est pas de 0, on fait plus 1 de la quantite de ce produit du panier 
-                aqp.setQuantite(aqp.getQuantite() + 1);
-                p.getPaniers().put(a, aqp);
+                aqp.setQuantite(aqp.getQuantite()+1);                
+                p.getPaniers().put(a, aqp); 
             }
 
             // enregistrer sur BD
@@ -259,41 +261,43 @@ public class MethodesDAO {
         }
     }
 
+
     // Fonction pour supprimer un produit d'un panier
-    public static void supprimerArticlePanier(long idA, long idP) {
+    public static void supprimerArticlePanier(long idA,long idP) {        
         /*----- Ouverture de la session -----*/
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+        {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
-
+            
             // Recuperer l'assosiation 'AvoirQuantitePanier'
-            AvoirQuantitePanier aqp = session.get(AvoirQuantitePanier.class, new AvoirQuantitePanierID(idA, idP));;
+            AvoirQuantitePanier aqp = session.get(AvoirQuantitePanier.class, new AvoirQuantitePanierID(idA,idP));;
             // Recuperer l'objet 'Panier' par 'idpanier'
             Panier p = session.get(Panier.class, idP);
             // Recuperer l'objet 'Article' par 'idA' 
-            Article a = session.get(Article.class, idA);
+            Article a = session.get(Article.class, idA);               
 
             // calculer la quantite d'un produit dans ce panier
             int qte = aqp.getQuantite();
             qte = qte - 1;
             // si la quantite est de 0, on supprime ce ligne de contenue du panier
-            if (qte == 0) {
+            if (qte==0){
                 p.getPaniers().remove(a);
                 a.getPaniers().remove(p);
-                session.delete(aqp);
+                session.delete(aqp);                   
             } else {
                 // si la quantite n'est pas de 0, on change la quantite de ce produit du panier                
                 aqp.setQuantite(qte);
-                p.getPaniers().put(a, aqp);
-                session.save(p);
-            }
+                p.getPaniers().put(a, aqp); 
+                session.save(p); 
+            } 
             // enregistrer sur BD
             t.commit();
         }
     }
 
-    // Fonction pour recuperer la liste d'un panier 
-    public static void ajouterArticleListeCourse(long id_art, long id_lis) {
+    
+  public static void ajouterArticleListeCourse( long id_art,long id_lis ) {
         /*----- Ouverture de la session -----*/
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
@@ -348,11 +352,11 @@ public class MethodesDAO {
             t.commit(); // Commit et flush automatique de la session.
         }
     }
-
+    
     // Fonction pour supprimer une liste de courses
     public static void supprimerListeCourses(long id) {
         /*----- Ouverture de la session -----*/
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             ListeCourses l = session.get(ListeCourses.class, id);
@@ -422,6 +426,19 @@ public class MethodesDAO {
             }
             long f = 0;
             return f;
+        }
+    }
+    
+    //obtenir tous les produit d'une liste de courses
+    public static ArrayList<Article> articleListeCourses(long idListe) { 
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();     
+            Set<Article> lc=session.get(ListeCourses.class,idListe).getArticles();
+            ArrayList<Article> liste2 = new ArrayList<Article>();
+            for (Article a : lc) {
+                    liste2.add(a);
+            }
+            return liste2;
         }
     }
    
