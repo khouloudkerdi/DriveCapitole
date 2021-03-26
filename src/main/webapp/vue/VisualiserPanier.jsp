@@ -16,7 +16,7 @@
 <%@include file="../layout/headerFix.jsp" %>
 <body id="bodyPanier">
     <form action="CtrlValiderPanier" method="GET">
-    <%-- <a href="Accueil" style="padding-left: 10px;padding-top: 5px;">Retour</a> --%>
+    <a href="Accueil" style="padding-left: 10px;padding-top: 5px;">Retour</a>
     <div class="container">
         <div class="row headerPanier">
             <h3>Votre panier</h3>
