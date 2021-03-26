@@ -30,15 +30,18 @@
                     Client client = MethodesDAO.infosClient(idcli);
                 %>
                 <% long idp = 1l; %> 
-                <% double montant = MethodesDAO.montantPanier(idp); %>
-                <% List<Article> listeArticlesPromo = MethodesDAO.listePromo(); %>
-                <% for (Article a : listeArt) { %>
-                <%! private double produitPromo;
-                    private int pourcentage;
-                    private double montantEconomieTotal = 0;
+                <% float montant = MethodesDAO.montantPanier(idp); %>
+                <% List<Article> listeArticlesPromo = MethodesDAO.listePromo(); 
+                   float montantEconomieTotal=0f;
+                   
                 %>
-                <% int qte = MethodesDAO.QuantiteArticlePanier(idcli, a.getIdArt()); %>
-                <% double montantArticle = MethodesDAO.montantTotaleArticlePanier(idp, a.getIdArt());
+                <% for (Article a : listeArt) { %>
+                <%! private float produitPromo;
+                    private int pourcentage;
+                   
+                %>
+                <%  int qte = MethodesDAO.QuantiteArticlePanier(idcli, a.getIdArt()); %>
+                <% float montantArticle = MethodesDAO.montantTotaleArticlePanier(idp, a.getIdArt());
 
                 %>
                 <div class="panierProduit">
@@ -80,9 +83,9 @@
                                 </div>
                             </div>
                             <%if (listeArticlesPromo.contains(a)) {
-                                    double montanteco = produitPromo * qte;
+                                    float montanteco = produitPromo * qte;
                                     BigDecimal montantEcoDecim = new BigDecimal(montanteco);
-                                    double eco = montantEcoDecim.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                                    float eco = montantEcoDecim.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
                                     out.print("<div class='atCenterHorizontal'><span class='spanPromo'>" + eco + " € d'éco!</span></div>");
                                     montantEconomieTotal = montantEconomieTotal + eco;
                                 }
@@ -98,7 +101,7 @@
             <div class="col-md-4">
                 
                 <%--Partie Récapitulatif--%>
-                <h4> Récapitulatif </h4>
+                <h4>Paiement</h4>
                 <div class="recapPanier">
                     <div class="recapPanierInfo">
                         <span class="titreValeurPanier">Sous total :</span>
@@ -106,12 +109,16 @@
                     </div>
                     <div class="recapPanierInfo">
                         <span class="titreEconomiePanier">Economie :</span>
-                        <span class="valeurEconomiePanier"><% out.print("<span class='spanPromo'>" + montantEconomieTotal + "€</span>");%>  </span>    
+                        <% BigDecimal montantEconomieTotalD = new BigDecimal(montantEconomieTotal);
+                            float montantEcoTotalF = montantEconomieTotalD.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();%>
+                        <span class="valeurEconomiePanier"><% out.print("<span class='spanPromo'>" + montantEcoTotalF + "€</span>");%>  </span>    
                     </div>
                     <div class="recapPanierInfo">
                         <span class="titreTotalPanier">Total à payer :</span>
-                        <% double montantTotalPanier = montant - montantEconomieTotal;  %>
-                        <span class="valeurTotalPanier"> <% out.print(montantTotalPanier);%> € </span>   
+                        <% float montantTotalPanier = montant - montantEconomieTotal;
+                                BigDecimal montantTotalPanierD = new BigDecimal(montantTotalPanier);
+                                    float montantTotalAPayer = montantTotalPanierD.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();%>
+                        <span class="valeurTotalPanier"> <% out.print(montantTotalAPayer);%> € </span>   
                     </div>
                 </div>
                     
@@ -129,7 +136,6 @@
                         <span class="valeurPointsFidelite"><% out.print((int) (m));%></span>                         
                     </div>
                 </div>
-                <p class="styleFontGris styleFontItalic">* Vous avez besoin de vous connecter pour profiter des avantages</p>
                 <%--Button Valider--%>
                 <div class="atCenterHorizontal">
                     <button type="button" action="CtrlValiderPanier" class="btn btn-primary">Valider</button>
