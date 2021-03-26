@@ -10,7 +10,6 @@
 <%@page import="neopro.metier.Article"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
 <%@include file="../layout/headerFix.jsp" %>
 <body id="bodyAccueil">
     <div class="container">
@@ -22,19 +21,18 @@
                 <%@include file="../layout/menu.jsp" %>
             </div>
             <div id ="col-md-10" class="col-md-10">
-               
-                <%  
-                    String search = request.getParameter("searchWord");                    
+
+                <%                    String search = request.getParameter("searchWord");
                     List<Article> listeArticlesPromo = MethodesDAO.listePromo();
                     List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
                     List<Article> listeSearch = MethodesDAO.listRecherche(search);
                     List<Article> listeArticles = new ArrayList();
-                    listeArticles.addAll(listeSearch);                    
+                    listeArticles.addAll(listeSearch);
 
                     for (Article a : listeArticles) {
-                        
+
                 %>
-                
+
                 <%!
                     private int numCol = 3;
                     private int colCount = 0;
@@ -72,9 +70,9 @@
 
                                             }%>
                                     </h5></div>
-                                    <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" class="btn btn-secondary mt-3"><i class="fas fa-shopping-cart"></i>Panier</a>
-                                    <a href="Panier" class="btn btn-info mt-3">Liste</a> 
-                                </div>
+                                <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" class="btn btn-secondary mt-3"><i class="fas fa-shopping-cart"></i>Panier</a>
+                                <a href="Panier" class="btn btn-info mt-3">Liste</a> 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -82,4 +80,9 @@
                     if (colCount % numCol == 0) {
                         out.print(" </div>");
                     }
-%></div></div></div>
+                %>
+            </div>
+        </div>
+    </div>
+</body>
+<%@include file="../layout/footerFix.jsp" %>
