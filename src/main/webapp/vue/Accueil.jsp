@@ -67,9 +67,11 @@
                                             }%>
                                     </h5></div>
                                 <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" class="btn btn-secondary mt-3"><i class="fas fa-shopping-cart"></i>Panier</a>
-                                <%                                    
+                              <%     
+                            
                                     if (request.getSession().getAttribute("idClient")!=null ){       
-                                        long idClient=(long) request.getSession().getAttribute("idClient");
+                                        //long idClient=(long) request.getSession().getAttribute("idClient");
+                                        long idClient = ((Number) request.getSession().getAttribute("idClient")).longValue();
                                         if (MethodesDAO.getListeCourses(idClient).size()!=0){
                                         
                                 %>

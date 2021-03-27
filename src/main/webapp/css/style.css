@@ -175,3 +175,37 @@
     margin-top: 20vh;
     box-shadow: -1px 4px 26px 11px rgba(255, 255, 255, 0.5); 
 }
+/***************************/
+/***ListeCourses.jsp**/
+/****************************/
+
+#bodyListeCourses h3 ,
+#bodyNouvelleListe h3{
+    text-align: center;
+    text-transform: uppercase;
+    margin: 20px 0;
+}
+#bodyListeCourses table{
+    border: 1;
+}
+
+#bodyListeCourses table th {
+    text-align: center;
+}
+#bodyListeCourses table tr {
+    text-transform: uppercase
+}
+#bodyListeCourses .btnContainer,
+#bodyNouvelleListe .btnContainer
+{
+    display: flex;
+    justify-content: space-between;
+}
+/***************************/
+/***AjouterCourses.jsp**/
+/****************************/
+#bodyNouvelleListe .btnContainer{
+    margin: 15px 10px;
+}
+
+
