@@ -32,7 +32,6 @@ public class CtrlTransmettreListePanier extends HttpServlet {
         for (Article a:listeArticle){
             MethodesDAO.insererArticlePanier(a.getIdArt(), MethodesDAO.loadPanierClient(idClient));
         }
-        MethodesDAO.supprimerListeCourses(Long.parseLong(idListe));
         request.getRequestDispatcher("ListeCourses").forward(request, response);
     }
 
