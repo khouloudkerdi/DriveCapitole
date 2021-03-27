@@ -20,6 +20,16 @@
             </div>
             <div class="col-xs-6 col-sm-1"></div> 
         </div>
+        </form>
+        <div><font color="#FF0000">${requestScope.msg_sup}</font></div>
+        <br/>
+        <a class="btn btn-primary" data-bs-toggle="collapse" href="AjouterCourses" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Ajouter une nouvelle liste</a>
+        <br/><br/>
+        
+         <a href="Accueil" role="button" aria-expanded=false aria-controls="collapseExample" class="btn btn-warning" data-bs-toggle="collapse">Retour à la page d'accueil</a>
+       
+    </body>
+</html>
         <div class="row">
             <div class="col-xs-6 col-sm-1"></div>
             <div class="col-xs-6 col-sm-10">

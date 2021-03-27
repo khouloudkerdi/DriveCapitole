@@ -3,7 +3,6 @@
 
 
 }
-
 /***************************/
 /***Accueil.jsp**/
 /****************************/
@@ -187,6 +186,7 @@
     margin-top: 20vh;
     box-shadow: -1px 4px 26px 11px rgba(255, 255, 255, 0.5); 
 }
+
 /***************************/
 /***ListeCourses.jsp**/
 /****************************/
@@ -241,3 +241,25 @@
   color: red;
   font-size: large; 
 }
+
+
+.contenant {
+  position: relative;
+  text-align: center;
+  color: red;
+  font-weight: bold;
+  padding-right: 10px;
+  padding-top: 7px;
+  margin-left: 5px;
+}
+
+.texte_centrer {
+  position: absolute;
+  top: 20%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  font: bond;
+  color: red;
+  font-size: large; 
+}
+

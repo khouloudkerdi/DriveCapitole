@@ -29,10 +29,6 @@
         <servlet-class>neopro.ctrl.CtrlMenu</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CtrlInserer</servlet-name>
-        <servlet-class>neopro.ctrl.CtrlInserer</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CtrlModificationQuantite</servlet-name>
         <servlet-class>neopro.ctrl.CtrlModificationQuantite</servlet-class>
     </servlet>
@@ -111,10 +107,6 @@
     <servlet-mapping>
         <servlet-name>CtrlMenu</servlet-name>
         <url-pattern>/CtrlMenu</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CtrlInserer</servlet-name>
-        <url-pattern>/CtrlInserer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Search</servlet-name>
