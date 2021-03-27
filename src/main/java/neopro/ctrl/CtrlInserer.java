@@ -21,15 +21,21 @@ public class CtrlInserer extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {  
-        
+         if (request.getSession().getAttribute("idClient")==null){
+            request.getRequestDispatcher("Connexion").forward(request, response);
+         }else{
         long idClient=(long ) request.getSession().getAttribute("idClient");
          // Ajouter au panier
         String idA = request.getParameter("idArt");
-        if (idA!=null){
+       
+       
+            if (idA!=null){
              //Conversion using parseLong(String) method
 	    long idArt = Long.parseLong(idA);
             MethodesDAO.insererArticlePanier(idArt,MethodesDAO.loadPanierClient(idClient));
          }
+        }
+        
         
          //// Ajouter à la liste de courses
         String l=request.getParameter("idListeCourses");
