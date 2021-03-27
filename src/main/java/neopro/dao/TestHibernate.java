@@ -144,7 +144,7 @@ public class TestHibernate {
             Categorie c1 = session.get(Categorie.class, 1l);
             Marque m1 = session.get(Marque.class, 2l);
             
-            Article a1 = new Article ("l","f","u","c","d",NutriscoreArticle.A,1,1,true,"t",1,c1,m1);
+            Article a1 = new Article ("l","f","u","c","d",NutriscoreArticle.A,1,1,true,"t","1",c1,m1);
             System.out.println("Article Insere:-------------"+a1);
             session.save(a1);
             t.commit(); // Commit et flush automatique de la session.
@@ -352,7 +352,7 @@ public class TestHibernate {
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
-     //TestHibernate.ajouterArticle();
+      TestHibernate.ajouterArticle();
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
 
       

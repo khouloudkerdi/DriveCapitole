@@ -41,7 +41,7 @@ public class Article implements Serializable{
     private long eanArt;
     private boolean bioArt;
     private String typePrix ;
-    private float  prixKgArt ;
+    private String  prixKgArt ;
     
     //Relation "Posseder"
     @ManyToOne(fetch = FetchType.LAZY)
@@ -80,7 +80,7 @@ public class Article implements Serializable{
     //Constructeurs 
     public Article() {}
 
-    public Article( String libelleArt, String formatArt, String urlImageArt, String condArt, String descriptionArt, NutriscoreArticle nutriscoreArt, float prixArt, long eanArt, boolean bioArt, String typePrix, float prixKgArt, Categorie categorie, Marque marque) {
+    public Article( String libelleArt, String formatArt, String urlImageArt, String condArt, String descriptionArt, NutriscoreArticle nutriscoreArt, float prixArt, long eanArt, boolean bioArt, String typePrix, String prixKgArt, Categorie categorie, Marque marque) {
      
         this.libelleArt = libelleArt;
         this.formatArt = formatArt;
@@ -134,8 +134,8 @@ public class Article implements Serializable{
     public void setPaniers(Map<Panier, AvoirQuantitePanier> paniers) {this.paniers = paniers;}
     public Set<ListeCourses> getListeCourses() {return listeCourses;}
     public void setListeCourses(Set<ListeCourses> listeCourses) { this.listeCourses = listeCourses;}
-    public float getPrixKgArt() {return prixKgArt;}
-    public void setPrixKgArt(float prixKgArt) { this.prixKgArt = prixKgArt;}
+    public String getPrixKgArt() {return prixKgArt;}
+    public void setPrixKgArt(String prixKgArt) { this.prixKgArt = prixKgArt;}
     
     //Methodes.
     //Methodes Surchargées.
