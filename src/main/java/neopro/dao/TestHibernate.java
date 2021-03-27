@@ -144,15 +144,13 @@ public class TestHibernate {
             Categorie c1 = session.get(Categorie.class, 1l);
             Marque m1 = session.get(Marque.class, 2l);
             
-            Article a1 = new Article ("Nestlé Naturnes carotte haricot vert potiron","pot","","c"
-                    + "6x130g","NATURNES sélectionne avec le plus grand soin de bons ingrédients 100% d’origine naturelle* et préserve leur saveur pour faire découvrir à votre bébé le bon goût des différents ingrédients."
-                            + "",NutriscoreArticle.A,1,1223,true,"ty",c1,m1);
+            Article a1 = new Article ("l","f","u","c","d",NutriscoreArticle.A,1,1,true,"t",1,c1,m1);
             System.out.println("Article Insere:-------------"+a1);
             session.save(a1);
             t.commit(); // Commit et flush automatique de la session.
         }
     }
-    
+  
      //Function pour ajouter un Label a un article 
     
     public static void ajouterLabelArticle( long id_art,long id_lab ) {
@@ -354,7 +352,7 @@ public class TestHibernate {
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
-     TestHibernate.ListeArticlesParCategorie("4","2");
+     //TestHibernate.ajouterArticle();
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
 
       

@@ -22,7 +22,7 @@ public class HibernateUtil {
             configuration.addAnnotatedClass(neopro.metier.Rayon.class);
             configuration.addAnnotatedClass(neopro.metier.Categorie.class);
             configuration.addAnnotatedClass(neopro.metier.Marque.class);
-            configuration.addAnnotatedClass(neopro.metier.Magasin.class);
+           // configuration.addAnnotatedClass(neopro.metier.Magasin.class);
             configuration.addAnnotatedClass(neopro.metier.Label.class);
             configuration.addAnnotatedClass(neopro.metier.Article.class);
             configuration.addAnnotatedClass(neopro.metier.Promotion.class);

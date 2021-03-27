@@ -496,10 +496,6 @@ public class MethodesDAO {
                     }
                }
             }   
-                for(Article a :listearticles)
-                {
-                    System.out.println(a.toString());
-                }
                 return listearticles ;     
         }
            
