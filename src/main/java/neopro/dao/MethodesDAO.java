@@ -508,6 +508,14 @@ public class MethodesDAO {
         }
            
     }
+     
+     public static ListeCourses loadListeCourses(long idListe){
+         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+          /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            return session.get(ListeCourses.class, idListe);
+         }
+     }
 }
    
 
