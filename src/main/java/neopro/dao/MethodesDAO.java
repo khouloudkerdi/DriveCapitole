@@ -468,6 +468,42 @@ public class MethodesDAO {
             return liste2;
         }
     }
+      //Recuperation de la liste d'articles par Categorie.
+     public static List<Article> ListeArticlesParCategorie(String idRay,String idCat){
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+          /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            // Caster identifiant Rayon et Categorie.
+            long idRayon = Long.parseLong(idRay);
+            long idCategorie = Long.parseLong(idCat);
+            // On recupere l'objet Rayon.
+            Rayon rayon = session.get(Rayon.class,idRayon);
+            // On recupere la liste des categories d'un Rayon.
+            Set<Categorie> l_categories = rayon.getCategories();
+            //Creation de liste d'articles 
+            List<Article> listearticles = new ArrayList<Article>();
+            // Parcourir la liste de categorie d'un rayon et s'il existe la categorie recherche on ajoute
+            // ses articles a la liste d'articles.
+            for(Categorie c :l_categories)
+            {  
+               if(c.getIdCat()== idCategorie)
+               {
+                   Categorie cat = session.get(Categorie.class, c.getIdCat());
+                   Set<Article> l_articles = cat.getArticles() ;
+                   for(Article a :l_articles)
+                    {
+                       listearticles.add(a);
+                    }
+               }
+            }   
+                for(Article a :listearticles)
+                {
+                    System.out.println(a.toString());
+                }
+                return listearticles ;     
+        }
+           
+    }
 }
    
 
