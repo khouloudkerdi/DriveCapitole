@@ -360,9 +360,13 @@ public class MethodesDAO {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             ListeCourses l = session.get(ListeCourses.class, id);
+            ArrayList<Article> listeArticle=new ArrayList<>();
             for (Article b : l.getArticles()) {
-                l.getArticles().remove(b);
+                listeArticle.add(b);
                 b.getListeCourses().remove(l);
+            }
+            for (Article a:listeArticle){
+                l.getArticles().remove(a);
             }
             session.delete(l);
             t.commit(); // Commit et flush automatique de la session.

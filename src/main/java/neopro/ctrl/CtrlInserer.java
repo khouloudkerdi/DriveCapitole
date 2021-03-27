@@ -22,8 +22,8 @@ public class CtrlInserer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {  
         
-        // Ajouter au panier
-        long idClient=1;
+        long idClient=(long ) request.getSession().getAttribute("idClient");
+         // Ajouter au panier
         String idA = request.getParameter("idArt");
         if (idA!=null){
              //Conversion using parseLong(String) method
@@ -32,11 +32,11 @@ public class CtrlInserer extends HttpServlet {
          }
         
          //// Ajouter à la liste de courses
-        String l=(request.getParameter("btnListeCourses"));
+        String l=request.getParameter("idListeCourses");
         if (l!=null){
         String[] ls = l.split(",");
-        Long idArticle= Long.parseLong(ls[1]);
-        Long idListeC= Long.parseLong(ls[0]);
+        Long idArticle= Long.parseLong(ls[0]);
+        Long idListeC= Long.parseLong(ls[1]);
         MethodesDAO.ajouterArticleListeCourse(idArticle, idListeC);
         }
              response.sendRedirect("Accueil");
