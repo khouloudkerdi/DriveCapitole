@@ -37,10 +37,6 @@
         <servlet-class>neopro.ctrl.CtrlModificationQuantite</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CtrlAjouterProduitPanier</servlet-name>
-        <servlet-class>neopro.ctrl.CtrlAjouterProduitPanier</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CtrlSupprimerProduitPanier</servlet-name>
         <servlet-class>neopro.ctrl.CtrlSupprimerProduitPanier</servlet-class>
     </servlet>
@@ -65,8 +61,24 @@
         <jsp-file>/vue/choixCreneauMagasin.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>CtrlFiltrageParRayon</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlFiltrageParRayon</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>filtrerArticlesParRayon</servlet-name>
+        <jsp-file>/vue/filtrerArticlesParRayon.jsp</jsp-file>
+    </servlet>
+    <servlet>
         <servlet-name>CtrlTransmettreListePanier</servlet-name>
         <servlet-class>neopro.ctrl.CtrlTransmettreListePanier</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CtrlAjouterProduitPanier</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlAjouterProduitPanier</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CtrlFiltrageParCategorie</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlFiltrageParCategorie</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>VisualiserPanier</servlet-name>
@@ -121,12 +133,16 @@
         <url-pattern>/choix</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CtrlModificationQuantite</servlet-name>
-        <url-pattern>/CtrlModificationQuantite</url-pattern>
+        <servlet-name>CtrlFiltrageParRayon</servlet-name>
+        <url-pattern>/CtrlFiltrageParRayon</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CtrlAjouterProduitPanier</servlet-name>
-        <url-pattern>/CtrlAjouterProduitPanier</url-pattern>
+        <servlet-name>filtrerArticlesParRayon</servlet-name>
+        <url-pattern>/filtrerArticlesParRayon</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlModificationQuantite</servlet-name>
+        <url-pattern>/CtrlModificationQuantite</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CtrlSupprimerProduitPanier</servlet-name>
@@ -135,6 +151,14 @@
     <servlet-mapping>
         <servlet-name>CtrlTransmettreListePanier</servlet-name>
         <url-pattern>/CtrlTransmettreListePanier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlAjouterProduitPanier</servlet-name>
+        <url-pattern>/CtrlAjouterProduitPanier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlFiltrageParCategorie</servlet-name>
+        <url-pattern>/CtrlFiltrageParCategorie</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -22,12 +22,13 @@
             </div>
             <div id ="col-md-10" class="col-md-10">
 
-                <%  String search = request.getParameter("searchWord");
+                <%  //String search = request.getParameter("searchWord");
+                    List<Article> liste_articles = (List<Article>)request.getAttribute("liste_articles");
                     List<Article> listeArticlesPromo = MethodesDAO.listePromo();
                     List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
-                    List<Article> listeSearch = MethodesDAO.listRecherche(search);
+                    //List<Article> listeSearch = MethodesDAO.listRecherche(search);
                     List<Article> listeArticles = new ArrayList();
-                    listeArticles.addAll(listeSearch);
+                    listeArticles.addAll(liste_articles);
                     int numCol = 3;
                     int colCount = 0;
 
@@ -81,9 +82,8 @@
                         out.print(" </div>");
                     }
                 %>
-                </div>
             </div>
         </div>
+    </div>
 </body>
 <%@include file="../layout/footerFix.jsp" %>
-

@@ -429,6 +429,33 @@ public class MethodesDAO {
         }
     }
     
+    //Recuperation de la liste d'articles par rayon.
+     public static List<Article> ListeArticlesParRayon(String idRay){
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+          /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            long id = Long.parseLong(idRay);
+            Rayon rayon = session.get(Rayon.class,id);
+            Set<Categorie> l_categories = rayon.getCategories();
+            List<Article> listearticles = new ArrayList<Article>();
+            for(Categorie c :l_categories)
+            {
+               long idCat = c.getIdCat() ;
+               Categorie cat = session.get(Categorie.class, idCat);
+               Set<Article> l_articles = cat.getArticles() ;
+               
+               for(Article a :l_articles)
+               {
+                  listearticles.add(a);
+               }
+            }   
+                for(Article a :listearticles)
+                {
+                    System.out.println(a.toString());
+                }
+                return listearticles ;     
+        }
+     }   
     //obtenir tous les produit d'une liste de courses
     public static ArrayList<Article> articleListeCourses(long idListe) { 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -441,5 +468,42 @@ public class MethodesDAO {
             return liste2;
         }
     }
-   
+      //Recuperation de la liste d'articles par Categorie.
+     public static List<Article> ListeArticlesParCategorie(String idRay,String idCat){
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+          /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            // Caster identifiant Rayon et Categorie.
+            long idRayon = Long.parseLong(idRay);
+            long idCategorie = Long.parseLong(idCat);
+            // On recupere l'objet Rayon.
+            Rayon rayon = session.get(Rayon.class,idRayon);
+            // On recupere la liste des categories d'un Rayon.
+            Set<Categorie> l_categories = rayon.getCategories();
+            //Creation de liste d'articles 
+            List<Article> listearticles = new ArrayList<Article>();
+            // Parcourir la liste de categorie d'un rayon et s'il existe la categorie recherche on ajoute
+            // ses articles a la liste d'articles.
+            for(Categorie c :l_categories)
+            {  
+               if(c.getIdCat()== idCategorie)
+               {
+                   Categorie cat = session.get(Categorie.class, c.getIdCat());
+                   Set<Article> l_articles = cat.getArticles() ;
+                   for(Article a :l_articles)
+                    {
+                       listearticles.add(a);
+                    }
+               }
+            }   
+                for(Article a :listearticles)
+                {
+                    System.out.println(a.toString());
+                }
+                return listearticles ;     
+        }
+           
+    }
 }
+   
+
