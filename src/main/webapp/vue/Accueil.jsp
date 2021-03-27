@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="neopro.metier.NutriscoreArticle"%>
 <%@page import="neopro.metier.ListeCourses"%>
 <%@page import="java.util.List"%>
 <%@page import="neopro.metier.Article"%>
@@ -63,6 +64,24 @@
                                     out.print(a.getPrixKgArt()); 
                                 %>
                             </P>
+                            <p>
+                                <% if (a.getNutriscoreArt()==NutriscoreArticle.A){%>
+                                <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/nutri_a.png" alt="Vans">
+                                <%}%>
+                                <% if (a.getNutriscoreArt()==NutriscoreArticle.B){%>
+                                <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/nutri_b.png" alt="Vans">
+                                <%}%>
+                                <% if (a.getNutriscoreArt()==NutriscoreArticle.C){%>
+                                <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/nutri_c.png" alt="Vans">
+                                <%}%>
+                                <% if (a.getNutriscoreArt()==NutriscoreArticle.D){%>
+                                <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/nutri_d.png" alt="Vans">
+                                <%}%>
+                                <% if (a.getNutriscoreArt()==NutriscoreArticle.E){%>
+                                <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/nutri_e.png" alt="Vans">
+                                <%}%>  
+                                
+                            </p>
                             <p class="card-text">  </p>
                             <div class="buy d-flex justify-content-between align-items-center">
                                 <div class="price text-success">

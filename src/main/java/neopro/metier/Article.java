@@ -145,6 +145,7 @@ public class Article implements Serializable{
         return "Article{" + "idArt=" + idArt + ", libelleArt=" + libelleArt + ", formatArt=" + formatArt + ", urlImageArt=" + urlImageArt + ", condArt=" + condArt + ", descriptionArt=" + descriptionArt + ", nutriscoreArt=" + nutriscoreArt + ", prixArt=" + prixArt + ", eanArt=" + eanArt + ", bioArt=" + bioArt + ", typePrix=" + typePrix + ", prixKgArt=" + prixKgArt + ", categorie=" + categorie + ", marque=" + marque + ", labels=" + labels + ", promotions=" + promotions + ", paniers=" + paniers + ", listeCourses=" + listeCourses + '}';
     }
 
+
     @Override
     public int hashCode() {
         int hash = 5;

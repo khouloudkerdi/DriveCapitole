@@ -343,7 +343,28 @@ public class TestHibernate {
            
     }
    
+  //Recuperation de la liste d'articles par rayon.
+    public static List<Article> ListeArticlesParRayon(String idRay){
+           try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+             /*----- Ouverture d'une transaction -----*/
+               Transaction t = session.beginTransaction();
+               long id = Long.parseLong(idRay);
+               Rayon rayon = session.get(Rayon.class,id);
+               Set<Categorie> l_categories = rayon.getCategories();
+               List<Article> listearticles = new ArrayList<Article>();
+               for(Categorie c :l_categories)
+               {
 
+                  Set<Article> l_articles = c.getArticles() ;
+
+                  for(Article a :l_articles)
+                  {
+                     listearticles.add(a);
+                  }
+               }   
+                   return listearticles ;     
+           }
+        }
 
 
     /**
@@ -352,7 +373,8 @@ public class TestHibernate {
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
-      TestHibernate.ajouterArticle();
+      //TestHibernate.ajouterArticle();
+      TestHibernate.ListeArticlesParRayon("2" );
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
 
       

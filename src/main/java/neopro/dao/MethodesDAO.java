@@ -435,31 +435,26 @@ public class MethodesDAO {
     
     //Recuperation de la liste d'articles par rayon.
      public static List<Article> ListeArticlesParRayon(String idRay){
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-          /*----- Ouverture d'une transaction -----*/
-            Transaction t = session.beginTransaction();
-            long id = Long.parseLong(idRay);
-            Rayon rayon = session.get(Rayon.class,id);
-            Set<Categorie> l_categories = rayon.getCategories();
-            List<Article> listearticles = new ArrayList<Article>();
-            for(Categorie c :l_categories)
-            {
-               long idCat = c.getIdCat() ;
-               Categorie cat = session.get(Categorie.class, idCat);
-               Set<Article> l_articles = cat.getArticles() ;
-               
-               for(Article a :l_articles)
+           try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+             /*----- Ouverture d'une transaction -----*/
+               Transaction t = session.beginTransaction();
+               long id = Long.parseLong(idRay);
+               Rayon rayon = session.get(Rayon.class,id);
+               Set<Categorie> l_categories = rayon.getCategories();
+               List<Article> listearticles = new ArrayList<Article>();
+               for(Categorie c :l_categories)
                {
-                  listearticles.add(a);
-               }
-            }   
-                for(Article a :listearticles)
-                {
-                    System.out.println(a.toString());
-                }
-                return listearticles ;     
+
+                  Set<Article> l_articles = c.getArticles() ;
+
+                  for(Article a :l_articles)
+                  {
+                     listearticles.add(a);
+                  }
+               }   
+                   return listearticles ;     
+           }
         }
-     }   
     //obtenir tous les produit d'une liste de courses
     public static ArrayList<Article> articleListeCourses(long idListe) { 
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {

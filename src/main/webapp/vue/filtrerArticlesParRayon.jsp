@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="neopro.metier.NutriscoreArticle"%>
 <%@page import="neopro.metier.ListeCourses"%>
 <%@page import="java.util.List"%>
 <%@page import="neopro.metier.Article"%>
@@ -56,8 +57,36 @@
 
                         <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="Vans">
                         <div class="card-body">
-                            <a> <h5 class="card-title"><% out.print(a.getLibelleArt());%></h5></a>
-                            <h6 class="card-subtitle mb-2 text-muted"> <b>Format : </b> <% out.print(a.getFormatArt());%> </h6>
+                             <a> <h5 class="card-title"><% out.print(a.getLibelleArt());%></h5></a><br>
+                            <P class="card-subtitle mb-2 text-muted">
+                                <span class="infosproduits"><% out.print(a.getFormatArt());%></span>
+                                <% if(a.getCondArt()!=null)
+                                    {
+                                %>
+                                <span class="infosproduits"><% out.print(a.getCondArt()); %> </span>
+                                <% } %>
+                                <% 
+                                    out.print(a.getPrixKgArt()); 
+                                %>
+                            </P>
+                            <p>
+                                <% if (a.getNutriscoreArt()==NutriscoreArticle.A){%>
+                                <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/nutri_a.png" alt="Vans">
+                                <%}%>
+                                <% if (a.getNutriscoreArt()==NutriscoreArticle.B){%>
+                                <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/nutri_b.png" alt="Vans">
+                                <%}%>
+                                <% if (a.getNutriscoreArt()==NutriscoreArticle.C){%>
+                                <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/nutri_c.png" alt="Vans">
+                                <%}%>
+                                <% if (a.getNutriscoreArt()==NutriscoreArticle.D){%>
+                                <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/nutri_d.png" alt="Vans">
+                                <%}%>
+                                <% if (a.getNutriscoreArt()==NutriscoreArticle.E){%>
+                                <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/nutri_e.png" alt="Vans">
+                                <%}%>  
+                                
+                            </p>
                             <p class="card-text">  </p>
                             <div class="buy d-flex justify-content-between align-items-center">
                                 <div class="price text-success">
@@ -72,7 +101,30 @@
                                             }%>
                                     </h5></div>
                                 <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" class="btn btn-secondary mt-3"><i class="fas fa-shopping-cart"></i>Panier</a>
-                                <a href="Panier" class="btn btn-info mt-3">Liste</a> 
+                                <%                                    
+                                    if (request.getSession().getAttribute("idClient")!=null ){       
+                                        long idClient=(long) request.getSession().getAttribute("idClient");
+                                        if (MethodesDAO.getListeCourses(idClient).size()!=0){
+                                        
+                                %>
+                                <ul class="nav flex-column mt-3">
+                                    <li class="nav-item">
+                                        <div class="btn-group dropend">
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Liste
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <%
+                                                    ArrayList<ListeCourses> listeListeCourses=MethodesDAO.getListeCourses(idClient);   
+                                                    for (ListeCourses lc: listeListeCourses){
+                                                        out.print("<li><a class=dropdown-item href=CtrlInserer?idListeCourses="+a.getIdArt()+","+lc.getIdLis()+">"+lc.getNomLis()+"</a></li>");
+                                                    }
+                                                %>
+                                            </ul>
+                                        </div>    
+                                    </li>
+                                </ul>
+                                <%  } } %>
                             </div>
                         </div>
                     </div>
@@ -82,8 +134,9 @@
                         out.print(" </div>");
                     }
                 %>
+                </div>
             </div>
         </div>
-    </div>
 </body>
 <%@include file="../layout/footerFix.jsp" %>
+
