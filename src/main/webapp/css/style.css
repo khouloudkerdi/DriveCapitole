@@ -17,6 +17,12 @@
     
     
 }
+#bodyAccueil .infosproduits{
+    border-radius: 4px;
+    padding: 3px ;
+    border :1px solid #555 ;
+    margin-right: 4px;
+}
 #bodyAccueil .spanPromo{
     float: right;
     margin: 15px;
