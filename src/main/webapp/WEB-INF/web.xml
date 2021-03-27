@@ -76,6 +76,10 @@
         <servlet-name>CtrlAjouterProduitPanier</servlet-name>
         <servlet-class>neopro.ctrl.CtrlAjouterProduitPanier</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CtrlFiltrageParCategorie</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlFiltrageParCategorie</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>VisualiserPanier</servlet-name>
         <url-pattern>/Panier</url-pattern>
@@ -151,6 +155,10 @@
     <servlet-mapping>
         <servlet-name>CtrlAjouterProduitPanier</servlet-name>
         <url-pattern>/CtrlAjouterProduitPanier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlFiltrageParCategorie</servlet-name>
+        <url-pattern>/CtrlFiltrageParCategorie</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
