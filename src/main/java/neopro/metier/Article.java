@@ -41,6 +41,7 @@ public class Article implements Serializable{
     private long eanArt;
     private boolean bioArt;
     private String typePrix ;
+    private String  prixKgArt ;
     
     //Relation "Posseder"
     @ManyToOne(fetch = FetchType.LAZY)
@@ -79,7 +80,8 @@ public class Article implements Serializable{
     //Constructeurs 
     public Article() {}
 
-    public Article( String libelleArt, String formatArt, String urlImageArt, String condArt, String descriptionArt, NutriscoreArticle nutriscoreArt, float prixArt, long eanArt, boolean bioArt, String typePrix ,Categorie cat , Marque mr) {
+    public Article( String libelleArt, String formatArt, String urlImageArt, String condArt, String descriptionArt, NutriscoreArticle nutriscoreArt, float prixArt, long eanArt, boolean bioArt, String typePrix, String prixKgArt, Categorie categorie, Marque marque) {
+     
         this.libelleArt = libelleArt;
         this.formatArt = formatArt;
         this.urlImageArt = urlImageArt;
@@ -90,13 +92,11 @@ public class Article implements Serializable{
         this.eanArt = eanArt;
         this.bioArt = bioArt;
         this.typePrix = typePrix;
-        this.categorie= cat ;
-        this.marque = mr ;
+        this.prixKgArt = prixKgArt;
+        this.categorie = categorie;
+        this.marque = marque;
     }
     
-    public Article(String l) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     //Getters /Setters.
 
@@ -134,13 +134,15 @@ public class Article implements Serializable{
     public void setPaniers(Map<Panier, AvoirQuantitePanier> paniers) {this.paniers = paniers;}
     public Set<ListeCourses> getListeCourses() {return listeCourses;}
     public void setListeCourses(Set<ListeCourses> listeCourses) { this.listeCourses = listeCourses;}
+    public String getPrixKgArt() {return prixKgArt;}
+    public void setPrixKgArt(String prixKgArt) { this.prixKgArt = prixKgArt;}
     
     //Methodes.
     //Methodes Surchargées.
 
     @Override
     public String toString() {
-        return "Article{" + "idArt=" + idArt + ", libelleArt=" + libelleArt + ", formatArt=" + formatArt + ", urlImageArt=" + urlImageArt + ", condArt=" + condArt + ", descriptionArt=" + descriptionArt + ", nutriscoreArt=" + nutriscoreArt + ", prixArt=" + prixArt + ", eanArt=" + eanArt + ", bioArt=" + bioArt + ", typePrix=" + typePrix + ", categorie=" + categorie + ", marque=" + marque + '}';
+        return "Article{" + "idArt=" + idArt + ", libelleArt=" + libelleArt + ", formatArt=" + formatArt + ", urlImageArt=" + urlImageArt + ", condArt=" + condArt + ", descriptionArt=" + descriptionArt + ", nutriscoreArt=" + nutriscoreArt + ", prixArt=" + prixArt + ", eanArt=" + eanArt + ", bioArt=" + bioArt + ", typePrix=" + typePrix + ", prixKgArt=" + prixKgArt + ", categorie=" + categorie + ", marque=" + marque + ", labels=" + labels + ", promotions=" + promotions + ", paniers=" + paniers + ", listeCourses=" + listeCourses + '}';
     }
 
     @Override
