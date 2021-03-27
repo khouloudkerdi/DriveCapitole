@@ -366,7 +366,7 @@ public class MethodesDAO {
                 b.getListeCourses().remove(l);
             }
             for (Article a:listeArticle){
-               l.getArticles().remove(a);
+                l.getArticles().remove(a);
             }
             session.delete(l);
             t.commit(); // Commit et flush automatique de la session.

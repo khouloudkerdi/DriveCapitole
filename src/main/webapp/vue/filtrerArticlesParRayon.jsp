@@ -29,19 +29,19 @@
                     //List<Article> listeSearch = MethodesDAO.listRecherche(search);
                     List<Article> listeArticles = new ArrayList();
                     listeArticles.addAll(liste_articles);
+                    int numCol = 3;
+                    int colCount = 0;
 
                     for (Article a : listeArticles) {
 
                 %>
 
                 <%!
-                    private int numCol = 3;
-                    private int colCount = 0;
                     private float produitPromo;
                 %>
 
                 <% if (colCount % numCol == 0) {
-                        out.print("<div class='row'>");
+                        out.print("<div class='row' style='width:100%;'>");
                         colCount++;
                     } %>
                 <div class="col-md-4 cardProduit">

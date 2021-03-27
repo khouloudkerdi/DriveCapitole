@@ -22,8 +22,8 @@ public class CtrlInserer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {  
         
-        // Ajouter au panier
         long idClient=(long ) request.getSession().getAttribute("idClient");
+         // Ajouter au panier
         String idA = request.getParameter("idArt");
         if (idA!=null){
              //Conversion using parseLong(String) method

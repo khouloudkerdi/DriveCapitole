@@ -37,7 +37,7 @@
                 %>
 
                 <% if (colCount % numCol == 0) {
-                        out.print("<div class='row' style='100%;'>");
+                        out.print("<div class='row' style='width:100%;'>");
                         colCount++;
                     } %>
                 <div class="col-md-4 cardProduit">
@@ -91,7 +91,6 @@
                                     </li>
                                 </ul>
                                 <%  } } %>
-
                             </div>
                         </div>
                     </div>
@@ -99,11 +98,9 @@
                 <%}
                     if (colCount % numCol == 0) {
                         out.print(" </div>");
-                    }
-                %>
-
+                    } %>
+                </div>
             </div>
         </div>
-    </div>
 </body>
 <%@include file="../layout/footerFix.jsp" %>
