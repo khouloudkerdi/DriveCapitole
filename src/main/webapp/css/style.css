@@ -227,7 +227,8 @@
     text-transform: uppercase
 }
 #bodyListeCourses .btnContainer,
-#bodyNouvelleListe .btnContainer
+#bodyNouvelleListe .btnContainer,
+#bodyConnexion .btnContainer
 {
     display: flex;
     justify-content: space-between;
@@ -240,7 +241,9 @@
 }
 
 
-
+/***************************/
+/***Accueil.jsp**/
+/****************************/
 .contenant {
   position: relative;
   text-align: center;
