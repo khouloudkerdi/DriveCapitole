@@ -67,7 +67,31 @@
                                             }%>
                                     </h5></div>
                                 <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" class="btn btn-secondary mt-3"><i class="fas fa-shopping-cart"></i>Panier</a>
-                                <a href="Panier" class="btn btn-info mt-3">Liste</a> 
+                                <%                                    
+                                    if (request.getSession().getAttribute("idClient")!=null ){       
+                                        long idClient=(long) request.getSession().getAttribute("idClient");
+                                        if (MethodesDAO.getListeCourses(idClient).size()!=0){
+                                        
+                                %>
+                                <ul class="nav flex-column mt-3">
+                                    <li class="nav-item">
+                                        <div class="btn-group dropend">
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Liste
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <%
+                                                    ArrayList<ListeCourses> listeListeCourses=MethodesDAO.getListeCourses(idClient);   
+                                                    for (ListeCourses lc: listeListeCourses){
+                                                        out.print("<li><a class=dropdown-item href=CtrlInserer?idListeCourses="+a.getIdArt()+","+lc.getIdLis()+">"+lc.getNomLis()+"</a></li>");
+                                                    }
+                                                %>
+                                            </ul>
+                                        </div>    
+                                    </li>
+                                </ul>
+                                <%  } } %>
+
                             </div>
                         </div>
                     </div>
@@ -77,7 +101,7 @@
                         out.print(" </div>");
                     }
                 %>
-                
+
             </div>
         </div>
     </div>
