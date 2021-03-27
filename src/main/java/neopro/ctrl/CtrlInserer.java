@@ -23,7 +23,7 @@ public class CtrlInserer extends HttpServlet {
             throws ServletException, IOException {  
         
         // Ajouter au panier
-        long idClient=1;
+        long idClient=(long ) request.getSession().getAttribute("idClient");
         String idA = request.getParameter("idArt");
         if (idA!=null){
              //Conversion using parseLong(String) method
