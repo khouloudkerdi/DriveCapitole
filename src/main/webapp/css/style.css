@@ -273,12 +273,13 @@
 }
 
 .texte_centrer {
-  position: absolute;
-  top: 20%;
-  left: 80%;
-  transform: translate(-50%, -50%);
-  font: bond;
-  color: red;
-  font-size: large; 
+    position: absolute;
+    top: 37%;
+    left: 63%;
+    transform: translate(-50%, -50%);
+    font: bond;
+    color: white;
+    font-size: large; 
+    font-weight: bold;
 }
 
