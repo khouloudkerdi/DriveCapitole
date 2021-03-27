@@ -25,8 +25,10 @@
                         </div>
                         <div class="form-group">
                              <button class="btn btn-info" type="submit">Se connecter</button>
+                             
                         </div>  
                     </form>
+                         <a href="Accueil" role="button" aria-expanded=false aria-controls="collapseExample" class="btn btn-warning" >Retour àla page d'accueil</a>
                     <div><font color="#FF0000">${requestScope.msg_connexion}</font></div>
                 </div>
                 <div class="col-xs-6 col-sm-2 col-md-3"></div>
