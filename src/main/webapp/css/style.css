@@ -200,9 +200,10 @@
 
 .texte_centrer {
   position: absolute;
-  top: 10%;
+  top: 20%;
   left: 80%;
   transform: translate(-50%, -50%);
+  font: bond;
   color: red;
   font-size: large; 
 }

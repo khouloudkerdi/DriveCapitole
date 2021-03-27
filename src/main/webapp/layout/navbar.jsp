@@ -24,14 +24,14 @@
                     <a class="btn btn-primary" href="CtrlMenu?method=Connexion">Compte</a>
                     <a class="btn btn-primary" href="CtrlMenu?method=Liste">Listes</a>                
                     <a href="Accueil" class="btn btn-primary">
-                        <img src="${pageContext.request.contextPath}/css/image/accueil.png" alt="logo_neopro" width="45px" height="35px"/>
+                        <img src="${pageContext.request.contextPath}/css/image/accueil_white.png" alt="logo_neopro" width="35px"/>
                     </a>
                
                 <%
                     if (request.getSession().getAttribute("idClient") != null) {
                 %>
                 <div class="btn btn-primary contenant">
-                    <a href="Panier"><img src="${pageContext.request.contextPath}/css/image/caddie.png" alt="logo_neopro" width="50px" height="40px"/></a>
+                    <a href="Panier"><img href="Panier" src="${pageContext.request.contextPath}/css/image/caddie_white.png" alt="logo_neopro" width="35px"/></a>
                         <% long qte = MethodesDAO.nbArt(1); %>
                     <div class="texte_centrer"><% out.print(qte); %></div>
                 </div>
