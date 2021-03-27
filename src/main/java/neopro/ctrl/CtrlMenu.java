@@ -45,6 +45,14 @@ public class CtrlMenu extends HttpServlet {
                 }
                break;
             
+            case "Panier" :
+                if (request.getSession().getAttribute("idClient")==null){
+                     request.getRequestDispatcher("Connexion").forward(request, response);
+                }else{
+                     request.getRequestDispatcher("Panier").forward(request, response);
+                }
+                break;
+            
             }
             
     }
