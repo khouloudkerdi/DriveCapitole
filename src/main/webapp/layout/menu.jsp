@@ -25,11 +25,14 @@
       <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="CtrlFiltrageParRayon?idRay=<%out.print(r.getIdRay()); %>" >Voir tout</a></li> 
           <%
-                for (Categorie c : r.getCategories()) {
-                out.println("<li><a class=\"dropdown-item\" href=\"#\">");
-                out.println(c.getLibelleCat());
-                out.println("</a></li>");
-            }
+                for (Categorie c : r.getCategories()) { %>
+                <li>
+                    <a class="dropdown-item" href="CtrlFiltrageParCategorie?idRay=<%out.print(r.getIdRay()); %>&idCat=<%out.print(c.getIdCat());%>">
+                    <%out.println(c.getLibelleCat());%>
+                    </a>
+                </li>
+          <%  
+              }
           %>
       </ul>
     </div>    
