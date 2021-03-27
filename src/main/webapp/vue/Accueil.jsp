@@ -51,8 +51,18 @@
 
                         <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="Vans">
                         <div class="card-body">
-                            <a> <h5 class="card-title"><% out.print(a.getLibelleArt());%></h5></a>
-                            <h6 class="card-subtitle mb-2 text-muted"> <b>Format : </b> <% out.print(a.getFormatArt());%> </h6>
+                            <a> <h5 class="card-title"><% out.print(a.getLibelleArt());%></h5></a><br>
+                            <P class="card-subtitle mb-2 text-muted">
+                                <span class="infosproduits"><% out.print(a.getFormatArt());%></span>
+                                <% if(a.getCondArt()!=null)
+                                    {
+                                %>
+                                <span class="infosproduits"><% out.print(a.getCondArt()); %> </span>
+                                <% } %>
+                                <% 
+                                    out.print(a.getPrixKgArt()); 
+                                %>
+                            </P>
                             <p class="card-text">  </p>
                             <div class="buy d-flex justify-content-between align-items-center">
                                 <div class="price text-success">
