@@ -66,7 +66,7 @@
                             }   %>
                         
                          <%if (liste_articlesPref.contains(a)) {
-                                out.print("<span class='spanPref'>Pref </span>");
+                                out.print("<span class='spanPref'>Préférence </span>");
                                
                                 }   %>    
                        </div>
