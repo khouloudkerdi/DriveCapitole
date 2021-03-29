@@ -5,6 +5,9 @@
 --%>
 
 
+<%@page import="java.util.HashSet"%>
+<%@page import="neopro.metier.Label"%>
+<%@page import="java.util.Set"%>
 <%@page import="neopro.metier.NutriscoreArticle"%>
 <%@page import="neopro.metier.ListeCourses"%>
 <%@page import="java.util.List"%>
@@ -42,86 +45,102 @@
                         colCount++;
                     } %>
                 <div class="col-md-4 cardProduit">
-
-
                     <div class="card">
                         <%if (listeArticlesPromo.contains(a)) {
                                 out.print("<span class='spanPromo'>Promotion </span>");
                                 produitPromo = MethodesDAO.calculerPrixPromo(a.getIdArt());
-                            }   %>
-
-                        <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="Vans">
-                        <div class="card-body">
-                            <a> <h5 class="card-title"><% out.print(a.getLibelleArt());%></h5></a><br>
-                            <P class="card-subtitle mb-2 text-muted">
+                            } else {
+                                out.print("<span class='spanNonPromo'>&nbsp</span>");
+                            }
+                        %>
+                         <img class="card-img imgProduit float-left" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="imageProduit">
+                         <p class="float-right">
+                              
+                             <%
+                                 
+                                  Set<Label> labArticle = MethodesDAO.getLabelsArticle(a.getIdArt());
+                             System.out.println("--------------size-----------------------"+labArticle.size());
+                             if(labArticle.size()!=0){
+                                 for (Label label : labArticle) {         
+                             
+                             %>
+                             <span><% out.print(label.getLibelleLab());%></span><br>
+                             <% }}%>
+                         </p>
+                         
+                         <div class="card-body">
+                            <a> <h5 class="card-title"><% out.print(a.getLibelleArt());%></h5></a>
+                            <P>
                                 <span class="infosproduits"><% out.print(a.getFormatArt());%></span>
-                                <% if(a.getCondArt()!=null)
-                                    {
+                                <% if (a.getCondArt() != null) {
                                 %>
                                 <span class="infosproduits"><% out.print(a.getCondArt()); %> </span>
                                 <% } %>
-                                <% 
-                                    out.print(a.getPrixKgArt()); 
-                                %>
+                                <span >
+                                    <%
+                                        out.print(a.getPrixKgArt());
+                                    %>
+                                </span>  
                             </P>
                             <p>
-                                <% if (a.getNutriscoreArt()==NutriscoreArticle.A){%>
-                                <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/nutri_a.png" alt="Vans">
+                                <% if (a.getNutriscoreArt() == NutriscoreArticle.A) {%>
+                                <img class="card-img imgNutriScore" src="${pageContext.request.contextPath}/image/nutri_a.png" alt="imgNutriScore">
                                 <%}%>
-                                <% if (a.getNutriscoreArt()==NutriscoreArticle.B){%>
-                                <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/nutri_b.png" alt="Vans">
+                                <% if (a.getNutriscoreArt() == NutriscoreArticle.B) {%>
+                                <img class="card-img imgNutriScore" src="${pageContext.request.contextPath}/image/nutri_b.png" alt="imgNutriScore">
                                 <%}%>
-                                <% if (a.getNutriscoreArt()==NutriscoreArticle.C){%>
-                                <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/nutri_c.png" alt="Vans">
+                                <% if (a.getNutriscoreArt() == NutriscoreArticle.C) {%>
+                                <img class="card-img imgNutriScore" src="${pageContext.request.contextPath}/image/nutri_c.png" alt="imgNutriScore">
                                 <%}%>
-                                <% if (a.getNutriscoreArt()==NutriscoreArticle.D){%>
-                                <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/nutri_d.png" alt="Vans">
+                                <% if (a.getNutriscoreArt() == NutriscoreArticle.D) {%>
+                                <img class="card-img imgNutriScore" src="${pageContext.request.contextPath}/image/nutri_d.png" alt="imgNutriScore">
                                 <%}%>
-                                <% if (a.getNutriscoreArt()==NutriscoreArticle.E){%>
-                                <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/nutri_e.png" alt="Vans">
+                                <% if (a.getNutriscoreArt() == NutriscoreArticle.E) {%>
+                                <img class="card-img imgNutriScore" src="${pageContext.request.contextPath}/image/nutri_e.png" alt="imgNutriScore">
                                 <%}%>  
-                                
+
                             </p>
-                            <p class="card-text">  </p>
-                            <div class="buy d-flex justify-content-between align-items-center">
-                                <div class="price text-success">
-                                    <h5 class="mt-4">
-                                        <%if (!listeArticlesPromo.contains(a)) {
-                                                out.print(a.getPrixArt() + " €");
-                                            } else {
+                            <div>
+                                <div class="prixProduit">                  
+                                    <%if (!listeArticlesPromo.contains(a)) {
+                                            out.print(a.getPrixArt() + " €");
+                                        } else {
+                                            out.print("<span class='spanPrixAvecPromo'>" + (a.getPrixArt() - produitPromo) + " € </span><br>");
+                                            out.print("<span class='spanPrixSansPromo'>" + a.getPrixArt() + "€ </span>");
 
-                                                out.print("<span class='spanPrixSansPromo'>" + a.getPrixArt() + "€ </span>");
-                                                out.print("<span class='spanPrixAvecPromo'>" + (a.getPrixArt() - produitPromo) + " € </span>");
+                                        }%>
+                                </div>
+                                <div class="btnAccueil">
+                                    <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" 
+                                       class="btn btn-secondary btn-sm">Panier</a>
+                                    <%
+                                        if (request.getSession().getAttribute("idClient") != null) {
+                                            //long idClient=(long) request.getSession().getAttribute("idClient");
+                                            long idClient = ((Number) request.getSession().getAttribute("idClient")).longValue();
+                                            if (MethodesDAO.getListeCourses(idClient).size() != 0) {
 
-                                            }%>
-                                    </h5></div>
-                                <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" class="btn btn-secondary mt-3"><i class="fas fa-shopping-cart"></i>Panier</a>
-                              <%     
-                            
-                                    if (request.getSession().getAttribute("idClient")!=null ){       
-                                        //long idClient=(long) request.getSession().getAttribute("idClient");
-                                        long idClient = ((Number) request.getSession().getAttribute("idClient")).longValue();
-                                        if (MethodesDAO.getListeCourses(idClient).size()!=0){
-                                        
-                                %>
-                                <ul class="nav flex-column mt-3">
-                                    <li class="nav-item">
-                                        <div class="btn-group dropend">
-                                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Liste
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <%
-                                                    ArrayList<ListeCourses> listeListeCourses=MethodesDAO.getListeCourses(idClient);   
-                                                    for (ListeCourses lc: listeListeCourses){
-                                                        out.print("<li><a class=dropdown-item href=CtrlInserer?idListeCourses="+a.getIdArt()+","+lc.getIdLis()+">"+lc.getNomLis()+"</a></li>");
-                                                    }
-                                                %>
-                                            </ul>
-                                        </div>    
-                                    </li>
-                                </ul>
-                                <%  } } %>
+                                    %>
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <div class="btn-group dropend">
+                                                <button type="button" class="btn btn-primary dropdown-toggle btn-sm " data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Liste
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <%                                                    ArrayList<ListeCourses> listeListeCourses = MethodesDAO.getListeCourses(idClient);
+                                                        for (ListeCourses lc : listeListeCourses) {
+                                                            out.print("<li><a class=dropdown-item href=CtrlInserer?idListeCourses=" + a.getIdArt() + "," + lc.getIdLis() + ">" + lc.getNomLis() + "</a></li>");
+                                                        }
+                                                    %>
+                                                </ul>
+                                            </div>    
+                                        </li>
+                                    </ul>
+                                    <%  }
+                                    } %>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -129,9 +148,9 @@
                 <%}
                     if (colCount % numCol == 0) {
                         out.print(" </div>");
-                    } %>
-                </div>
+                    }%>
             </div>
         </div>
+    </div>
 </body>
 <%@include file="../layout/footerFix.jsp" %>

@@ -3,6 +3,7 @@ package neopro.dao;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -507,6 +508,17 @@ public class MethodesDAO {
             return session.get(ListeCourses.class, idListe);
          }
      }
+     // Recupertaion des labels d'un article 
+    public static  Set<Label> getLabelsArticle(long idArt){
+          Set<Label> labArticle = new HashSet<>(0);
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+             Transaction t = session.beginTransaction();
+            Article art= session.get(Article.class, idArt);
+             labArticle = art.getLabels();
+             
+        }
+        return labArticle;
+    }
 }
    
 

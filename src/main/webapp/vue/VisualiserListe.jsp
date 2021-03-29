@@ -16,7 +16,7 @@
 <%@include file="../layout/headerFix.jsp" %>
 <body id="bodyPanier">
     <form action="CtrlValiderPanier" method="GET">
-    <a href="CtrlMenu?method=Liste" role="button" aria-expanded=false aria-controls="collapseExample" class="btn btn-warning" >Retour</a>
+   
     <div class="container">
         <div class="row headerPanier">
             <% long idListeCourses=Long.parseLong((String) request.getParameter("idListe")); 
@@ -57,15 +57,12 @@
             </div>
             
             <div class="col-md-4">
-                
-                <%--Partie Récapitulatif--%>
-                <h4>Ajouter les articles dans le panier?<h4>
-               
                 <%--Button Valider--%>
-                <div class="atCenterHorizontal">
+                <div class="btnContainer">
                     <%
-                        out.println("<a role=\"button\" aria-expanded=false aria-controls=\"collapseExample\" class=\"btn btn-primary\"href=\"CtrlTransmettreListePanier?idListeCourses="+idListeCourses+"\" >ajouter au panier </a>");
+                        out.println("<a role=\"button\" aria-expanded=false aria-controls=\"collapseExample\" class=\"btn btn-info\"href=\"CtrlTransmettreListePanier?idListeCourses="+idListeCourses+"\" >Ajouter au panier </a>");
                     %>
+                     <a href="CtrlMenu?method=Liste" class="btn btn-info" >Retour</a>
                 </div>
           
             </div>
