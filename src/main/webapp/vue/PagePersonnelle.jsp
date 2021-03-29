@@ -27,7 +27,7 @@
             </div>
             <div class="col-md-10">
                   <%  //String search = request.getParameter("searchWord");
-                    long id =1 ;//(long) request.getSession().getAttribute("idClient");
+                    long id =(long) request.getSession().getAttribute("idClient");
                     List<Article> liste_articles = MethodesDAO.listeArticle();
                     List<Article> liste_articlesPref = MethodesDAO.listePref(id);
                     List<Article> listeArticlesPromo = MethodesDAO.listePromo();
