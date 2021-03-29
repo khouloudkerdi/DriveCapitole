@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="neopro.metier.Client"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="neopro.metier.Label"%>
 <%@page import="java.util.Set"%>
@@ -20,6 +21,12 @@
     <div class="container">
         <div class="row">
             <%@include file="../layout/navbar.jsp" %>
+            <%
+            long id = ((Number) request.getSession().getAttribute("idClient")).longValue();
+            Client client = MethodesDAO.infosClient(id);
+            
+            %>
+            <span style="margin-left: 5px;"><% out.print("Bonjour " +client.getPrenomCli()); %></span>
         </div>
         <div class="row">
             <div class="col-md-2">
@@ -27,7 +34,7 @@
             </div>
             <div class="col-md-10">
                   <%  //String search = request.getParameter("searchWord");
-                    long id =(long) request.getSession().getAttribute("idClient");
+                    //long id =(long) request.getSession().getAttribute("idClient");
                     List<Article> liste_articles = MethodesDAO.listeArticle();
                     List<Article> liste_articlesPref = MethodesDAO.listePref(id);
                     List<Article> listeArticlesPromo = MethodesDAO.listePromo();
@@ -61,13 +68,13 @@
                         <%if (listeArticlesPromo.contains(a)) {
                                 out.print("<span class='spanPromo'>Promotion</span>");
                                 produitPromo = MethodesDAO.calculerPrixPromo(a.getIdArt());
-                            } else if(!listeArticlesPromo.contains(a) & !liste_articlesPref.contains(a)) {
+                            } else if(!listeArticlesPromo.contains(a) & liste_articlesPref.contains(a)) {
                                 out.print("<span class='spanNonPromo'>&nbsp</span>");
                             }
                         %>
                         
                          <%if (liste_articlesPref.contains(a) ) {
-                                out.print("<span class='spanPref'>Préférence </span>");
+                                out.print("<span class='spanPref'>&#10084;</i> </span>");
                                
                                 }   %>
                         </div>
