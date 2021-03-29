@@ -16,7 +16,6 @@
 <%@include file="../layout/headerFix.jsp" %>
 <body id="bodyPanier">
     <form action="CtrlValiderPanier" method="GET">
-        <a href="CtrlMenu?method=Liste" role="button" aria-expanded=false aria-controls="collapseExample" class="btn btn-warning" style="margin-left: 10px;margin-top: 5px;" >Retour</a>
         <div class="container">
             <%-- Titre --%>
             <div class="row headerPanier">
@@ -79,10 +78,13 @@
                 <%-- Boutton <Ajouter au panier> --%>
                 <div class="col-md-4">
                     <h4 style="font-size: medium;">* Voulez-vous ajouter tous les articles à votre panier ?<h4>
-                    <div class="atCenterHorizontal">
+                            <div class="btnContainer">
+                            <div class="atCenterHorizontal">
                         <%
-                            out.println("<a role=\"button\" aria-expanded=false aria-controls=\"collapseExample\" class=\"btn btn-primary\"href=\"CtrlTransmettreListePanier?idListeCourses=" + idListeCourses + "\" >Ajouter au panier </a>");
+                            out.println("<a role=\"button\" aria-expanded=false aria-controls=\"collapseExample\" class=\"btn btn-info\"href=\"CtrlTransmettreListePanier?idListeCourses=" + idListeCourses + "\" >Ajouter au panier </a>");
                         %>
+                    </div>
+                    <a href="Accueil" class="btn btn-info">Retour</a>
                     </div>
                 </div>
                     

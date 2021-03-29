@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -302,7 +303,9 @@ public class TestHibernate {
                  System.out.println("MontantArticlePanier----------------------"+montant);
                  BigDecimal eco1 = new BigDecimal(montant); 
                  double eco = eco1.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue(); 
+                 
                  return eco; 
+                
                   
        }
 }
@@ -334,10 +337,7 @@ public class TestHibernate {
                     }
                }
             }   
-                for(Article a :listearticles)
-                {
-                    System.out.println(a.toString());
-                }
+                
                 return listearticles ;     
         }
            
@@ -362,11 +362,25 @@ public class TestHibernate {
                      listearticles.add(a);
                   }
                }   
+                   
                    return listearticles ;     
            }
         }
-
-
+// Recupertaion des labels d'un article 
+    public static  List<Label> getLabelsArticle(long idArt){
+          Set<Label> labArticle = new HashSet<>(0);
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+             Transaction t = session.beginTransaction();
+            Article art= session.get(Article.class, idArt);
+            List<Label> listelabels = new ArrayList<Label>();
+            labArticle = art.getLabels();
+             for (Label label : labArticle) {
+                 listelabels.add(label);
+            }
+            return listelabels;
+        }
+        
+    }
     /**
      * Programme de test.
      */
@@ -374,8 +388,9 @@ public class TestHibernate {
         /*----- Test -----*/
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
       //TestHibernate.ajouterArticle();
-      TestHibernate.ListeArticlesParRayon("2" );
+      //TestHibernate.ListeArticlesParRayon("2" );
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
+     TestHibernate.getLabelsArticle(3l);
 
       
         /*----- Exit -----*/

@@ -16,7 +16,6 @@
 <%@include file="../layout/headerFix.jsp" %>
 <body id="bodyPanier">
     <form action="CtrlValiderPanier" method="GET">
-        <a href="Accueil" style="padding-left: 10px;padding-top: 5px;">Retour aux courses</a>
         <div class="container">
             <div class="row headerPanier">
                 <h3>Votre panier</h3>
@@ -153,8 +152,9 @@
                         </div>
                     </div>
                     <%--Button Valider--%>
-                    <div class="atCenterHorizontal">
-                        <button type="submit" class="btn btn-primary">Valider</button>
+                    <div class="btnContainer">
+                        <button type="submit" class="btn btn-info">Valider</button>
+                        <a href="Accueil" class="btn btn-info">Retour</a>
                     </div>
                     <div class="messageErreur">${requestScope.msg_erreur}</div>
                 </div>

@@ -56,11 +56,10 @@
 
                     </div>
                 </form>
-
-
+                    <div><font color="#FF0000">${requestScope.msg_sup}</font></div>
             </div>
             <div class="col-xs-6 col-sm-1">
-                <div><font color="#FF0000">${requestScope.msg_sup}</font></div>
+                
             </div>
 
         </div>

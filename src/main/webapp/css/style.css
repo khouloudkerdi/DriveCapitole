@@ -11,8 +11,8 @@
 }
 
 #bodyAccueil .imgProduit{ 
-    width: 40%;
-    height:40%;
+    width: auto;
+    height:80%;
 
 
 }
@@ -32,24 +32,73 @@
     text-align: center;
 
 }
+#bodyAccueil .spanNonPromo{
+    margin: 15px;
+   
+
+}
 #bodyAccueil .spanPrixSansPromo{
     text-decoration: line-through;
     margin-right: 5px;
 }
-#bodyAccueil .row {
+#bodyAccueil .col-md-10 .row {
     display: flex;
     flex-wrap: wrap;
 }
 
-#bodyAccueil .row > div[class*='col-'] {
+#bodyAccueil .col-md-10 .row > div[class*='col-'] {
     display: flex;
 }
 #bodyAccueil .card{
     width:18rem;
 }
+#bodyAccueil .card {
+    position: relative;
+}
+#bodyAccueil .btnAccueil 
+{
+    position: absolute;
+     bottom: 5px;
+     right: 10px;
+    
+    
+}
+#bodyAccueil ul{
+    margin-top: 4px;
+}
+#bodyAccueil .spanPrixKGArt{
+    margin-bottom: 5px;
+}
+/*#bodyAccueil .btnAccueil .nav
+{
+    position: absolute;
+     bottom: 5px;
+   margin-top: 10px;
+       float: right;
+    
+}*/
+#bodyAccueil .prixProduit{
+    font-size: 1.25rem;
+    color: red;
+    font-weight: bold;
+}
+#bodyAccueil .prixProduit .spanPrixSansPromo{
+    font-size: 1rem;
+    color: #555;
+    font-weight: 300;
+    
+  
+}
+#bodyAccueil .imgNutriScore{
+  margin-top: 3px;
+ width: 25%;
+  height: auto;
+}
 #bodyAccueil .cardProduit {
     margin-bottom: 15px;
+    
 }
+
 #bodyAccueil a{
     cursor: pointer;
 }
@@ -58,6 +107,18 @@
     margin-top:   20px;
     z-index: 99;
 
+}
+#bodyAccueil .imgLabel{
+    width: 25px;
+    height: 25px;
+    float: right;
+    margin-right: 6px;
+}
+
+#bodyAccueil .imgStyle{
+    border-radius: 12px;
+    max-width: 90%;
+    max-height: 90%;
 }
 
 
@@ -232,7 +293,9 @@
     text-transform: uppercase
 }
 #bodyListeCourses .btnContainer,
-#bodyNouvelleListe .btnContainer
+#bodyNouvelleListe .btnContainer,
+#bodyConnexion .btnContainer,
+#bodyPanier .btnContainer
 {
     display: flex;
     justify-content: space-between;
@@ -245,7 +308,9 @@
 }
 
 
-
+/***************************/
+/***Accueil.jsp**/
+/****************************/
 .contenant {
   position: relative;
   text-align: center;
