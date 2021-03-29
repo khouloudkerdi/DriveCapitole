@@ -389,8 +389,12 @@ public class TestHibernate {
       //TestHibernate.ajouterArticle();
       //TestHibernate.ListeArticlesParRayon("2" );
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
-     TestHibernate.getLabelsArticle(3l);
-
+        long id =1;
+       
+        List<Article> lc=MethodesDAO.listeDansListe(MethodesDAO.listeArticle(), MethodesDAO.listePref(id));
+        for (Article a:lc){
+            System.out.println(a.getIdArt());
+        }
       
         /*----- Exit -----*/
         System.exit(0);
