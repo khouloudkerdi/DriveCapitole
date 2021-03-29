@@ -9,7 +9,7 @@
 <div id="menu-div"> 
            <ul class="nav flex-column mt-3">
     
-    <a class="btn btn-primary" href="Accueil" style="width:120px">Voir tout</a> 
+    <a class="btn btn-primary" href="Accueil" style="width:140px">Voir tout</a> 
     <%
         ArrayList<Rayon> listR = (ArrayList) MethodesDAO.getListRayon();
         for (Rayon r : listR) 
@@ -19,7 +19,7 @@
 
   <li class="nav-item">
     <div class="btn-group dropend">
-      <a class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="width:120px">
+      <a class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="width:140px">
             <% out.print(r.getLibelleRay());%>
       </a>
       <ul class="dropdown-menu">

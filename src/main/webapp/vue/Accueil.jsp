@@ -27,23 +27,6 @@
             </div>
             <div class="col-md-10">
                 <div class="row">
-                    <div class="col-md-4">
-                        <a href="CtrlFiltrageParRayon?idRay=5">
-                                <img class="imgStyle" src="${pageContext.request.contextPath}/css/image/fruit.jpg" alt="fruit" width="350px"/>
-                                </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="CtrlFiltrageParCategorie?idRay=9&idCat=17">
-                                <img class="imgStyle" src="${pageContext.request.contextPath}/css/image/chocolat.jpg" alt="chocolat" width="350px"/>
-                                </a>
-                    </div>
-                    <div class="col-md-4">
-                         <a href="CtrlFiltrageParCategorie?idRay=4&idCat=14">
-                                <img class="imgStyle" src="${pageContext.request.contextPath}/css/image/vin.jpg" alt="vin" width="350px"/>
-                               </a> 
-                    </div>
-               </div>
-                <div class="row">
                 <% List<Article> listeArticlesPromo = MethodesDAO.listePromo();
                     List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
                     List<Article> listeArticles = new ArrayList();

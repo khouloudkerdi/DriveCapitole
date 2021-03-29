@@ -68,7 +68,7 @@
                         <%if (listeArticlesPromo.contains(a)) {
                                 out.print("<span class='spanPromo'>Promotion</span>");
                                 produitPromo = MethodesDAO.calculerPrixPromo(a.getIdArt());
-                            } else if(!listeArticlesPromo.contains(a) & liste_articlesPref.contains(a)) {
+                            } else if(!listeArticlesPromo.contains(a)   ) {
                                 out.print("<span class='spanNonPromo'>&nbsp</span>");
                             }
                         %>
