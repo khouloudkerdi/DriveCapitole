@@ -32,6 +32,17 @@
     text-align: center;
 
 }
+
+#bodyAccueil .spanPref{
+    float: right;
+    margin: 15px;
+    color: white;
+    background-color: #00ccff;
+    width: 30%;
+    font-weight: bold;
+    text-align: center;
+
+}
 #bodyAccueil .spanNonPromo{
     margin: 15px;
    

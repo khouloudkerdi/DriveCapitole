@@ -146,6 +146,7 @@ public class Article implements Serializable{
     }
 
 
+
     @Override
     public int hashCode() {
         int hash = 5;
