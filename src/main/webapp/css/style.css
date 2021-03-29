@@ -11,8 +11,8 @@
 }
 
 #bodyAccueil .imgProduit{ 
-    width: 40%;
-    height:40%;
+    width: auto;
+    height:80%;
 
 
 }
@@ -60,11 +60,14 @@
     position: absolute;
      bottom: 5px;
      right: 10px;
-    margin-top: 10px
+    
     
 }
 #bodyAccueil ul{
     margin-top: 4px;
+}
+#bodyAccueil .spanPrixKGArt{
+    margin-bottom: 5px;
 }
 /*#bodyAccueil .btnAccueil .nav
 {
@@ -105,7 +108,12 @@
     z-index: 99;
 
 }
-
+#bodyAccueil .imgLabel{
+    width: 25px;
+    height: 25px;
+    float: right;
+    margin-right: 6px;
+}
 
 /***************************/
 /***VisualisationPanier.jsp**/
