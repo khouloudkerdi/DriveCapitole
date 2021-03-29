@@ -71,7 +71,7 @@
 #bodyPanier .panierProduit{
     background: #fff;
     margin-bottom: 20px;
-
+    
 }
 #bodyPanier img {
     width: 100%;
@@ -167,6 +167,11 @@
     text-align: center;
     padding-top: 30px;
     padding-bottom: 30px;
+}
+
+#bodyPanier .spanPrixSansPromo{
+    text-decoration: line-through;
+    margin-right: 5px;
 }
 
 #contenuAccueil {
