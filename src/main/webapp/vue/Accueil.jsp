@@ -51,7 +51,9 @@
                     listeArticles.addAll(listeArticlesNonPromo);
                     int numCol = 3;
                     int colCount = 0;
-
+                    if (request.getSession().getAttribute("idClient")!=null){
+                        request.getRequestDispatcher("PagePersonnelle").forward(request, response);
+                    }
                     for (Article a : listeArticles) {
                 %>
                 <%!

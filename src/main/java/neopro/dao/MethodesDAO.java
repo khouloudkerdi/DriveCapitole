@@ -114,10 +114,10 @@ public class MethodesDAO {
     }
 
     // Fonction pour obtenir la liste de préférence d'un client (*ICI c'est CHOLE)
-    public static List<Article> listePref() {
+    public static List<Article> listePref(long idClient) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-            Set<Preferences> liste1 = session.get(Client.class, 1l).getPreferences();
+            Set<Preferences> liste1 = session.get(Client.class, idClient).getPreferences();
             List<Article> liste2 = new ArrayList<Article>();
             for (Preferences r : liste1) {
                 if (r.getIdArt() > 0) {
@@ -523,6 +523,27 @@ public class MethodesDAO {
         }
         
     }
-}
+    
+    public static List<Article> listeDansListe (List<Article> grandListe,List<Article> petitListe){
+        List<Article> listeArticle=new ArrayList<Article>();
+        boolean existe=false;
+        for(Article gl : grandListe){
+            existe=false;
+            for (Article pl: petitListe){
+                if (gl.equals(pl)){
+                    existe=true;
+                    break;
+                }                
+            }
+            if (!existe){
+                    listeArticle.add(gl);
+                }
+        }
+        return listeArticle;   
+    }
+    
+
+        
+    }
    
 
