@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="neopro.metier.Label"%>
 <%@page import="neopro.metier.NutriscoreArticle"%>
 <%@page import="neopro.metier.ListeCourses"%>
 <%@page import="java.util.List"%>
@@ -56,6 +57,16 @@
                             }   %>
 
                         <img class="card-img imgProduit" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="Vans">
+                        <%
+                             List<Label> listeLabels = MethodesDAO.getLabelsArticle(a.getIdArt());
+                             if(listeLabels.size()!=0)
+                             {
+                                for (Label l: listeLabels)
+                             { %>
+                                 <img class="card-img float-left" src="${pageContext.request.contextPath}/image/<%out.print(l.getLibelleLab()+".JPG");%>" >
+                          <% } 
+                             } 
+                          %>
                         <div class="card-body">
                              <a> <h5 class="card-title"><% out.print(a.getLibelleArt());%></h5></a><br>
                             <P class="card-subtitle mb-2 text-muted">
