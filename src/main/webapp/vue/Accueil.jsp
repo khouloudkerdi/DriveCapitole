@@ -54,19 +54,7 @@
                             }
                         %>
                          <img class="card-img imgProduit float-left" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="imageProduit">
-                         <p class="float-right">
-                              
-                             <%
-                                 
-                                  Set<Label> labArticle = MethodesDAO.getLabelsArticle(a.getIdArt());
-                             System.out.println("--------------size-----------------------"+labArticle.size());
-                             if(labArticle.size()!=0){
-                                 for (Label label : labArticle) {         
-                             
-                             %>
-                             <span><% out.print(label.getLibelleLab());%></span><br>
-                             <% }}%>
-                         </p>
+                         
                          
                          <div class="card-body">
                             <a> <h5 class="card-title"><% out.print(a.getLibelleArt());%></h5></a>
