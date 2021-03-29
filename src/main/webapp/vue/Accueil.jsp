@@ -71,7 +71,8 @@
                                 out.print("<span class='spanNonPromo'>&nbsp</span>");
                             }
                         %>
-                         <img class="card-img imgProduit float-left" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="imageProduit">
+                        <div>
+                              <img class="card-img imgProduit float-left" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="imageProduit">
                            
                          <%
                              List<Label> listeLabels = MethodesDAO.getLabelsArticle(a.getIdArt());
@@ -79,10 +80,13 @@
                              {
                                 for (Label l: listeLabels)
                              { %>
-                                 <img class="card-img float-left" src="${pageContext.request.contextPath}/image/<%out.print(l.getLibelleLab()+".JPG");%>" >
+                                 <img class="imgLabel" src="${pageContext.request.contextPath}/image/<%out.print(l.getLibelleLab()+".JPG");%>" >
                           <% } 
                              } 
                           %>
+                            
+                        </div> 
+                      
                          
                          <div class="card-body">
                             <a> <h5 class="card-title"><% out.print(a.getLibelleArt());%></h5></a>
@@ -92,7 +96,7 @@
                                 %>
                                 <span class="infosproduits"><% out.print(a.getCondArt()); %> </span>
                                 <% } %>
-                                <span >
+                                <span class="spanPrixKGArt" >
                                     <%
                                         out.print(a.getPrixKgArt());
                                     %>
