@@ -509,15 +509,19 @@ public class MethodesDAO {
          }
      }
      // Recupertaion des labels d'un article 
-    public static  Set<Label> getLabelsArticle(long idArt){
+    public static  List<Label> getLabelsArticle(long idArt){
           Set<Label> labArticle = new HashSet<>(0);
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
              Transaction t = session.beginTransaction();
             Article art= session.get(Article.class, idArt);
-             labArticle = art.getLabels();
-             
+            List<Label> listelabels = new ArrayList<Label>();
+            labArticle = art.getLabels();
+             for (Label label : labArticle) {
+                 listelabels.add(label);
+            }
+            return listelabels;
         }
-        return labArticle;
+        
     }
 }
    

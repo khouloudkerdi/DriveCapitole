@@ -54,7 +54,17 @@
                             }
                         %>
                          <img class="card-img imgProduit float-left" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="imageProduit">
-                         
+                           
+                         <%
+                             List<Label> listeLabels = MethodesDAO.getLabelsArticle(a.getIdArt());
+                             if(listeLabels.size()!=0)
+                             {
+                                for (Label l: listeLabels)
+                             { %>
+                                 <img class="card-img float-left" src="${pageContext.request.contextPath}/image/<%out.print(l.getLibelleLab()+".JPG");%>" >
+                          <% } 
+                             } 
+                          %>
                          
                          <div class="card-body">
                             <a> <h5 class="card-title"><% out.print(a.getLibelleArt());%></h5></a>
