@@ -33,8 +33,7 @@
                 <%@include file="../layout/menu.jsp" %>
             </div>
             <div class="col-md-10">
-                  <%  //String search = request.getParameter("searchWord");
-                    //long id =(long) request.getSession().getAttribute("idClient");
+                  <%  
                     List<Article> liste_articles = MethodesDAO.listeArticle();
                     List<Article> liste_articlesPref = MethodesDAO.listePref(id);
                     List<Article> listeArticlesPromo = MethodesDAO.listePromo();
@@ -42,8 +41,8 @@
 
                     List<Article> autresArticle = MethodesDAO.listeDansListe(liste_articles, liste_articlesPref);
                     List<Article> autresArticleNonPromo = MethodesDAO.listeDansListe(autresArticle, listeArticlesPromo);
-                    List<Article> autresArticlePromo = MethodesDAO.listeDansListe(autresArticle, listeArticlesNonPromo);
-                    //List<Article> listeSearch = MethodesDAO.listRecherche(search);
+                    List<Article> autresArticlePromo = MethodesDAO.listeDansListe(autresArticle, listeArticlesNonPromo); 
+                    
                     List<Article> listeArticles = new ArrayList();
                     listeArticles.addAll(liste_articlesPref);
                     listeArticles.addAll(autresArticlePromo);

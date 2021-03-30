@@ -542,7 +542,15 @@ public class MethodesDAO {
         return listeArticle;   
     }
     
-
+   // Recupertaion de la liste des magasins 
+     public static  List<Magasin> getListeMagasin(String code){
+     try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            int cp= Integer.parseInt(code);
+            List<Magasin> listeMAg = session.createQuery("from Magasin m where m.codePostaleMag =\""+cp+"\" ").list();
+            return listeMAg;
+        } 
+    }
         
     }
    

@@ -5,16 +5,19 @@
  */
 package neopro.metier;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 /**
  *
  * @author khoul
  */
-@Entity
+@Entity(name ="Postit")
 public class Postit {
     
     // Propriétés.
@@ -23,6 +26,9 @@ public class Postit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idPos;
     private String contenuPos ;
+    //Relation  "ContenirPostit" 
+    @ManyToMany(mappedBy ="postits")
+    private Set<ListeCourses> listeCourses = new HashSet<>(0);
     
     //Constructeurs.
 
@@ -39,13 +45,16 @@ public class Postit {
     public void setIdPos(long idPos) { this.idPos = idPos;}
     public String getContenuPos() {return contenuPos;}
     public void setContenuPos(String contenuPos) { this.contenuPos = contenuPos;}
+    public Set<ListeCourses> getListeCourses() {return listeCourses;}
+    public void setListeCourses(Set<ListeCourses> listeCourses) { this.listeCourses = listeCourses;}
+    
     
     //Méthodes.
     //Méthodes surchargées.
 
     @Override
     public String toString() {
-        return "Postit{" + "idPos=" + idPos + ", contenuPos=" + contenuPos + '}';
+        return "Postit{" + "idPos=" + idPos + ", contenuPos=" + contenuPos + ", listeCourses=" + listeCourses + '}';
     }
 
     @Override

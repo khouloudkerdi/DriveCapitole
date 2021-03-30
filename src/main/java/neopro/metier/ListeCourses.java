@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -38,6 +39,13 @@ public class ListeCourses {
      //Relation  "ContenirArticle" 
     @ManyToMany(mappedBy ="listeCourses")
     private Set<Article> articles = new HashSet<>(0);
+    
+    //Relation Contenir Postit
+    @ManyToMany 
+    @JoinTable ( name="ContenirPostit",
+                 joinColumns = @JoinColumn(name="idLis"),
+                 inverseJoinColumns = @JoinColumn (name="idPos"))
+    private Set<Postit> postits = new HashSet<>(0);
 
     //Constructeurs.
 
@@ -60,6 +68,8 @@ public class ListeCourses {
     public void setClient(Client client) { this.client = client;}
     public Set<Article> getArticles() {return articles;}
     public void setArticles(Set<Article> articles) { this.articles = articles;}
+    public Set<Postit> getPostits() { return postits;}
+    public void setPostits(Set<Postit> postits) { this.postits = postits;}
     
     //Méthodes.
     //Méthodes surchargées.

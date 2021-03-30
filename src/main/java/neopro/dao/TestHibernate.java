@@ -32,6 +32,7 @@ import neopro.metier.Marque;
 import neopro.metier.NutriscoreArticle;
 import static neopro.metier.NutriscoreArticle.A;
 import neopro.metier.Panier;
+import neopro.metier.Postit;
 import neopro.metier.Preferences;
 import neopro.metier.Promotion;
 import neopro.metier.Rayon;
@@ -169,6 +170,21 @@ public class TestHibernate {
         }
     }
     
+     //Function pour ajouter un Label a un article 
+    
+    public static void ajouterPostitListeCourses( long id_postit,long id_liste ) {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Postit p = session.get(Postit.class,id_postit);
+            ListeCourses l = session.get(ListeCourses.class,id_liste);
+            p.getListeCourses().add(l);
+            l.getPostits().add(p);
+            t.commit(); // Commit et flush automatique de la session.
+        }
+    }
+    
       //Function pour ajouter un Label a un article 
     
     public static void ajouterArticleListeCourse( long id_art,long id_lis ) {
@@ -281,7 +297,19 @@ public class TestHibernate {
             t.commit(); // Commit et flush automatique de la session.
         }
     }
+  //Function pour ajouter un postit
     
+  public static void ajouterPsotit() {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Postit p = new Postit ("p");
+            session.save(p);
+            t.commit(); // Commit et flush automatique de la session.
+        }
+    }
+  
  //Fonction pour recuperer le montant total d'un article dans un panier d'un client 
    public static double montantTotaleArticlePanier(long idp,  long idArt)
      {
@@ -381,6 +409,18 @@ public class TestHibernate {
         }
         
     }
+    // Recupertaion de la liste des magasins 
+    public static  List<Magasin> getListeMagasin(String code){
+     try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            int cp= Integer.parseInt(code);
+            List<Magasin> listeMAg = session.createQuery("from Magasin m where m.codePostaleMag =\""+cp+"\" ").list();
+            for(Magasin m : listeMAg){
+                System.out.println(m.getNomMag());
+            }
+            return listeMAg;
+        } 
+    }
     /**
      * Programme de test.
      */
@@ -390,6 +430,7 @@ public class TestHibernate {
       //TestHibernate.ajouterArticle();
       //TestHibernate.ListeArticlesParRayon("2" );
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
+     TestHibernate.ajouterPostitListeCourses(1l,64l);
 
 
       

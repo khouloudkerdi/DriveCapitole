@@ -5,8 +5,6 @@
 --%>
 
 
-<%@page import="neopro.metier.Client"%>
-<%@page import="neopro.dao.MethodesDAO"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="neopro.metier.Label"%>
 <%@page import="java.util.Set"%>
@@ -22,10 +20,6 @@
     <div class="container">
         <div class="row">
             <%@include file="../layout/navbar.jsp" %>
-            <%
-            long id = ((Number) request.getSession().getAttribute("idClient")).longValue();
-            Client client = MethodesDAO.infosClient(id);
-            %>
         </div>
         <div class="row">
             <div class="col-md-2">

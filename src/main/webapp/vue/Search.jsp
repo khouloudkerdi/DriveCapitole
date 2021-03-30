@@ -38,9 +38,6 @@
                     } else {
                         out.println("<h3>" + nbRes + " Résultats</h3>");
                     }
-               
-     
-                    listeArticles.addAll(listeSearch);
                     int numCol = 3;
                     int colCount = 0;
 
@@ -57,12 +54,21 @@
                     } %>
                 <div class="col-md-4 cardProduit">
                     <div class="card">
-                        <%if (listeArticlesPromo.contains(a)) {
+                          <%if (listeArticlesPromo.contains(a)) {
                                 out.print("<span class='spanPromo'>Promotion </span>");
                                 produitPromo = MethodesDAO.calculerPrixPromo(a.getIdArt());
                             } else {
                                 out.print("<span class='spanNonPromo'>&nbsp</span>");
                             }
+                        
+                             if (request.getSession().getAttribute("idClient")!=null){
+                                  long id = ((Number) request.getSession().getAttribute("idClient")).longValue();
+                       List<Article> liste_articlesPref = MethodesDAO.listePref(id);
+                        if (liste_articlesPref.contains(a) ) {
+                                out.print("<span class='spanPref'>&#10084;</i> </span>");
+                               
+                                }   
+                    }
                         %>
                         <div>
                               <img class="card-img imgProduit float-left" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="imageProduit">
