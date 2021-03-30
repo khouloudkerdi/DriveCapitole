@@ -179,5 +179,6 @@
             </div>
         </div>
     </div>
+                              <%@include file="../layout/logOut.jsp" %>
 </body>
 <%@include file="../layout/footerFix.jsp" %>

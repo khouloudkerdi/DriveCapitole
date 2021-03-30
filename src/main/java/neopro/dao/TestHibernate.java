@@ -390,8 +390,8 @@ public class TestHibernate {
       //TestHibernate.ajouterArticle();
       //TestHibernate.ListeArticlesParRayon("2" );
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
-
-
+    
+      
       
         /*----- Exit -----*/
         System.exit(0);

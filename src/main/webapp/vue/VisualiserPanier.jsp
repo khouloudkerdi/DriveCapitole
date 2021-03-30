@@ -24,12 +24,12 @@
             <div class="row" >
                 <div class="col-md-8">
                     <h4>Détails panier</h4>
-                    <% long idcli = 1;
+                    <% long idcli = (long) request.getSession().getAttribute("idClient");
                         ArrayList<Article> listeArt = MethodesDAO.listeArtcilesPanierClient(idcli);
                         Client client = MethodesDAO.infosClient(idcli);
                     %>
-                    <% long idp = 1l; %> 
-                    <% float montant = MethodesDAO.montantPanier(idp); %>
+                    <% long idp = MethodesDAO.getIdPanierByIdCli(idcli); %> 
+                    <% float montant = MethodesDAO.montantPanier(idcli); %>
                     <% List<Article> listeArticlesPromo = MethodesDAO.listePromo();
                         float montantEconomieTotal = 0f;
 

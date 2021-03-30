@@ -186,6 +186,33 @@ public class MethodesDAO {
             return montantfinal;
         }
     }
+    
+    // Fonction pour récupérer le idPanier qui est enCours d'un client à partir de son idCli.
+    public static long getIdPanierByIdCli(long idCli) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+
+            String hql = "select p.idPan "
+                    + "from Panier p "
+                    + "where p.client.idCli = :id "
+                    + "and p.etatPan = 'EnCours' ";
+            Query query = session.createQuery(hql);
+            query.setParameter("id", idCli);
+            List<Long> list = query.list();
+            Long idPan;
+            if (list.size() == 0) {
+                Client c1 = session.get(Client.class, idCli);
+                Panier p1 = new Panier(EtatPanier.EnCours, c1);
+                session.save(p1);
+                t.commit();
+                idPan = p1.getIdPan();
+            } else {
+                idPan = list.get(0);
+            }
+            return idPan;
+        }
+    }
 
     // Fonction pour récupérer la quantite d'un article dans un panier.
     public static int QuantiteArticlePanier(long idp, long idArt) {
@@ -387,17 +414,24 @@ public class MethodesDAO {
     }
 
     // calcule le nombre d'article dans un panier 
-    public static long nbArt(long idPan) {
+    public static long nbArt(long idCli) {
         /*----- Ouverture de la session -----*/
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
-            long liste1 = (long) session.createQuery("select sum(a.quantite) "
-                    + "from AvoirQuantitePanier a "
-                    + "where a.panier.idPan = 1 ").uniqueResult();
-            t.commit();// Commit et flush automatique de la session. 
-            /*----- Exit -----*/
-            return liste1;
+            String hql = "select sum(aqp.quantite) "
+                    + "from AvoirQuantitePanier aqp, Panier p "
+                    + "where p.idPan = aqp.panier.idPan "
+                    + "and p.client.idCli = :id "
+                    + "and p.etatPan = 'EnCours' ";
+            Query query = session.createQuery(hql);
+            query.setParameter("id", idCli);
+            List<Long> list = query.list();
+            Long nbArt = list.get(0);
+            if (nbArt == null) {
+                nbArt = 0l;
+            }
+            return nbArt;
         }
     }
 
