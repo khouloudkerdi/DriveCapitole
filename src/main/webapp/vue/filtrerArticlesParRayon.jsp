@@ -26,16 +26,39 @@
                 <%@include file="../layout/menu.jsp" %>
             </div>
             <div class="col-md-10">
-                  <% 
-                    List<Article> liste_articles = (List<Article>)request.getAttribute("liste_articles");
-                    List<Article> listeArticlesPromo = MethodesDAO.listePromo();
-                    List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
-                    List<Article> listeArticles = new ArrayList();
+                <% 
+                  List<Article> liste_articles = (List<Article>)request.getAttribute("liste_articles");
+                  List<Article> listeArticles = new ArrayList();                     
+                  List<Article> listeArticlesPromo = MethodesDAO.listePromo();
+                  List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
+                   //article filtre et pref
+                 List<Article> listeArticlesPref=MethodesDAO.communeListe(liste_articles,MethodesDAO.listePref((long) request.getSession().getAttribute("idClient")));
+                    
+                  if (request.getSession().getAttribute("idClient") != null) {    
+                
+                 //article filtre et pref et promo
+                 List<Article> listeArticlesPrefPromo=MethodesDAO.communeListe(MethodesDAO.listePromo(),listeArticlesPref);
+                 //article filtre et pref et non promo
+                 List<Article> listeArticlesPrefNonPromo=MethodesDAO.communeListe(MethodesDAO.listeNonPromo(),listeArticlesPref);
+                 //Article filtre et non pref
+                 List<Article> listeArticlesNonPref=MethodesDAO.listeDansListe(liste_articles, listeArticlesPref);
+                 //Article filtre et non pref et promo
+                 List<Article> listeArticlesNonPrefPromo=MethodesDAO.communeListe(listeArticlesNonPref, MethodesDAO.listePromo());
+                 //Article filtre et non pref et non promo
+                 List<Article> listeArticlesNonPrefNonPromo=MethodesDAO.communeListe(listeArticlesNonPref, MethodesDAO.listeNonPromo());
+                listeArticles.addAll(listeArticlesPrefPromo);
+                listeArticles.addAll(listeArticlesPrefNonPromo);
+                listeArticles.addAll(listeArticlesNonPrefPromo);
+                listeArticles.addAll(listeArticlesNonPrefNonPromo);
+                }else{
                     listeArticles.addAll(liste_articles);
-                    int numCol = 3;
-                    int colCount = 0;
+                    }
+                      
+                  
+                  int numCol = 3;
+                  int colCount = 0;
 
-                    for (Article a : listeArticles) {
+                  for (Article a : listeArticles) {
 
                 %>
                 <%!
@@ -55,24 +78,29 @@
                                 out.print("<span class='spanNonPromo'>&nbsp</span>");
                             }
                         %>
+                        
+                         <%if (listeArticlesPref.contains(a)) {
+                                out.print("<span class='spanPref'>&#10084;</i> </span>");
+                               
+                                }   %>
                         <div>
-                              <img class="card-img imgProduit float-left" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="imageProduit">
-                           
-                         <%
-                             List<Label> listeLabels = MethodesDAO.getLabelsArticle(a.getIdArt());
-                             if(listeLabels.size()!=0)
-                             {
-                                for (Label l: listeLabels)
-                             { %>
-                                 <img class="imgLabel" src="${pageContext.request.contextPath}/image/<%out.print(l.getLibelleLab()+".JPG");%>" >
-                          <% } 
-                             } 
-                          %>
-                            
+                            <img class="card-img imgProduit float-left" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="imageProduit">
+
+                            <%
+                                List<Label> listeLabels = MethodesDAO.getLabelsArticle(a.getIdArt());
+                                if(listeLabels.size()!=0)
+                                {
+                                   for (Label l: listeLabels)
+                                { %>
+                            <img class="imgLabel" src="${pageContext.request.contextPath}/image/<%out.print(l.getLibelleLab()+".JPG");%>" >
+                            <% } 
+                               } 
+                            %>
+
                         </div> 
-                      
-                         
-                         <div class="card-body">
+
+
+                        <div class="card-body">
                             <a> <h5 class="card-title"><% out.print(a.getLibelleArt());%></h5></a>
                             <P>
                                 <span class="infosproduits"><% out.print(a.getFormatArt());%></span>
