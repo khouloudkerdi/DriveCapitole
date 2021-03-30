@@ -27,7 +27,7 @@
                     listeArticles.addAll(listeArticlesNonPromo);
                     int numCol = 3;
                     int colCount = 0;
-                    if (request.getSession().getAttribute("idClient")!=null){
+                    if (request.getSession(false).getAttribute("idClient")!=null){
                         request.getRequestDispatcher("PagePersonnelle").forward(request, response);
                     }
                     for (Article a : listeArticles) {
@@ -112,9 +112,9 @@
                                     <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" 
                                        class="btn btn-secondary btn-sm">Panier</a>
                                     <%
-                                        if (request.getSession().getAttribute("idClient") != null) {
+                                        if (request.getSession(false).getAttribute("idClient") != null) {
                                             //long idClient=(long) request.getSession().getAttribute("idClient");
-                                            long idClient = ((Number) request.getSession().getAttribute("idClient")).longValue();
+                                            long idClient = ((Number) request.getSession(false).getAttribute("idClient")).longValue();
                                             if (MethodesDAO.getListeCourses(idClient).size() != 0) {
 
                                     %>
