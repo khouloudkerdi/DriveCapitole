@@ -26,12 +26,18 @@
                 <%@include file="../layout/menu.jsp" %>
             </div>
             <div class="col-md-10">
-             <%  String search = request.getParameter("searchWord");
+                <%  String search = request.getParameter("searchWord");
                     List<Article> listeArticlesPromo = MethodesDAO.listePromo();
                     List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
                     List<Article> listeSearch = MethodesDAO.listRecherche(search);
                     List<Article> listeArticles = new ArrayList();
-                    listeArticles.addAll(listeSearch);
+                    listeArticles.addAll(listeSearch); 
+                    int nbRes = listeArticles.size();
+                    if (nbRes==0){
+                    out.println("<h3>" + nbRes + " Résultat...</h3>");
+                    } else {
+                        out.println("<h3>" + nbRes + " Résultats</h3>");
+                    }
                     int numCol = 3;
                     int colCount = 0;
 
@@ -48,12 +54,21 @@
                     } %>
                 <div class="col-md-4 cardProduit">
                     <div class="card">
-                        <%if (listeArticlesPromo.contains(a)) {
+                          <%if (listeArticlesPromo.contains(a)) {
                                 out.print("<span class='spanPromo'>Promotion </span>");
                                 produitPromo = MethodesDAO.calculerPrixPromo(a.getIdArt());
                             } else {
                                 out.print("<span class='spanNonPromo'>&nbsp</span>");
                             }
+                        
+                             if (request.getSession().getAttribute("idClient")!=null){
+                                  long id = ((Number) request.getSession().getAttribute("idClient")).longValue();
+                       List<Article> liste_articlesPref = MethodesDAO.listePref(id);
+                        if (liste_articlesPref.contains(a) ) {
+                                out.print("<span class='spanPref'>&#10084;</i> </span>");
+                               
+                                }   
+                    }
                         %>
                         <div>
                               <img class="card-img imgProduit float-left" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="imageProduit">

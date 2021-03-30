@@ -1,43 +1,54 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package neopro.ctrl;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import neopro.dao.MethodesDAO;
+import neopro.metier.Magasin;
 
-public class CtrlInserer extends HttpServlet {
+/**
+ *
+ * @author khoul
+ */
+public class CtrlChoixMagasin extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String idA = request.getParameter("idArt");
-        // Conversion using parseLong(String) method
-        long idArt = Long.parseLong(idA);
-
-        if (request.getSession().getAttribute("idClient") == null) {
-            // Connexion
-            // Ajouter 'idArt' au session
-            request.getSession().setAttribute("idArt", idArt);
-            // Chainage ver la connexion
-            request.getRequestDispatcher("Connexion").forward(request, response);
-
-        } else {
-            // Ajouter au panier    
-            long idClient = (long) request.getSession().getAttribute("idClient");                
-            MethodesDAO.insererArticlePanier(idArt, MethodesDAO.loadPanierClient(idClient));
-        }
-
-        //// Ajouter à la liste de courses
-        String l = request.getParameter("idListeCourses");
-        if (l != null) {
-            String[] ls = l.split(",");
-            Long idArticle = Long.parseLong(ls[0]);
-            Long idListeC = Long.parseLong(ls[1]);
-            MethodesDAO.ajouterArticleListeCourse(idArticle, idListeC);
-        }
-        response.sendRedirect("Accueil");
+            //Récuperation des parametres 
+            String code =request.getParameter("codepostal");
+           try
+            {
+//                //Recuperation de la liste de magasin.
+//                List <Magasin> listeMag =MethodesDAO.getListeMagasin(code);
+//                //Chainnage vers la vue "Supprimer.jsp"  avec la liste de messages et un message d'info
+//                request.setAttribute("liste_Mag", listeMag);
+//                request.getRequestDispatcher("choixCreneauMagasin").forward(request, response);      
+            }
+            catch(Exception ex)
+            {
+                //Chainage vers la page visualiserPanier avec un message.
+                request.setAttribute("msg_erreur", ex.getMessage());
+                request.getRequestDispatcher("Panier").forward(request, response);
+            }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

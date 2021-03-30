@@ -576,6 +576,33 @@ public class MethodesDAO {
         return listeArticle;   
     }
     
+   // Recupertaion de la liste des magasins 
+     public static  List<Magasin> getListeMagasin(String code){
+     try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            int cp= Integer.parseInt(code);
+            List<Magasin> listeMAg = session.createQuery("from Magasin m where m.codePostaleMag =\""+cp+"\" ").list();
+            return listeMAg;
+        } 
+    }
+      public static List<Article> communeListe(List<Article> grandListe,List<Article> petitListe){
+        List<Article> listeArticle=new ArrayList<Article>();
+        boolean existe=false;
+        for(Article gl : grandListe){
+            existe=false;
+            for (Article pl: petitListe){
+                if (gl.equals(pl)){
+                    existe=true;
+                    break;
+                }                
+            }
+            if (existe){
+                    listeArticle.add(gl);
+                }
+        }
+        return listeArticle;   
+    }
+    
 
         
     }

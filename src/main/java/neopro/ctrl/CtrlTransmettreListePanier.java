@@ -32,7 +32,7 @@ public class CtrlTransmettreListePanier extends HttpServlet {
         for (Article a:listeArticle){
             MethodesDAO.insererArticlePanier(a.getIdArt(), MethodesDAO.loadPanierClient(idClient));
         }
-        request.getRequestDispatcher("Panier").forward(request, response);
+        response.sendRedirect("Panier");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

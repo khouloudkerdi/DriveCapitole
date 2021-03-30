@@ -22,7 +22,7 @@ public class HibernateUtil {
             configuration.addAnnotatedClass(neopro.metier.Rayon.class);
             configuration.addAnnotatedClass(neopro.metier.Categorie.class);
             configuration.addAnnotatedClass(neopro.metier.Marque.class);
-           // configuration.addAnnotatedClass(neopro.metier.Magasin.class);
+            configuration.addAnnotatedClass(neopro.metier.Magasin.class);
             configuration.addAnnotatedClass(neopro.metier.Label.class);
             configuration.addAnnotatedClass(neopro.metier.Article.class);
             configuration.addAnnotatedClass(neopro.metier.Promotion.class);
@@ -34,6 +34,7 @@ public class HibernateUtil {
             configuration.addAnnotatedClass(neopro.metier.AvoirQuantitePanier.class);
             configuration.addAnnotatedClass(neopro.metier.AvoirQuantitePanierID.class);
             configuration.addAnnotatedClass(neopro.metier.ListeCourses.class);
+            configuration.addAnnotatedClass(neopro.metier.Postit.class);
             
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             System.out.println("Hibernate serviceRegistry created");
