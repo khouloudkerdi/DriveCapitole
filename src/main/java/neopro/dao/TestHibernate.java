@@ -152,6 +152,21 @@ public class TestHibernate {
             t.commit(); // Commit et flush automatique de la session.
         }
     }
+    
+     //Function pour ajouter un postit
+    
+    public static void ajouterPostit() {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            ListeCourses l1 = session.get(ListeCourses.class, 64l);
+            Postit p1 = new Postit ("p",l1);
+            System.out.println(p1.toString());
+            session.save(p1);
+            t.commit(); // Commit et flush automatique de la session.
+        }
+    }
   
      //Function pour ajouter un Label a un article 
     
@@ -170,20 +185,7 @@ public class TestHibernate {
         }
     }
     
-     //Function pour ajouter un Label a un article 
-    
-    public static void ajouterPostitListeCourses( long id_postit,long id_liste ) {
-        /*----- Ouverture de la session -----*/
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            /*----- Ouverture d'une transaction -----*/
-            Transaction t = session.beginTransaction();
-            Postit p = session.get(Postit.class,id_postit);
-            ListeCourses l = session.get(ListeCourses.class,id_liste);
-            p.getListeCourses().add(l);
-            l.getPostits().add(p);
-            t.commit(); // Commit et flush automatique de la session.
-        }
-    }
+
     
       //Function pour ajouter un Label a un article 
     
@@ -297,18 +299,7 @@ public class TestHibernate {
             t.commit(); // Commit et flush automatique de la session.
         }
     }
-  //Function pour ajouter un postit
-    
-  public static void ajouterPsotit() {
-        /*----- Ouverture de la session -----*/
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            /*----- Ouverture d'une transaction -----*/
-            Transaction t = session.beginTransaction();
-            Postit p = new Postit ("p");
-            session.save(p);
-            t.commit(); // Commit et flush automatique de la session.
-        }
-    }
+  
   
  //Fonction pour recuperer le montant total d'un article dans un panier d'un client 
    public static double montantTotaleArticlePanier(long idp,  long idArt)
@@ -430,7 +421,8 @@ public class TestHibernate {
       //TestHibernate.ajouterArticle();
       //TestHibernate.ListeArticlesParRayon("2" );
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
-     TestHibernate.ajouterPostitListeCourses(1l,64l);
+     TestHibernate.ajouterPostit();
+
 
 
       

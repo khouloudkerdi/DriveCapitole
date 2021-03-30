@@ -7,6 +7,7 @@ package neopro.metier;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -39,14 +41,10 @@ public class ListeCourses {
      //Relation  "ContenirArticle" 
     @ManyToMany(mappedBy ="listeCourses")
     private Set<Article> articles = new HashSet<>(0);
-    
-    //Relation Contenir Postit
-    @ManyToMany 
-    @JoinTable ( name="ContenirPostit",
-                 joinColumns = @JoinColumn(name="idLis"),
-                 inverseJoinColumns = @JoinColumn (name="idPos"))
-    private Set<Postit> postits = new HashSet<>(0);
 
+    //Réferences. Relation Contenir Postit
+    @OneToMany (mappedBy ="listeCourses" , cascade =CascadeType.ALL ,fetch =FetchType.LAZY)
+    private Set<Postit> postit = new HashSet<>(0);
     //Constructeurs.
 
     public ListeCourses() {
@@ -68,8 +66,8 @@ public class ListeCourses {
     public void setClient(Client client) { this.client = client;}
     public Set<Article> getArticles() {return articles;}
     public void setArticles(Set<Article> articles) { this.articles = articles;}
-    public Set<Postit> getPostits() { return postits;}
-    public void setPostits(Set<Postit> postits) { this.postits = postits;}
+    public Set<Postit> getPostit() {return postit;}
+    public void setPostit(Set<Postit> postit) { this.postit = postit;}
     
     //Méthodes.
     //Méthodes surchargées.

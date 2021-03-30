@@ -8,10 +8,13 @@ package neopro.metier;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -26,29 +29,28 @@ public class Postit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idPos;
     private String contenuPos ;
-    //Relation  "ContenirPostit" 
-    @ManyToMany(mappedBy ="postits")
-    private Set<ListeCourses> listeCourses = new HashSet<>(0);
+     //Relation "Contenir Postit"
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idLis")   
+    private ListeCourses listeCourses ;
     
     //Constructeurs.
 
     public Postit() {
     }
-
-    public Postit( String contenuPos) {
+    public Postit(String contenuPos, ListeCourses listeCourses) {
         this.contenuPos = contenuPos;
+        this.listeCourses = listeCourses;
     }
-    
     //Getters / Setters.
     
     public long getIdPos() {return idPos;}
     public void setIdPos(long idPos) { this.idPos = idPos;}
     public String getContenuPos() {return contenuPos;}
     public void setContenuPos(String contenuPos) { this.contenuPos = contenuPos;}
-    public Set<ListeCourses> getListeCourses() {return listeCourses;}
-    public void setListeCourses(Set<ListeCourses> listeCourses) { this.listeCourses = listeCourses;}
-    
-    
+    public ListeCourses getListeCourses() {return listeCourses;}
+    public void setListeCourses(ListeCourses listeCourses) { this.listeCourses = listeCourses; }
+
     //Méthodes.
     //Méthodes surchargées.
 
