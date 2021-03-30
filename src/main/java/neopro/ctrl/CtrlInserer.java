@@ -1,51 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package neopro.ctrl;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import neopro.dao.MethodesDAO;
 
-/**
- *
- * @author 13520
- */
 public class CtrlInserer extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {  
-         if (request.getSession().getAttribute("idClient")==null){
-            request.getRequestDispatcher("Connexion").forward(request, response);
-         }else{
-        long idClient=(long ) request.getSession().getAttribute("idClient");
-         // Ajouter au panier
+            throws ServletException, IOException {
+
         String idA = request.getParameter("idArt");
-       
-       
-            if (idA!=null){
-             //Conversion using parseLong(String) method
-	    long idArt = Long.parseLong(idA);
-            MethodesDAO.insererArticlePanier(idArt,MethodesDAO.loadPanierClient(idClient));
-         }
+        // Conversion using parseLong(String) method
+        long idArt = Long.parseLong(idA);
+
+        if (request.getSession().getAttribute("idClient") == null) {
+            // Connexion
+            // Ajouter 'idArt' au session
+            request.getSession().setAttribute("idArt", idArt);
+            // Chainage ver la connexion
+            request.getRequestDispatcher("Connexion").forward(request, response);
+
+        } else {
+            // Ajouter au panier    
+            long idClient = (long) request.getSession().getAttribute("idClient");                
+            MethodesDAO.insererArticlePanier(idArt, MethodesDAO.loadPanierClient(idClient));
         }
-        
-        
-         //// Ajouter à la liste de courses
-        String l=request.getParameter("idListeCourses");
-        if (l!=null){
-        String[] ls = l.split(",");
-        Long idArticle= Long.parseLong(ls[0]);
-        Long idListeC= Long.parseLong(ls[1]);
-        MethodesDAO.ajouterArticleListeCourse(idArticle, idListeC);
+
+        //// Ajouter à la liste de courses
+        String l = request.getParameter("idListeCourses");
+        if (l != null) {
+            String[] ls = l.split(",");
+            Long idArticle = Long.parseLong(ls[0]);
+            Long idListeC = Long.parseLong(ls[1]);
+            MethodesDAO.ajouterArticleListeCourse(idArticle, idListeC);
         }
-             response.sendRedirect("Accueil");
+        response.sendRedirect("Accueil");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
