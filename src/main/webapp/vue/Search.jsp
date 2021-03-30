@@ -26,11 +26,20 @@
                 <%@include file="../layout/menu.jsp" %>
             </div>
             <div class="col-md-10">
-             <%  String search = request.getParameter("searchWord");
+                <%  String search = request.getParameter("searchWord");
                     List<Article> listeArticlesPromo = MethodesDAO.listePromo();
                     List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
                     List<Article> listeSearch = MethodesDAO.listRecherche(search);
                     List<Article> listeArticles = new ArrayList();
+                    listeArticles.addAll(listeSearch); 
+                    int nbRes = listeArticles.size();
+                    if (nbRes==0){
+                    out.println("<h3>" + nbRes + " Résultat...</h3>");
+                    } else {
+                        out.println("<h3>" + nbRes + " Résultats</h3>");
+                    }
+               
+     
                     listeArticles.addAll(listeSearch);
                     int numCol = 3;
                     int colCount = 0;
