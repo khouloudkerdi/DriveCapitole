@@ -1,10 +1,3 @@
-<%-- 
-    Document   : ListeArticle
-    Created on : 2021年3月22日, 下午2:16:13
-    Author     : 13520
---%>
-
-
 <%@page import="java.util.HashSet"%>
 <%@page import="neopro.metier.Label"%>
 <%@page import="java.util.Set"%>

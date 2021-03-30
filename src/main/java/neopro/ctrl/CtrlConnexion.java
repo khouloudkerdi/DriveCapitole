@@ -17,20 +17,27 @@ import neopro.dao.MethodesDAO;
 public class CtrlConnexion extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String mail=request.getParameter("mail");
-        String mdp=request.getParameter("motDePasse");
-        long noValide=0;//Si le compte ou le mot de passe est incorrect, renvoyer 0 
-        if (MethodesDAO.verifierCompte(mail,mdp)==noValide){
+        String mail = request.getParameter("mail");
+        String mdp = request.getParameter("motDePasse");
+        long noValide = 0;//Si le compte ou le mot de passe est incorrect, renvoyer 0 
+        if (MethodesDAO.verifierCompte(mail, mdp) == noValide) {
             //retour à la page connexion si ce n'est pas correst
             request.setAttribute("msg_connexion", "Votre adresse e-mail ou mot de passe est incorrect ! ");
             request.setAttribute("mail", mail);
             request.getRequestDispatcher("Connexion").forward(request, response);
-        }else{
+        } else {
             //retour à la page accueil si c'est correst
-            request.getSession().setAttribute("idClient",MethodesDAO.verifierCompte(mail,mdp));
-            response.sendRedirect("Accueil");
+            long idClient = MethodesDAO.verifierCompte(mail, mdp);
+            request.getSession().setAttribute("idClient", idClient);
+            if (request.getSession().getAttribute("idArt") != null) {
+                // Get idArt 
+                long idArt = (long) request.getSession().getAttribute("idArt");
+                // Ajouter l'article au panier           
+                MethodesDAO.insererArticlePanier(idArt, MethodesDAO.loadPanierClient(idClient));
+                response.sendRedirect("Accueil");
+            }
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -73,5 +80,3 @@ public class CtrlConnexion extends HttpServlet {
     }// </editor-fold>
 
 }
-
-
