@@ -31,7 +31,7 @@ public class CtrlAjouterCrouses extends HttpServlet {
             //ajouter la liste de courses
             long id=(long) request.getSession().getAttribute("idClient");
             MethodesDAO.ajouterListeCourses(id, p);
-            request.getRequestDispatcher("ListeCourses").forward(request, response);  
+            response.sendRedirect("ListeCourses");
         }
         
     }
