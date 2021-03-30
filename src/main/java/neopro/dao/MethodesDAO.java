@@ -568,6 +568,8 @@ public class MethodesDAO {
         }
         return listeArticle;   
     }
+      
+
     
 
         
