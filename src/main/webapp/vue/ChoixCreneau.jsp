@@ -4,6 +4,7 @@
     Author     : Xinyan
 --%>
 
+<%@page import="neopro.metier.Magasin"%>
 <%@page import="neopro.metier.Client"%>
 <%@page import="java.math.BigDecimal"%>
 <%@page import="java.util.List"%>
@@ -16,26 +17,48 @@
 <body id="bodyPanier">
     <form action="" method="GET">
         <div class="container">
-            
+
             <%-- Header Confirmation --%>
             <div class="row headerPanier">
-                <h3>Votre Drive</h3>
+                <h3>Récapitulatif</h3>
             </div>
-            
+
             <%-- Contenu Confirmation --%>
             <div class="row" >
                 <%-- Choix --%>
                 <div class="col-md-8">
                     <%-- Choix du Magain --%>
-                    <div class="row">
-                        <h4>Magagin</h4>
-                        <p>
-                            <%
-                                out.print(request.getSession().getAttribute("idClient"));
-                                
-                            %>
-                        </p>
+                    <div>
+                        <h4>Votre Drive</h4>
+                        <%
+                            long idClient = (long) request.getSession().getAttribute("idClient");
+                            Magasin mag; 
+                            if (request.getSession(false).getAttribute("idMag")!=null){
+                                mag = MethodesDAO.getMagByIdMag((long)request.getSession(false).getAttribute("idMag"));
+                            } else {
+                                mag = MethodesDAO.getMagByIdCli(idClient);
+                            }                           
+                            
+                        %>
+                       
+                        <div class="recapPanier row">
+                            <div class="col-md-8">
+                            <div class="recapPanierInfo">
+                                <span class="titreValeurPanier"><% out.print(mag.getNomMag());%></span>
+                            </div>
+                            <div class="recapPanierInfo">
+                                <span class="titreValeurPanier"><% out.print(mag.getAdresseMag());%></span>         
+                            </div>
+                        
+                            </div>
+                        
+                            <div class="col-md-4 atCenterAll" style="height: 100%;">
+                                <button class="btn btn-info" >Modifier</button>
+                            </div>
+</div>
                     </div>
+
+
                     <%-- Choix du Creneau--%>
                     <div class="row">
                         <h4>Créneau</h4>
@@ -78,14 +101,14 @@
                         <div class="recapPanierInfo">
                             <span class="titreEconomiePanier">Economie :</span>
                             <% BigDecimal montantEconomieTotalD = new BigDecimal(montantEconomieTotal);
-                            float montantEcoTotalF = montantEconomieTotalD.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();%>
+                                float montantEcoTotalF = montantEconomieTotalD.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();%>
                             <span class="valeurEconomiePanier"><% out.print("<span class='spanPromo'>" + montantEcoTotalF + "€</span>");%>  </span>    
                         </div>
                         <div class="recapPanierInfo">
                             <span class="titreTotalPanier">Total à payer :</span>
                             <% float montantTotalPanier = montant - montantEconomieTotal;
-                            BigDecimal montantTotalPanierD = new BigDecimal(montantTotalPanier);
-                            float montantTotalAPayer = montantTotalPanierD.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();%>
+                                BigDecimal montantTotalPanierD = new BigDecimal(montantTotalPanier);
+                                float montantTotalAPayer = montantTotalPanierD.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();%>
                             <span class="valeurTotalPanier"> <% out.print(montantTotalAPayer);%> € </span>   
                         </div>
                     </div>

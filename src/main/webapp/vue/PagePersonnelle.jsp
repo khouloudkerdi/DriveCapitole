@@ -22,27 +22,26 @@
         <div class="row">
             <%@include file="../layout/navbar.jsp" %>
             <%
-            long id = (long) request.getSession().getAttribute("idClient");
-            Client client = MethodesDAO.infosClient(id);
-            
+                long id = (long) request.getSession().getAttribute("idClient");
+                Client client = MethodesDAO.infosClient(id);
+
             %>
-            <span style="margin-left: 5px;"><% out.print("Bonjour " +client.getPrenomCli()); %></span>
+            <span style="margin-left: 5px;"><% out.print("Bonjour " + client.getPrenomCli());%></span>
         </div>
         <div class="row">
             <div class="col-md-2">
                 <%@include file="../layout/menu.jsp" %>
             </div>
             <div class="col-md-10">
-                  <%  
-                    List<Article> liste_articles = MethodesDAO.listeArticle();
+                <%                      List<Article> liste_articles = MethodesDAO.listeArticle();
                     List<Article> liste_articlesPref = MethodesDAO.listePref(id);
                     List<Article> listeArticlesPromo = MethodesDAO.listePromo();
                     List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
 
                     List<Article> autresArticle = MethodesDAO.listeDansListe(liste_articles, liste_articlesPref);
                     List<Article> autresArticleNonPromo = MethodesDAO.listeDansListe(autresArticle, listeArticlesPromo);
-                    List<Article> autresArticlePromo = MethodesDAO.listeDansListe(autresArticle, listeArticlesNonPromo); 
-                    
+                    List<Article> autresArticlePromo = MethodesDAO.listeDansListe(autresArticle, listeArticlesNonPromo);
+
                     List<Article> listeArticles = new ArrayList();
                     listeArticles.addAll(liste_articlesPref);
                     listeArticles.addAll(autresArticlePromo);
@@ -64,37 +63,35 @@
                 <div class="col-md-4 cardProduit">
                     <div class="card">
                         <div style="display: flex; ">
-                        <%if (listeArticlesPromo.contains(a)) {
-                                out.print("<span class='spanPromo'>Promotion</span>");
-                                produitPromo = MethodesDAO.calculerPrixPromo(a.getIdArt());
-                            } else if(!listeArticlesPromo.contains(a)   ) {
-                                out.print("<span class='spanNonPromo'>&nbsp</span>");
-                            }
-                        %>
-                        
-                         <%if (liste_articlesPref.contains(a) ) {
-                                out.print("<span class='spanPref'>&#10084;</i> </span>");
-                               
+                            <%if (listeArticlesPromo.contains(a)) {
+                                    out.print("<span class='spanPromo'>Promotion</span>");
+                                    produitPromo = MethodesDAO.calculerPrixPromo(a.getIdArt());
+                                } else if (!listeArticlesPromo.contains(a)) {
+                                    out.print("<span class='spanNonPromo'>&nbsp</span>");
+                                }
+                            %>
+
+                            <%if (liste_articlesPref.contains(a)) {
+                                    out.print("<span class='spanPref'>&#10084;</i> </span>");
+
                                 }   %>
                         </div>
                         <div>
-                              <img class="card-img imgProduit float-left" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="imageProduit">
-                           
-                         <%
-                             List<Label> listeLabels = MethodesDAO.getLabelsArticle(a.getIdArt());
-                             if(listeLabels.size()!=0)
-                             {
-                                for (Label l: listeLabels)
-                             { %>
-                                 <img class="imgLabel" src="${pageContext.request.contextPath}/image/<%out.print(l.getLibelleLab()+".JPG");%>" >
-                          <% } 
-                             } 
-                          %>
-                            
+                            <img class="card-img imgProduit float-left" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="imageProduit">
+
+                            <%
+                                List<Label> listeLabels = MethodesDAO.getLabelsArticle(a.getIdArt());
+                                if (listeLabels.size() != 0) {
+                                    for (Label l : listeLabels) { %>
+                            <img class="imgLabel" src="${pageContext.request.contextPath}/image/<%out.print(l.getLibelleLab() + ".JPG");%>" >
+                            <% }
+                                }
+                            %>
+
                         </div> 
-                      
-                         
-                         <div class="card-body">
+
+
+                        <div class="card-body">
                             <a> <h5 class="card-title"><% out.print(a.getLibelleArt());%></h5></a>
                             <P>
                                 <span class="infosproduits"><% out.print(a.getFormatArt());%></span>
@@ -137,13 +134,21 @@
                                         }%>
                                 </div>
                                 <div class="btnAccueil">
+                                    <%
+                                        if (request.getSession().getAttribute("idClient") == null) {
+                                    %>
+                                    <a class="btn btn-secondary btn-sm" href="#" data-toggle="modal" data-target="#modalConnexion">
+                                        Panier
+                                    </a>
+                                    <% } else if (request.getSession().getAttribute("idClient") != null) { %>
                                     <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" 
                                        class="btn btn-secondary btn-sm">Panier</a>
+                                    <% }%>
                                     <%
-                                        if (request.getSession().getAttribute("idClient") != null) {
-                                            //long idClient=(long) request.getSession().getAttribute("idClient");
-                                            long idClient = ((Number) request.getSession().getAttribute("idClient")).longValue();
-                                            if (MethodesDAO.getListeCourses(idClient).size() != 0) {
+
+                                        //long idClient=(long) request.getSession().getAttribute("idClient");
+                                        long idClient = ((Number) request.getSession().getAttribute("idClient")).longValue();
+                                        if (MethodesDAO.getListeCourses(idClient).size() != 0) {
 
                                     %>
                                     <ul class="nav flex-column">
@@ -153,7 +158,7 @@
                                                     Liste
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <%                                                    ArrayList<ListeCourses> listeListeCourses = MethodesDAO.getListeCourses(idClient);
+                                                    <%                                                        ArrayList<ListeCourses> listeListeCourses = MethodesDAO.getListeCourses(idClient);
                                                         for (ListeCourses lc : listeListeCourses) {
                                                             out.print("<li><a class=dropdown-item href=CtrlInserer?idListeCourses=" + a.getIdArt() + "," + lc.getIdLis() + ">" + lc.getNomLis() + "</a></li>");
                                                         }
@@ -163,7 +168,7 @@
                                         </li>
                                     </ul>
                                     <%  }
-                                    } %>
+                                    %>
                                 </div>
 
 
@@ -178,6 +183,7 @@
             </div>
         </div>
     </div>
-                              <%@include file="../layout/logOut.jsp" %>
+    <%@include file="../layout/modalConnexion.jsp" %>
+    <%@include file="../layout/logOut.jsp" %>
 </body>
 <%@include file="../layout/footerFix.jsp" %>

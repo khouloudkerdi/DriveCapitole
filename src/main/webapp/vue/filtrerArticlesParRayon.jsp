@@ -26,21 +26,19 @@
                 <%@include file="../layout/menu.jsp" %>
             </div>
             <div class="col-md-10">
-                <% 
-                 List<Article> liste_articles = (List<Article>)request.getAttribute("liste_articles");
-                 List<Article> listeArticles = new ArrayList();                     
-                 List<Article> listeArticlesPromo = MethodesDAO.listePromo();
-                 List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
-                 List<Article> listeArticlesFlitrePromo=MethodesDAO.communeListe(listeArticlesPromo, liste_articles);
-                 List<Article> listeArticlesFlitreNonPromo=MethodesDAO.communeListe(listeArticlesNonPromo, liste_articles);
-                 listeArticles.addAll(listeArticlesFlitrePromo);
-                 listeArticles.addAll(listeArticlesFlitreNonPromo);
-                 
-                 
-                  int numCol = 3;
-                  int colCount = 0;
+                <%                    List<Article> liste_articles = (List<Article>) request.getAttribute("liste_articles");
+                    List<Article> listeArticles = new ArrayList();
+                    List<Article> listeArticlesPromo = MethodesDAO.listePromo();
+                    List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
+                    List<Article> listeArticlesFlitrePromo = MethodesDAO.communeListe(listeArticlesPromo, liste_articles);
+                    List<Article> listeArticlesFlitreNonPromo = MethodesDAO.communeListe(listeArticlesNonPromo, liste_articles);
+                    listeArticles.addAll(listeArticlesFlitrePromo);
+                    listeArticles.addAll(listeArticlesFlitreNonPromo);
 
-                  for (Article a : listeArticles) {
+                    int numCol = 3;
+                    int colCount = 0;
+
+                    for (Article a : listeArticles) {
 
                 %>
                 <%!
@@ -65,13 +63,11 @@
 
                             <%
                                 List<Label> listeLabels = MethodesDAO.getLabelsArticle(a.getIdArt());
-                                if(listeLabels.size()!=0)
-                                {
-                                   for (Label l: listeLabels)
-                                { %>
-                            <img class="imgLabel" src="${pageContext.request.contextPath}/image/<%out.print(l.getLibelleLab()+".JPG");%>" >
-                            <% } 
-                               } 
+                                if (listeLabels.size() != 0) {
+                                    for (Label l : listeLabels) { %>
+                            <img class="imgLabel" src="${pageContext.request.contextPath}/image/<%out.print(l.getLibelleLab() + ".JPG");%>" >
+                            <% }
+                                }
                             %>
 
                         </div> 
@@ -120,6 +116,13 @@
                                         }%>
                                 </div>
                                 <div class="btnAccueil">
+                                    <%
+                                        if (request.getSession().getAttribute("idClient") == null) {
+                                    %>
+                                    <a class="btn btn-secondary btn-sm" href="#" data-toggle="modal" data-target="#modalConnexion">
+                                        Panier
+                                    </a>
+                                    <% } else if (request.getSession().getAttribute("idClient") != null) { %>
                                     <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" 
                                        class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalConnexion">Panier</a>
                                     <%
@@ -146,7 +149,7 @@
                                         </li>
                                     </ul>
                                     <%  }
-                                    } %>
+                                        } %>
                                 </div>
 
 
@@ -161,5 +164,6 @@
             </div>
         </div>
     </div>
+    <%@include file="../layout/modalConnexion.jsp" %>
 </body>
 <%@include file="../layout/footerFix.jsp" %>

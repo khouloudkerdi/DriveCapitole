@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -53,6 +54,10 @@ public class Client implements Serializable{
     @OneToMany (mappedBy ="client" , cascade =CascadeType.ALL ,fetch =FetchType.LAZY)
     private Set<ListeCourses> listeCourses = new HashSet<>(0);
     
+     //Relation "Preferer"
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idMag")   
+    private Magasin magasin ;
     
     //Constructeurs.
 
@@ -88,14 +93,22 @@ public class Client implements Serializable{
     public void setListeCourses(Set<ListeCourses> listeCourses) { this.listeCourses = listeCourses;}
     public int getPointFedelitéCli() {return pointFedelitéCli;}
     public void setPointFedelitéCli(int pointFedelitéCli) { this.pointFedelitéCli = pointFedelitéCli;}
+    public Magasin getMagasin() {return magasin;}
+    public void setMagasin(Magasin magasin) { this.magasin = magasin;}
     
     //Méthodes.
     //Méthodes surchargées.
 
-    @Override
-    public String toString() {
-        return "Client{" + "idCli=" + idCli + ", nomCli=" + nomCli + ", prenomCli=" + prenomCli + ", email=" + email + ", motdepasse=" + motdepasse + ", pointFedelit\u00e9Cli=" + pointFedelitéCli + ", preferences=" + preferences + ", paniers=" + paniers + ", listeCourses=" + listeCourses + '}';
+    public Client(String nomCli, String prenomCli, String email, String motdepasse, int pointFedelitéCli, Magasin magasin) {
+        this.nomCli = nomCli;
+        this.prenomCli = prenomCli;
+        this.email = email;
+        this.motdepasse = motdepasse;
+        this.pointFedelitéCli = pointFedelitéCli;
+        this.magasin = magasin;
     }
+
+   
 
     @Override
     public int hashCode() {

@@ -1,55 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package neopro.ctrl;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import neopro.dao.MethodesDAO;
 
 /**
  *
  * @author 13520
  */
-public class CtrlMenu extends HttpServlet {
+public class CtrlPostIt extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
-        String m = request.getParameter("method");
-            
-        // Traitement.
-        switch (m)
-            {
-            case "Liste" :
-                if (request.getSession().getAttribute("idClient")!=null){
-                    request.getRequestDispatcher("ListeCourses").forward(request, response);  
-                }
-                    break; 
-//          
-//            case "Connexion" :
-//                if (request.getSession().getAttribute("idClient")==null){
-//                    // Chainage vers la page Connexion.jsp
-//                    request.getRequestDispatcher("Connexion").forward(request, response);
-//                   
-//                }else{
-//                   request.getRequestDispatcher("Accueil").forward(request, response);
-//                }
-//               break;
-            
-            case "Panier" :
-                if (request.getSession().getAttribute("idClient")!=null){
-                     request.getRequestDispatcher("Panier").forward(request, response);
-                }
-                break;
-            
-            }
-            
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String nomPostit=(String) request.getParameter("postit");
+        String idl=(String) request.getParameter("idListe");
+        System.out.println(idl);
+        long idListe=Long.parseLong(idl);
+        if (nomPostit!=null){
+            MethodesDAO.ajouterPostIt(idListe, nomPostit);
+            request.getRequestDispatcher("VisualiserListe?idListe="+idListe).forward(request, response);
+        }
+        else{
+            request.getRequestDispatcher("VisualiserPanier?idListe="+idListe).forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
