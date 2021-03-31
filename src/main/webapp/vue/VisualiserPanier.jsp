@@ -39,7 +39,7 @@
                         private int pourcentage;
 
                     %>
-                    <%  int qte = MethodesDAO.QuantiteArticlePanier(idcli, a.getIdArt()); %>
+                    <%  int qte = MethodesDAO.QuantiteArticlePanier(idp, a.getIdArt()); %>
                     <% float montantArticle = MethodesDAO.montantTotaleArticlePanier(idp, a.getIdArt());
 
                     %>

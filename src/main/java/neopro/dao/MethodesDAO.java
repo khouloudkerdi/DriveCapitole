@@ -626,60 +626,99 @@ public class MethodesDAO {
             return listeR;
         }
     }
-    
+        
+     public static List<Postit> loadPostIt(long idlisteCourses) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            List<Postit> listePostit=new ArrayList<Postit>();
+            for (Postit p : session.get(ListeCourses.class, idlisteCourses).getPostit()){
+                listePostit.add(p);
+            }
+            return listePostit;
+        }
+    }
+
+  
+
     public static List<Article> listeArticlePrefCat(long idClient) {
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-            Client c=session.get(Client.class, idClient);
-            List<Article> listeR=new ArrayList<>();
+            Client c = session.get(Client.class, idClient);
+            List<Article> listeR = new ArrayList<>();
             Categorie ca;
-            for(Preferences p:c.getPreferences()){
-                long id=p.getIdCat();
-                long f=0;
-                if (id!=f){
-                    ca=session.get(Categorie.class,p.getIdCat());
-                    for (Article a:ca.getArticles()){
+            for (Preferences p : c.getPreferences()) {
+                long id = p.getIdCat();
+                long f = 0;
+                if (id != f) {
+                    ca = session.get(Categorie.class, p.getIdCat());
+                    for (Article a : ca.getArticles()) {
                         listeR.add(a);
                     }
-                }  
-            }
-            return listeR;
-        }
-    }
-    
-    public static List<Article> listeArticlePrefLabel(long idClient) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            Transaction t = session.beginTransaction();
-            Client c=session.get(Client.class, idClient);
-            List<Article> listeR=new ArrayList<>();
-            Label lb;
-            for(Preferences p:c.getPreferences()){
-                long id=p.getIdLab();
-                long f=0;
-                if (id!=f){
-                    lb=session.get(Label.class,id);
-                    for (Article a:lb.getArticles()){
-                        listeR.add(a);
-                    }
-                }  
-            }
-            return listeR;
-        }
-    }
-    
-     public static List<Article> produitPostIt(List<Article> listeArticle,long idClient){
-            List<Article> listeR=new ArrayList<>();
-            List<Article> listePref=listePref(idClient);
-            List<Article> listepromo=listePromo();
-            List<Article> listeLabel=listeArticlePrefLabel(idClient);
-            List<Article> listeCat=listeArticlePrefCat(idClient);
-            List<Article> listeMar=listeArticlePrefMarque(idClient);
-            for (Article a:listeArticle){
-                if (listepromo.contains(a)){
-                    listeR.add(a);
                 }
             }
             return listeR;
-        }       
+        }
+    }
+
+    public static List<Article> listeArticlePrefLabel(long idClient) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Client c = session.get(Client.class, idClient);
+            List<Article> listeR = new ArrayList<>();
+            Label lb;
+            for (Preferences p : c.getPreferences()) {
+                long id = p.getIdLab();
+                long f = 0;
+                if (id != f) {
+                    lb = session.get(Label.class, id);
+                    for (Article a : lb.getArticles()) {
+                        listeR.add(a);
+                    }
+                }
+            }
+            return listeR;
+        }
+    }
+
+    public static List<Article> listeArticlePrefLNutri(long idClient) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Client c = session.get(Client.class, idClient);
+            List<Article> listeR = new ArrayList<>();
+            for (Preferences p : c.getPreferences()) {
+                if (p.getTypePre().equals(TypePreference.Nutriscore)) {
+                    List<Article> listeTous = session.createQuery("from Article ").list();
+                    for (Article a : listeTous) {
+                        if (a.getNutriscoreArt() != null) {
+
+                            if (a.getNutriscoreArt().toString().equals(p.getNutriscore())) {
+                                listeR.add(a);
+                            }
+                        }
+                    }
+                }
+            }
+            return listeR;
+        }
+    }
+
+    public static List<Article> produitPostIt(List<Article> listeRechercher, long idClient) {
+        List<Article> listeR = new ArrayList<>();
+        List<Article> listeArticle = listePref(idClient);
+        List<Article> listepromo = listePromo();
+        List<Article> listeLabel = listeArticlePrefLabel(idClient);
+        List<Article> listeCat = listeArticlePrefCat(idClient);
+        List<Article> listeMar = listeArticlePrefMarque(idClient);
+        List<Article> listeNutri = listeArticlePrefLNutri(idClient);
+        for (Article a: listeRechercher){
+        }
+        
+        return listeR;
+    }
+
+    
+  
+    
+    
      
 }

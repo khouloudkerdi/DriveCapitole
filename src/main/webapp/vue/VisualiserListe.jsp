@@ -4,6 +4,7 @@
     Author     : 21911890
 --%>
 
+<%@page import="neopro.metier.Postit"%>
 <%@page import="neopro.metier.Client"%>
 <%@page import="java.math.BigDecimal"%>
 <%@page import="java.util.List"%>
@@ -15,7 +16,6 @@
 <!DOCTYPE html>
 <%@include file="../layout/headerFix.jsp" %>
 <body id="bodyPanier">
-    <form action="CtrlValiderPanier" method="GET">
         <div class="container">
             <%-- Titre --%>
             <div class="row headerPanier">
@@ -86,10 +86,34 @@
                     </div>
                     <a href="Accueil" class="btn btn-info">Retour</a>
                     </div>
+                    <div>
+                        <%
+                            
+                        %>
+                    </div>
+                    <div>
+                        <%
+                        List<Postit> listePostit=MethodesDAO.loadPostIt(idListeCourses);
+                        for (Postit p:listePostit){
+                        out.println("<p>"+p.getContenuPos()+"</p>");
+                            }
+                        %>
+                    </div>
+                    <div>
+                        <br/>
+                        <form action=CtrlPostIt method=get>
+                        
+                        <input type="text" name="postit"><br/>
+                        <%
+                        out.println("<input type=hidden  name=idListe value="+idListeCourses+">");
+                        %>
+                        <input type="submit" value="ajouter Post-it" >
+                        </form>
+                    </div>
+                    
                 </div>
                     
             </div>
         </div>
-    </form>
 </body>
 <%@include file="../layout/footerFix.jsp" %>
