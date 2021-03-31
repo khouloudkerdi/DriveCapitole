@@ -16,15 +16,30 @@
 <body id="bodyPanier">
     <form action="" method="GET">
         <div class="container">
+            
             <%-- Header Confirmation --%>
-            <div class="row headerConfirmRetrait">
+            <div class="row headerPanier">
                 <h3>Confirmation de votre choix</h3>
             </div>
+            
             <%-- Contenu Confirmation --%>
             <div class="row" >
                 <%-- Choix --%>
                 <div class="col-md-8">
-                    <h4>Détails panier</h4>
+                    <%-- Choix du Magain --%>
+                    <div class="row">
+                        <h4>Magagin</h4>
+                    </div>
+                    <%-- Choix du Creneau--%>
+                    <div class="row">
+                        <h4>Créneau</h4>
+                    </div>
+                </div>
+
+                <%-- Detail Commande --%>
+                <div class="col-md-4">
+                    <%--Partie Récapitulatif--%>
+                    <h4>Paiement</h4>
                     <% long idcli = (long) request.getSession().getAttribute("idClient");
                         ArrayList<Article> listeArt = MethodesDAO.listeArtcilesPanierClient(idcli);
                         Client client = MethodesDAO.infosClient(idcli);
@@ -33,90 +48,22 @@
                     <% float montant = MethodesDAO.montantPanier(idcli); %>
                     <% List<Article> listeArticlesPromo = MethodesDAO.listePromo();
                         float montantEconomieTotal = 0f;
-
                     %>
                     <% for (Article a : listeArt) { %>
                     <%! private float produitPromo;
-                        private int pourcentage;
-
                     %>
-                    <%  int qte = MethodesDAO.QuantiteArticlePanier(idcli, a.getIdArt()); %>
+                    <%  int qte = MethodesDAO.QuantiteArticlePanier(idp, a.getIdArt()); %>
                     <% float montantArticle = MethodesDAO.montantTotaleArticlePanier(idp, a.getIdArt());
-
                     %>
-                    <div class="panierProduit">
-                        <div class="row">
-                            <%--1ere partie: promo, image--%>
-                            <div class="col-md-2 colPrixQte">
-                                <div class="row"> 
-                                    <%if (listeArticlesPromo.contains(a)) {
-                                            out.print("<span class='spanPromo'>Promotion</span></br>");
-                                            produitPromo = MethodesDAO.calculerPrixPromo(a.getIdArt());
-                                            pourcentage = MethodesDAO.getPromoPourcentage(a.getIdArt());
-                                        }
-                                    %>
-                                </div>
-                                <div class="row atCenterAll">
-                                    <div><img src="${pageContext.request.contextPath}/image/<% out.print(a.getUrlImageArt()); %>"></div>
-                                </div>
-                                <%--<div class="styleFontGris atCenterHorizontal"><% out.print(a.getCondArt()); %></div>--%>
-                            </div>
-
-                            <%--2eme partie: libelle, format, prixUnitaire, typePromo(pourcentage), prixTotalArticle--%>
-                            <div class="col-md-7" >
-                                <div class="row styleLib" style="height: 50px;"><% out.print(a.getLibelleArt()); %></div>
-                                <div class="row">
-                                    <div class="col-sm-2 styleFontGris">
-                                        <span class="cadreProduit"><% out.print(a.getFormatArt()); %></span>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <% out.print(a.getPrixArt() + "€"); %>
-                                    </div>
-                                    <div class="col-sm-6 spanPromo atCenterHorizontal">
-                                        <%if (listeArticlesPromo.contains(a)) {
-                                            out.print(pourcentage + "% d'économies");
-                                        }   %>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6"> </div>
-                                    <div class="col-sm-6 atCenterHorizontal"><span class="montantArt valeurTotalPanier"><% out.print(montantArticle); %> €</span></div>
-                                </div>
-                            </div>
-
-                            <%--3eme partie: button, qte, montantEcoTotalArticle--%>
-                            <div class="col-md-3 colPrixQte">
-                                <div class="row" style="height: 50px;"> </div>
-                                <div class="row atCenterAll">
-                                    <div class="produitOptions atCenterHorizontal">
-                                        <span class="ida" style="display: none"><% out.print(a.getIdArt()); %></span>
-                                        <span class="idp" style="display: none"><% out.print(idp); %></span>
-                                        <button type="button" name="moins" class="btn btn-secondary btn-sm">-</button>
-                                        <span class="qteProduit"><% out.print(qte); %></span>
-                                        <button type="button" name="plus" class="btn btn-success btn-sm">+</button>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <%if (listeArticlesPromo.contains(a)) {
-                                            float montanteco = produitPromo * qte;
-                                            BigDecimal montantEcoDecim = new BigDecimal(montanteco);
-                                            float eco = montantEcoDecim.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
-                                            out.print("<div class='atCenterHorizontal'><span class='spanPromo'>" + eco + " € d'éco!</span></div>");
-                                            montantEconomieTotal = montantEconomieTotal + eco;
-                                        }
-                                    %>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <%
+                    <%if (listeArticlesPromo.contains(a)) {
+                            produitPromo = MethodesDAO.calculerPrixPromo(a.getIdArt());
+                            float montanteco = produitPromo * qte;
+                            BigDecimal montantEcoDecim = new BigDecimal(montanteco);
+                            float eco = montantEcoDecim.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+                            montantEconomieTotal = montantEconomieTotal + eco;
                         }
                     %>
-                </div>
-
-                <%-- Récapitulatif --%>
-                <div class="col-md-4">
-                    <h4>Paiement</h4>
+                    <% } %>
                     <div class="recapPanier">
                         <div class="recapPanierInfo">
                             <span class="titreValeurPanier">Sous total :</span>
@@ -151,10 +98,10 @@
                             <span class="valeurPointsFidelite"><% out.print((int) (m));%></span>                         
                         </div>
                     </div>
-                    <%--Button Valider--%>
+                    <%--Button Confirmer--%>
                     <div class="btnContainer">
-                        <button type="submit" class="btn btn-info">Valider</button>
-                        <a href="Accueil" class="btn btn-info">Retour</a>
+                        <button type="submit" class="btn btn-info">Confirmer</button>
+                        <a href="" class="btn btn-info">Retour</a>
                     </div>
                     <div class="messageErreur">${requestScope.msg_erreur}</div>
                 </div>

@@ -20,6 +20,7 @@
             </div>
             <div class="col-md-10">
                 <div class="row">
+                    <div><font color="#FF0000">${requestScope.msg_connexion}</font></div>
                 <% List<Article> listeArticlesPromo = MethodesDAO.listePromo();
                     List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
                     List<Article> listeArticles = new ArrayList();
