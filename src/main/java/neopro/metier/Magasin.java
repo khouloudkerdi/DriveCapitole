@@ -65,7 +65,7 @@ public class Magasin {
 
     @Override
     public String toString() {
-        return "Magasin{" + "idMag=" + idMag + ", nomMag=" + nomMag + ", codePostaleMag=" + codePostaleMag + '}';
+        return "Magasin{" + "idMag=" + idMag + ", nomMag=" + nomMag + ", codePostaleMag=" + codePostaleMag + ", adresseMag=" + adresseMag + ", clients=" + clients + '}';
     }
 
     @Override

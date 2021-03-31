@@ -46,8 +46,8 @@ function panierProduitOptions() {
 }
 function listeMagasins (){
 	// Objet XMLHttpRequest.
-         var elt = document.getElementById("nommag");
-         elt.innerHTML="<option>Test</option>";
+         var elt = document.getElementById("lmagasins");
+     
         var inputCP = document.getElementById("codepostal");
         console.log(inputCP.value);
 	var xhr = new XMLHttpRequest();
@@ -65,17 +65,17 @@ function listeMagasins (){
                         
                         //Recueperer les magasins
                         var listeMag = donnee.getElementsByTagName("Magasin");
+                        //remplacer lmagasins par ""   
+                        elt.innerHTML="";
                         
-                        //l'element html dans le quel on va mettre le resultat 
-                       
-                        //remplacer lnom par <option>----</option>  
-                       
                         // mettre les noms dans l'element 
                         for(i = 0; i < listeMag.length; i++) 
-                        {
-                            var nom = listeMag[i].firstChild.nodeValue;
-                            
-                            elt.insertAdjacentHTML('beforeend', "<option>"+nom+"</option>");
+                        {   
+                            var nomMag = listeMag[i].getElementsByTagName("nomMagasin")[0];
+                            var idMag = listeMag[i].getElementsByTagName("idMagasin")[0];
+                            var adrMag = listeMag[i].getElementsByTagName("adrMagasin")[0];
+                           elt.insertAdjacentHTML('beforeend', "<p>"+nomMag.firstChild.nodeValue+"<br>"+adrMag.firstChild.nodeValue+"</p>");
+                           elt.insertAdjacentHTML('beforeend',"<button value=\""+idMag.firstChild.nodeValue+"\">choisir</button>");
 			}
                         }
         };

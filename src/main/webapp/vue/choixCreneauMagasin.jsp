@@ -14,7 +14,7 @@
         Code postal :<input type="Text" name="codepostal" id="codepostal" >
         <button class="btn btn-outline-success"  id="validerchoix">Valider</button>
        
-        <select id="nommag"><option>-----</option></select>
+        <div id="lmagasins"></div>
     </body>
 <%@include file="../layout/footerFix.jsp" %>
 
