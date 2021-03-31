@@ -12,32 +12,34 @@ public class CtrlInserer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String idA = request.getParameter("idArt");
-        // Conversion using parseLong(String) method
-        long idArt = Long.parseLong(idA);
-
         if (request.getSession().getAttribute("idClient") == null) {
+            String idA = request.getParameter("idArt");
+            // Conversion using parseLong(String) method
+            long idArt = Long.parseLong(idA);
             // Connexion
             // Ajouter 'idArt' au session
             request.getSession().setAttribute("idArt", idArt);
             // Chainage ver la connexion
             request.getRequestDispatcher("Connexion").forward(request, response);
-
-        } else {
-            // Ajouter au panier    
-            long idClient = (long) request.getSession().getAttribute("idClient");                
-            MethodesDAO.insererArticlePanier(idArt, MethodesDAO.loadPanierClient(idClient));
-        }
-
-        //// Ajouter à la liste de courses
-        String l = request.getParameter("idListeCourses");
-        if (l != null) {
+        } else if (request.getParameter("idListeCourses") != null) {
+            String l = request.getParameter("idListeCourses");
             String[] ls = l.split(",");
             Long idArticle = Long.parseLong(ls[0]);
             Long idListeC = Long.parseLong(ls[1]);
             MethodesDAO.ajouterArticleListeCourse(idArticle, idListeC);
+            response.sendRedirect("Accueil");
+        } else {
+            String idA = request.getParameter("idArt");
+            // Conversion using parseLong(String) method
+            long idArt = Long.parseLong(idA);
+
+            // Ajouter au panier    
+            long idClient = (long) request.getSession().getAttribute("idClient");
+            MethodesDAO.insererArticlePanier(idArt, MethodesDAO.loadPanierClient(idClient));
+            response.sendRedirect("Accueil");
         }
-        response.sendRedirect("Accueil");
+
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

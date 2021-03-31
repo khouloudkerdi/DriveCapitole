@@ -100,6 +100,10 @@
         <servlet-name>filtrerArticlesParRayonConnexion</servlet-name>
         <jsp-file>/vue/filtrerArticlesParRayonConnexion.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>CtrlPostIt</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlPostIt</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>VisualiserPanier</servlet-name>
         <url-pattern>/Panier</url-pattern>
@@ -199,6 +203,10 @@
     <servlet-mapping>
         <servlet-name>filtrerArticlesParRayonConnexion</servlet-name>
         <url-pattern>/filtrerArticlesParRayonConnexion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlPostIt</servlet-name>
+        <url-pattern>/CtrlPostIt</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

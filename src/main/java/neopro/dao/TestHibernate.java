@@ -423,7 +423,16 @@ public class TestHibernate {
       //TestHibernate.ajouterArticle();
       //TestHibernate.ListeArticlesParRayon("2" );
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
-
+        /*long id=1;
+        List<Article> liste=MethodesDAO.listeArticlePrefLNutri(id);
+        for (Article a:liste){
+            System.out.println(a.getIdArt());
+        }*/
+        long id =73;
+        for (Postit p:MethodesDAO.loadPostIt(id)){
+            System.out.println(p.getIdPos());
+        };
+      
         /*----- Exit -----*/
         System.exit(0);
     }
