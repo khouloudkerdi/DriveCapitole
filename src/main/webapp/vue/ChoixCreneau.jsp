@@ -130,7 +130,7 @@
                     <%--Button Confirmer--%>
                     <div class="btnContainer">
                         <button type="submit" class="btn btn-info">Confirmer</button>
-                        <a href="" class="btn btn-info">Retour</a>
+                        <a href="Panier" class="btn btn-info">Retour</a>
                     </div>
                     <div class="messageErreur">${requestScope.msg_erreur}</div>
                 </div>
