@@ -38,10 +38,15 @@ public class CtrlChoixMagasin extends HttpServlet {
                            
                         String code = request.getParameter("codePostal");
                          System.out.println("--------------------------------"+code+"--------------------");
-			List<Magasin> lMagasins = MethodesDAO.getListeMagasin(code);
-
+			List<Magasin> lMagasins = MethodesDAO.getListeMagasin("31000");
+                                 
 				for (Magasin mag : lMagasins){
-                                    out.println("<Magasin>"+mag.getNomMag()+"</Magasin>");
+                                    out.println("<Magasin>");
+                                    
+                                    out.println("<idMagasin>"+mag.getIdMag()+"</idMagasin>");
+                                    out.println("<nomMagasin>"+mag.getNomMag()+"</nomMagasin>");
+                                    out.println("<adrMagasin>"+mag.getAdresseMag()+"</adrMagasin>");
+                                    out.println("</Magasin>");
                                 }
 			out.println("</donnees>");
 			}}
