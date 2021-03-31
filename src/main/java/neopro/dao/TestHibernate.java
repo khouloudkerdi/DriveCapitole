@@ -412,6 +412,8 @@ public class TestHibernate {
             return listeMAg;
         } 
     }
+
+    
     /**
      * Programme de test.
      */
@@ -421,11 +423,7 @@ public class TestHibernate {
       //TestHibernate.ajouterArticle();
       //TestHibernate.ListeArticlesParRayon("2" );
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
-     TestHibernate.ajouterPostit();
 
-
-
-      
         /*----- Exit -----*/
         System.exit(0);
     }
