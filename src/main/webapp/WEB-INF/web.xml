@@ -105,10 +105,6 @@
         <servlet-class>neopro.ctrl.CtrlDeconnexion</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletTest</servlet-name>
-        <servlet-class>neopro.ctrl.ServletTest</servlet-class>
-            </servlet>
-    <servlet>
         <servlet-name>ConfirmRetrait</servlet-name>
         <jsp-file>/vue/ConfirmRetrait.jsp</jsp-file>
     </servlet>
@@ -220,10 +216,6 @@
         <servlet-name>CtrlDeconnexion</servlet-name>
         <url-pattern>/CtrlDeconnexion</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletTest</servlet-name>
-        <url-pattern>/ServletTest</url-pattern>
-            </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ConfirmRetrait</servlet-name>
         <url-pattern>/ConfirmRetrait</url-pattern>
