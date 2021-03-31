@@ -15,7 +15,6 @@
 <!DOCTYPE html>
 <%@include file="../layout/headerFix.jsp" %>
 <body id="bodyPanier">
-    <form action="CtrlValiderPanier" method="GET">
         <div class="container">
             <div class="row headerPanier">
                 <h3>Votre panier</h3>
@@ -153,14 +152,14 @@
                     </div>
                     <%--Button Valider--%>
                     <div class="btnContainer">
-                        <button type="submit" class="btn btn-info">Valider</button>
+                        <a href="ChoixCreneau" class="btn btn-info">Valider</a>
                         <a href="Accueil" class="btn btn-info">Retour</a>
                     </div>
                     <div class="messageErreur">${requestScope.msg_erreur}</div>
                 </div>
             </div>
         </div>
-    </form>
+
 
 </body>
 <%@include file="../layout/footerFix.jsp" %>

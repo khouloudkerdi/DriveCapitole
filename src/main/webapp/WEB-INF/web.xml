@@ -109,6 +109,10 @@
         <jsp-file>/vue/ConfirmRetrait.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>ChoixCreneau</servlet-name>
+        <jsp-file>/vue/ChoixCreneau.jsp</jsp-file>
+    </servlet>
+    <servlet>
         <servlet-name>CtrlPostIt</servlet-name>
         <servlet-class>neopro.ctrl.CtrlPostIt</servlet-class>
     </servlet>
@@ -219,6 +223,10 @@
     <servlet-mapping>
         <servlet-name>ConfirmRetrait</servlet-name>
         <url-pattern>/ConfirmRetrait</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChoixCreneau</servlet-name>
+        <url-pattern>/ChoixCreneau</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CtrlPostIt</servlet-name>

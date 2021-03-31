@@ -402,17 +402,18 @@ public class TestHibernate {
             return listeMAg;
         } 
     }
-
     
+        
     /**
      * Programme de test.
      */
     public static void main(String[] args) throws ParseException {
         /*----- Test -----*/
-      // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
-      //TestHibernate.ajouterArticle();
-      //TestHibernate.ListeArticlesParRayon("2" );
-     TestHibernate.ajouterClient();
+//        TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
+//        TestHibernate.ajouterArticle();
+//        TestHibernate.ListeArticlesParRayon("2" );
+//        TestHibernate.ajouterClient();
+
    
 
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
@@ -421,10 +422,10 @@ public class TestHibernate {
         for (Article a:liste){
             System.out.println(a.getIdArt());
         }*/
-        long id =73;
-        for (Postit p:MethodesDAO.loadPostIt(id)){
-            System.out.println(p.getIdPos());
-        };
+//        long id =73;
+//        for (Postit p:MethodesDAO.loadPostIt(id)){
+//            System.out.println(p.getIdPos());
+//        };
       
         /*----- Exit -----*/
         System.exit(0);

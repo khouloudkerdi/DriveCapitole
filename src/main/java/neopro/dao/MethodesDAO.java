@@ -639,7 +639,6 @@ public class MethodesDAO {
     }
 
   
-
     public static List<Article> listeArticlePrefCat(long idClient) {
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
@@ -659,7 +658,7 @@ public class MethodesDAO {
             return listeR;
         }
     }
-
+     
     public static List<Article> listeArticlePrefLabel(long idClient) {
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
@@ -717,8 +716,30 @@ public class MethodesDAO {
     }
 
     
-  
+    // Fonction pour récupérer le Magasin par defaut d'un client à partir de son idCli.
+    public static Magasin getMagByIdCli (long idClient) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Client c = session.get(Client.class, idClient);
+            long idmag = c.getMagasin().getIdMag();
+            Magasin mag = session.get(Magasin.class, idmag);
+            
+            return mag;
+        }        
+    }
+    
+    // Fonction pour récupérer le Magasin par defaut d'un client à partir de son idCli.
+    public static Magasin getMagByIdMag (long idMagasin) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Magasin mag = session.get(Magasin.class, idMagasin);            
+            return mag;
+        }        
+    }
     
     
-     
+       
 }
+
