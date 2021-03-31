@@ -36,7 +36,6 @@
                  listeArticles.addAll(listeArticlesFlitrePromo);
                  listeArticles.addAll(listeArticlesFlitreNonPromo);
                  
-                 
                   int numCol = 3;
                   int colCount = 0;
 

@@ -704,6 +704,9 @@ public class MethodesDAO {
     }
 
     public static List<Article> produitPostIt(List<Article> listeRechercher, long idClient) {
+        if (listeRechercher.size()<=3){
+            return listeRechercher;
+        }
         List<Article> listeR = new ArrayList<>();
         //Produit promotionnels 
         List<Article> listepromo = listePromo();
@@ -830,5 +833,30 @@ public class MethodesDAO {
         return listeR;
     }
     
-   
+     public static List<Article> postitArticleRechercher(String search) {
+          try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            String var = search;
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            // Récupération des la liste de recherche.          
+            String hqlArt = "select a from Article a where a.libelleArt like :rollNumber";
+            Query queryArt = session.createQuery(hqlArt);
+            queryArt.setParameter("rollNumber", "%" + var + "%");
+            List<Article> resultArt = queryArt.list();
+            // Récupération des la liste de recherche.          
+            String hqlCat = "select c from Categorie c where c.libelleCat like :rollNumber";
+            Query queryCat = session.createQuery(hqlCat);
+            queryCat.setParameter("rollNumber", "%" + var + "%");
+            List<Categorie> resultCat = queryCat.list();
+            for (Categorie c:resultCat){
+                for (Article a:c.getArticles()){
+                    if (!resultArt.contains(a)){
+                        resultArt.add(a); 
+                    }
+                }
+            }
+            // Envoi du résultat de la requête.
+            return resultArt;
+        }
+     }
 }
