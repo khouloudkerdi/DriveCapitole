@@ -301,7 +301,7 @@
 }
 #bodyListeCourses .btnContainer,
 #bodyNouvelleListe .btnContainer,
-#bodyConnexion .btnContainer,
+#modalConnexion .btnContainer,
 #bodyPanier .btnContainer
 {
     display: flex;

@@ -151,5 +151,6 @@
             </div>
         </div>
     </div>
+  <%@include file="../layout/modalConnexion.jsp" %>
 </body>
 <%@include file="../layout/footerFix.jsp" %>
