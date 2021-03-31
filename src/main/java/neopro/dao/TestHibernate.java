@@ -104,7 +104,7 @@ public class TestHibernate {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
-            Preferences p1 = new Preferences(TypePreference.Produit,1l);
+            Preferences p1 = new Preferences(TypePreference.Nutriscore,NutriscoreArticle.A);
             session.save(p1);
             t.commit(); // Commit et flush automatique de la session.
         }
@@ -421,7 +421,7 @@ public class TestHibernate {
       //TestHibernate.ajouterArticle();
       //TestHibernate.ListeArticlesParRayon("2" );
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
-     TestHibernate.ajouterPostit();
+     TestHibernate.ajouterPreferences();
 
 
 

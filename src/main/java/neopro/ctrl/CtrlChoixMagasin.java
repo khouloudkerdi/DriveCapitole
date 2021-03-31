@@ -7,6 +7,7 @@ package neopro.ctrl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -22,48 +23,30 @@ import neopro.metier.Magasin;
  */
 public class CtrlChoixMagasin extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-            //Récuperation des parametres 
-            String code =request.getParameter("codepostal");
-           try
-            {
-                //Recuperation de la liste de magasin.
-                List <Magasin> listeMag =MethodesDAO.getListeMagasin(code);
-                //Chainnage vers la vue "Supprimer.jsp"  avec la liste de messages et un message d'info
-                request.setAttribute("liste_Mag", listeMag);
-                request.getRequestDispatcher("choixCreneauMagasin").forward(request, response);      
-            }
-            catch(Exception ex)
-            {
-                //Chainage vers la page visualiserPanier avec un message.
-                request.setAttribute("msg_erreur", ex.getMessage());
-                request.getRequestDispatcher("Accueil").forward(request, response);
-            }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //*----- Type de la réponse -----*/
+		response.setContentType("application/xml;charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		try (PrintWriter out = response.getWriter())
+			{
+			/*----- Ecriture de la page XML -----*/
+			out.println("<?xml version=\"1.0\"?>");
+			out.println("<liste_mag>");
+
+			/*----- Récupération des paramètres -----*/
+			String code =request.getParameter("codepostal");
+
+                        /*----- Lecture de liste de mots dans la BD -----*/
+                        //Recuperation de la liste de magasin.
+                        List <Magasin> listeMag =MethodesDAO.getListeMagasin(code);
+                        for (Magasin mag : listeMag){
+                            out.println("<Magasin><![CDATA[" + mag + "]]></Magasin>");}
+                        out.println("</liste_mag>");	
+			}
+ 
     }
 
     /**
@@ -77,7 +60,7 @@ public class CtrlChoixMagasin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+    
     }
 
     /**

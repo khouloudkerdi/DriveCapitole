@@ -48,6 +48,12 @@ public class Preferences {
         this.idArt = idArt;
  
     }
+
+    public Preferences(TypePreference TypePre, NutriscoreArticle nutriscore) {
+        this.TypePre = TypePre;
+        this.nutriscore = nutriscore;
+    }
+    
     
     //Getters /Setters.
 
