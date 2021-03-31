@@ -402,8 +402,8 @@ public class TestHibernate {
         //TestHibernate.ajouterArticle();
         //TestHibernate.ListeArticlesParRayon("2" );
         // TestHibernate.ListeArticlesNonPromoParRayon(1);
-        /*
-        List<Article> liste = new ArrayList<>();
+        
+        /*List<Article> liste = new ArrayList<>();
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
 
@@ -432,14 +432,13 @@ public class TestHibernate {
             liste.add(a10);
             liste.add(a11);
             liste.add(a12);
-        }
+        }*/
+        List<Article> liste=MethodesDAO.postitArticleRechercher("beurre");
         for (Article a : MethodesDAO.produitPostIt(liste, 1l)) {
             System.out.println("article"+a.getIdArt());
-        }*/
+        }
         
-        for (Article a:MethodesDAO.postitArticleRechercher("chat")){
-            System.out.println(a.getIdArt());
-        };
+        
 
         /*----- Exit -----*/
         System.exit(0);
