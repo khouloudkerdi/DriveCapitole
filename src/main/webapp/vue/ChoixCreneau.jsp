@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <%@include file="../layout/headerFix.jsp" %>
 <body id="bodyPanier">
-    <form action="" method="GET">
+
         <div class="container">
 
             <%-- Header Confirmation --%>
@@ -41,7 +41,7 @@
                             
                         %>
                        
-                        <div class="recapPanier row">
+                        <div class="recapPanier row" id="divmonDrive">
                             <div class="col-md-8">
                             <div class="recapPanierInfo">
                                 <span class="titreValeurPanier"><% out.print(mag.getNomMag());%></span>
@@ -53,11 +53,16 @@
                             </div>
                         
                             <div class="col-md-4 atCenterAll" style="height: 100%;">
-                                <button class="btn btn-info" >Modifier</button>
+                                <button class="btn btn-info " id="btnModifierMag" >Modifier</button>
                             </div>
-</div>
+                            </div>
+                          
                     </div>
-
+                        <div id="rechercheMag" class="boite">
+                                Code postal :<input type="Text" name="codepostal" id="codepostal" >
+                                <button class="btn btn-outline-success"  id="validerchoix">Valider</button>
+                                <div id="lmagasins"></div>
+                       </div>
 
                     <%-- Choix du Creneau--%>
                     <div class="row">
@@ -136,7 +141,7 @@
                 </div>
             </div>
         </div>
-    </form>
+  
 
 </body>
 <%@include file="../layout/footerFix.jsp" %>

@@ -83,10 +83,17 @@ function listeMagasins (){
 	// Envoie de la requête.
 	xhr.send();
 	}
+function modifierMagasin()
+{    
+    document.getElementById("rechercheMag").style.display="block";
+   
+    
+}
         
 document.addEventListener("DOMContentLoaded", () => {
     panierProduitOptions();
 document.getElementById("validerchoix").addEventListener("click",listeMagasins);
+document.getElementById("btnModifierMag").addEventListener("click",modifierMagasin);
 });
 
 
