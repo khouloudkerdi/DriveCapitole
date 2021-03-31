@@ -16,104 +16,99 @@
 <!DOCTYPE html>
 <%@include file="../layout/headerFix.jsp" %>
 <body id="bodyPanier">
-        <div class="container">
-            <%-- Titre --%>
-            <div class="row headerPanier">
-                <% long idListeCourses = Long.parseLong((String) request.getParameter("idListe"));
-                    out.println("<h3> Liste de courses : " + MethodesDAO.loadListeCourses(idListeCourses).getNomLis() + "</h3>");
-                %>
-            </div>
-            
-            <%-- Contenu --%>
-            <div class="row" >
-                <%-- Produits --%>
-                <div class="col-md-8">
-                    <h4>Détails de la liste de courses</h4>
-                    <%
-                        ArrayList<Article> listeArt = MethodesDAO.articleListeCourses(idListeCourses);
-                        List<Article> listeArticlesPromo = MethodesDAO.listePromo();
-                        for (Article a : listeArt) {
-                    %>
-                    <%!
-                        private float produitPromo;
-                    %>
-                    <div class="panierProduit">
-                        <div class="row">
-                            <%-- promo & image --%>
-                            <div class="col-md-3 colPrixQte"> 
-                                <div class="row"> 
-                                    <%if (listeArticlesPromo.contains(a)) {
-                                            out.print("<span class='spanPromo'>Promotion</span></br>");
-                                        }
-                                    %>
-                                </div>
-                                <div class="row atCenterAll">
-                                    <div><img src="${pageContext.request.contextPath}/image/<% out.print(a.getUrlImageArt()); %>"></div>
-                                </div>
-                            </div>
-                            <%-- infos produit --%>
-                            <div class="col-md-9" >
-                                <div class="row styleLib" style="height: 50px;"><% out.print(a.getLibelleArt()); %></div>
-                                <div class="row">
-                                    <div class="col-sm-2 styleFontGris">
-                                        <span class="cadreProduit"><% out.print(a.getFormatArt()); %></span>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <%if (!listeArticlesPromo.contains(a)) {
-                                                out.print(a.getPrixArt() + " €");
-                                            } else {
-                                                out.print("<span class='spanPrixSansPromo'>" + a.getPrixArt() + "€ </span>");
-                                                out.print("<span class='spanPrixAvecPromo'>" + (a.getPrixArt() - produitPromo) + " € </span>");
-                                            }%>
-                                    </div>
-                                </div>
+    <div class="container">
+        <%-- Titre --%>
+        <div class="row headerPanier">
+            <% long idListeCourses = Long.parseLong((String) request.getParameter("idListe"));
+                out.println("<h3> Liste de courses : " + MethodesDAO.loadListeCourses(idListeCourses).getNomLis() + "</h3>");
+            %>
+        </div>
+
+        <%-- Contenu --%>
+        <div class="row" >
+            <div class="col-md-6">
+                <h4>Liste des post'it </h4>
+                <%-- Carousel --%>
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="background: #4ea8f4;">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="new_html_code"></div>
+                            <div class="carousel-caption">
+                                <h4>Liste post'it</h4>
                             </div>
                         </div>
+
+                        <%
+                            List<Postit> listePostit = MethodesDAO.loadPostIt(idListeCourses);
+                            for (Postit p : listePostit) {
+
+                                // out.println("<p>" + p1.getContenuPos() + "</p>");
+                        %>
+
+                        <div class="carousel-item">
+                            <div class="new_html_code"></div>
+                            <div class="carousel-caption">
+                                <h4><%out.println(p.getContenuPos());%></h4>
+
+                            </div>
+                        </div> 
+
+
+                        <%
+                            }
+                        %>
+
+
                     </div>
-                    <%
-                        }
-                    %>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" style="background: blue;" >
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" style="background: blue;">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
 
-                <%-- Boutton <Ajouter au panier> --%>
-                <div class="col-md-4">
-                    <h4 style="font-size: medium;">* Voulez-vous ajouter tous les articles à votre panier ?<h4>
-                            <div class="btnContainer">
-                            <div class="atCenterHorizontal">
+
+
+                <%-- Contenu --%>
+
+
+                <div>
+                    <br/>
+                    <form action=CtrlPostIt method=get>
+                        <div class="btnContainer" style="margin: 10px 20px;">
+                            <input class="form-control" type="text" name="postit" style="width: 220px;">
+
+                            <%
+                                out.println("<input type=hidden  name=idListe value=" + idListeCourses + ">");
+                            %>
+                            <input type="submit" value="Ajouter Post-it" class="btn btn-info">       
+                        </div>           
+                    </form>
+                </div>
+                <div class="btnContainer">
+                    <div class="atCenterHorizontal">
                         <%
-                            out.println("<a role=\"button\" aria-expanded=false aria-controls=\"collapseExample\" class=\"btn btn-info\"href=\"CtrlTransmettreListePanier?idListeCourses=" + idListeCourses + "\" >Ajouter au panier </a>");
+                            out.println("<a role=\"button\" class=\"btn btn-info\"href=\"CtrlTransmettreListePanier?idListeCourses=" + idListeCourses + "\" >Ajouter au panier </a>");
                         %>
                     </div>
                     <a href="Accueil" class="btn btn-info">Retour</a>
-                    </div>
-                    <div>
-                        <%
-                            
-                        %>
-                    </div>
-                    <div>
-                        <%
-                        List<Postit> listePostit=MethodesDAO.loadPostIt(idListeCourses);
-                        for (Postit p:listePostit){
-                        out.println("<p>"+p.getContenuPos()+"</p>");
-                            }
-                        %>
-                    </div>
-                    <div>
-                        <br/>
-                        <form action=CtrlPostIt method=get>
-                        
-                        <input type="text" name="postit"><br/>
-                        <%
-                        out.println("<input type=hidden  name=idListe value="+idListeCourses+">");
-                        %>
-                        <input type="submit" value="ajouter Post-it" >
-                        </form>
-                    </div>
-                    
                 </div>
-                    
+
+
+
             </div>
+            <%-- Produits --%>
+            <div class="col-md-6">
+                <h4>Liste des produits proposés </h4>
+            </div>
+
+            <%-- Boutton <Ajouter au panier> --%>
+
+
         </div>
+    </div>
 </body>
 <%@include file="../layout/footerFix.jsp" %>

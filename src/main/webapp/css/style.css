@@ -360,3 +360,10 @@
     font-weight: bold;
 }
 
+ div.new_html_code {
+      height:150px;
+    }
+ div.new_html_code h4{
+        font-size: 16px;
+        
+    }
