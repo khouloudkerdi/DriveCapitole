@@ -24,7 +24,7 @@ public class CtrlConnexion extends HttpServlet {
             //retour à la page connexion si ce n'est pas correst
             request.setAttribute("msg_connexion", "Votre adresse e-mail ou mot de passe est incorrect ! ");
             request.setAttribute("mail", mail);
-            request.getRequestDispatcher("Connexion").forward(request, response);
+            request.getRequestDispatcher("Accueil").forward(request, response);
         } else {
             //retour à la page accueil si c'est correst
             long idClient = MethodesDAO.verifierCompte(mail, mdp);
