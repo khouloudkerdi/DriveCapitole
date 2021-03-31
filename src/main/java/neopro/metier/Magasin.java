@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package neopro.metier;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 
 /**
@@ -34,6 +37,10 @@ public class Magasin {
     @OneToMany (mappedBy ="magasin" , cascade =CascadeType.ALL ,fetch =FetchType.LAZY)
     private Set<Client> clients = new HashSet<>(0);
     
+    //Relation Proposer
+    @OneToMany(mappedBy = "magasin", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "idCre")
+    private Map<Creneau, Proposer> creneaux = new HashMap<>();
     
     //Constructeurs. 
 
@@ -58,8 +65,9 @@ public class Magasin {
     public void setAdresseMag(String adresseMag) { this.adresseMag = adresseMag;}
     public Set<Client> getClients() {return clients;}
     public void setClients(Set<Client> clients) { this.clients = clients;}
-    
-    
+    public Map<Creneau, Proposer> getCreneaux() {return creneaux;}
+    public void setCreneaux(Map<Creneau, Proposer> creneaux) { this.creneaux = creneaux;}
+   
     //Méthodes.
     //Méthodes surchargées.
 
