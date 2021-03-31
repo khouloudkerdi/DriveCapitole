@@ -32,7 +32,7 @@ public class Preferences {
     private long idMar;
     private long idCat;
     private long idLab;
-    private NutriscoreArticle nutriscore ;
+    private String nutriscore ;
     
     //Relation  "Preferer" 
     @ManyToMany(mappedBy ="preferences")
@@ -63,8 +63,8 @@ public class Preferences {
     public void setIdCat(long idCat) { this.idCat = idCat;}
     public long getIdLab() {return idLab;}
     public void setIdLab(long idLab) { this.idLab = idLab;}
-    public NutriscoreArticle getNutriscore() {return nutriscore;}
-    public void setNutriscore(NutriscoreArticle nutriscore) { this.nutriscore = nutriscore;}
+    public String getNutriscore() {return nutriscore;}
+    public void setNutriscore(String nutriscore) { this.nutriscore = nutriscore;}
     public Set<Client> getClients() {return clients;}
     public void setClients(Set<Client> clients) { this.clients = clients;}
     
