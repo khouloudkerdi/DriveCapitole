@@ -37,17 +37,17 @@ public class CtrlChoixMagasin extends HttpServlet {
             String code =request.getParameter("codepostal");
            try
             {
-//                //Recuperation de la liste de magasin.
-//                List <Magasin> listeMag =MethodesDAO.getListeMagasin(code);
-//                //Chainnage vers la vue "Supprimer.jsp"  avec la liste de messages et un message d'info
-//                request.setAttribute("liste_Mag", listeMag);
-//                request.getRequestDispatcher("choixCreneauMagasin").forward(request, response);      
+                //Recuperation de la liste de magasin.
+                List <Magasin> listeMag =MethodesDAO.getListeMagasin(code);
+                //Chainnage vers la vue "Supprimer.jsp"  avec la liste de messages et un message d'info
+                request.setAttribute("liste_Mag", listeMag);
+                request.getRequestDispatcher("choixCreneauMagasin").forward(request, response);      
             }
             catch(Exception ex)
             {
                 //Chainage vers la page visualiserPanier avec un message.
                 request.setAttribute("msg_erreur", ex.getMessage());
-                request.getRequestDispatcher("Panier").forward(request, response);
+                request.getRequestDispatcher("Accueil").forward(request, response);
             }
     }
 
