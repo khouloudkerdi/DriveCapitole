@@ -28,7 +28,7 @@
                     listeArticles.addAll(listeArticlesNonPromo);
                     int numCol = 3;
                     int colCount = 0;
-                    if (request.getSession(false).getAttribute("idClient")!=null){
+                    if (request.getSession().getAttribute("idClient")!=null){
                         request.getRequestDispatcher("PagePersonnelle").forward(request, response);
                     }
                     for (Article a : listeArticles) {
@@ -113,9 +113,9 @@
                                     <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" 
                                        class="btn btn-secondary btn-sm">Panier</a>
                                     <%
-                                        if (request.getSession(false).getAttribute("idClient") != null) {
+                                        if (request.getSession().getAttribute("idClient") != null) {
                                             //long idClient=(long) request.getSession().getAttribute("idClient");
-                                            long idClient = ((Number) request.getSession(false).getAttribute("idClient")).longValue();
+                                            long idClient = ((Number) request.getSession().getAttribute("idClient")).longValue();
                                             if (MethodesDAO.getListeCourses(idClient).size() != 0) {
 
                                     %>
@@ -126,7 +126,8 @@
                                                     Liste
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <%                                                    ArrayList<ListeCourses> listeListeCourses = MethodesDAO.getListeCourses(idClient);
+                                                    <%                                                    
+                                                        ArrayList<ListeCourses> listeListeCourses = MethodesDAO.getListeCourses(idClient);
                                                         for (ListeCourses lc : listeListeCourses) {
                                                             out.print("<li><a class=dropdown-item href=CtrlInserer?idListeCourses=" + a.getIdArt() + "," + lc.getIdLis() + ">" + lc.getNomLis() + "</a></li>");
                                                         }
