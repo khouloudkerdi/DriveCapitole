@@ -25,7 +25,7 @@
                     <%
                         if (request.getSession().getAttribute("idClient") == null) {
                     %>
-                        <a class="btn btn-primary" href="CtrlMenu?method=Connexion" style="padding-top:12px;">
+                        <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modalConnexion" style="padding-top:12px;">
                             <img src="${pageContext.request.contextPath}/css/image/user.png" alt="logo_neopro" width="35px"/>
                         </a>
                     <% } else if (request.getSession().getAttribute("idClient") != null) { %>
@@ -47,7 +47,7 @@
                     %>
                     <div class="btn btn-primary contenant">
                         <a href="Panier"><img href="Panier" src="${pageContext.request.contextPath}/css/image/caddie.png" alt="logo_neopro" width="45px"/></a>
-                            <% long qte = MethodesDAO.nbArt((long)request.getSession().getAttribute("idClient")); %>
+                            <% long qte = MethodesDAO.nbArt( ((Number) request.getSession().getAttribute("idClient")).longValue()); %>
                         <div class="texte_centrer"><% out.print(qte); %></div>
                     </div>
                 </div>
