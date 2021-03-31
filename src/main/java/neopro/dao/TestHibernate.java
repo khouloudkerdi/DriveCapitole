@@ -90,25 +90,15 @@ public class TestHibernate {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
-            Client c1 = new Client("durond","Chloe","Chloe@gmail.com","1234", 20);
+            Magasin m1 = session.get(Magasin.class, 1l);
+            Client c1 = new Client("durond","Chloe","Chloe@gmail.com","1234", 20,m1);
             System.out.println("client-----------------------"+c1);
             session.save(c1);
             t.commit(); // Commit et flush automatique de la session.
         }
     }
     
-    //Function pour ajouter une preference.
-    
-    public static void ajouterPreferences() {
-        /*----- Ouverture de la session -----*/
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            /*----- Ouverture d'une transaction -----*/
-            Transaction t = session.beginTransaction();
-            Preferences p1 = new Preferences(TypePreference.Produit,1l);
-            session.save(p1);
-            t.commit(); // Commit et flush automatique de la session.
-        }
-    }
+  
 
     //Function pour ajouter un magasin
     
@@ -117,7 +107,7 @@ public class TestHibernate {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
-            Magasin m1 = new Magasin ("M2",31200);
+            Magasin m1 = new Magasin ("M2",31200,"adresse");
             session.save(m1);
             t.commit(); // Commit et flush automatique de la session.
         }
@@ -422,6 +412,9 @@ public class TestHibernate {
       // TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
       //TestHibernate.ajouterArticle();
       //TestHibernate.ListeArticlesParRayon("2" );
+     TestHibernate.ajouterClient();
+   
+
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
         /*long id=1;
         List<Article> liste=MethodesDAO.listeArticlePrefLNutri(id);

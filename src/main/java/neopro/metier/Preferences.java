@@ -53,6 +53,8 @@ public class Preferences {
         this.nutriscore = nutriscore;
     }
 
+   
+    
     
     //Getters /Setters.
 

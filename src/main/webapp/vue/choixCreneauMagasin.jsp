@@ -4,15 +4,17 @@
     Author     : khoul
 --%>
 
+<%@page import="neopro.metier.Magasin"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@include file="../layout/headerFix.jsp" %>
     <body>
         <h1>Choix magasin et Créneau :</h1>
-         <form class="d-flex" id="saisirCP" action="CtrlChoixMagasin" method="GET">
         Code postal :<input type="Text" name="codepostal" id="codepostal" >
-        <button class="btn btn-outline-success" type="submit">Valider</button>
-         </form>
+        <button class="btn btn-outline-success"  id="validerchoix">Valider</button>
+       
+        <select id="nommag"><option>-----</option></select>
     </body>
 <%@include file="../layout/footerFix.jsp" %>
 

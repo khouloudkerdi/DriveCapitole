@@ -596,7 +596,37 @@ public class MethodesDAO {
         }
         return listeArticle;
     }
+
+    public static void ajouterPostIt(long idListe,String nom) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            ListeCourses lc=session.get(ListeCourses.class, idListe);
+            Postit pi=new Postit(nom,lc);
+            session.save(pi);
+            t.commit();
+        }
+    }
     
+    public static List<Article> listeArticlePrefMarque(long idClient) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Client c=session.get(Client.class, idClient);
+            List<Article> listeR=new ArrayList<>();
+            Marque m;
+            for(Preferences p:c.getPreferences()){
+                long id=p.getIdMar();
+                long f=0;
+                if (id!=f){
+                    m=session.get(Marque.class,p.getIdMar());
+                    for (Article a:m.getArticles()){
+                        listeR.add(a);
+                    }
+                }  
+            }
+            return listeR;
+        }
+    }
+        
      public static List<Postit> loadPostIt(long idlisteCourses) {
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
@@ -608,35 +638,7 @@ public class MethodesDAO {
         }
     }
 
-    public static void ajouterPostIt(long idListe, String nom) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            Transaction t = session.beginTransaction();
-            ListeCourses lc = session.get(ListeCourses.class, idListe);
-            Postit pi = new Postit(nom, lc);
-            session.save(pi);
-            t.commit();
-        }
-    }
-
-    public static List<Article> listeArticlePrefMarque(long idClient) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            Transaction t = session.beginTransaction();
-            Client c = session.get(Client.class, idClient);
-            List<Article> listeR = new ArrayList<>();
-            Marque m;
-            for (Preferences p : c.getPreferences()) {
-                long id = p.getIdMar();
-                long f = 0;
-                if (id != f) {
-                    m = session.get(Marque.class, p.getIdMar());
-                    for (Article a : m.getArticles()) {
-                        listeR.add(a);
-                    }
-                }
-            }
-            return listeR;
-        }
-    }
+  
 
     public static List<Article> listeArticlePrefCat(long idClient) {
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -714,4 +716,9 @@ public class MethodesDAO {
         return listeR;
     }
 
+    
+  
+    
+    
+     
 }

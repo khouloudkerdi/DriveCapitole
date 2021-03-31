@@ -44,10 +44,49 @@ function panierProduitOptions() {
         });
     });
 }
+function listeMagasins (){
+	// Objet XMLHttpRequest.
+         var elt = document.getElementById("nommag");
+         elt.innerHTML="<option>Test</option>";
+        var inputCP = document.getElementById("codepostal");
+        console.log(inputCP.value);
+	var xhr = new XMLHttpRequest();
 
+	// Requête au serveur avec les paramètres éventuels.
+	xhr.open("GET","CtrlChoixMagasin?codePostal="+inputCP.value);
+
+	// On précise ce que l'on va faire quand on aura reçu la réponse du serveur.
+	xhr.onload = function(){
+            //Si la requête http s'est bien passée.
+		if (xhr.status === 200)
+			{
+                            // mettre les données recuperés dans un fichier 
+                        var donnee =  xhr.responseXML;
+                        
+                        //Recueperer les magasins
+                        var listeMag = donnee.getElementsByTagName("Magasin");
+                        
+                        //l'element html dans le quel on va mettre le resultat 
+                       
+                        //remplacer lnom par <option>----</option>  
+                       
+                        // mettre les noms dans l'element 
+                        for(i = 0; i < listeMag.length; i++) 
+                        {
+                            var nom = listeMag[i].firstChild.nodeValue;
+                            
+                            elt.insertAdjacentHTML('beforeend', "<option>"+nom+"</option>");
+			}
+                        }
+        };
+	
+	// Envoie de la requête.
+	xhr.send();
+	}
+        
 document.addEventListener("DOMContentLoaded", () => {
     panierProduitOptions();
-
+document.getElementById("validerchoix").addEventListener("click",listeMagasins);
 });
 
 
