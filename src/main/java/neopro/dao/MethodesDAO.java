@@ -680,6 +680,22 @@ public class MethodesDAO {
                 }
             }
             return listeR;
-        }       
+        }
+     
+     // Fonction pour récupérer le idPanier qui est enCours d'un client à partir de son idCli.
+    public static Magasin getMagByIdCli(long idClient) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Client c = session.get(Client.class, idClient);
+            long idmag = 1l;
+            Magasin mag = session.get(Magasin.class, idmag);
+            
+
+
+            return mag;
+        }
+    }
      
 }
+
