@@ -50,6 +50,14 @@ public class Marque implements Serializable{
     public void setIdMar(long idMar) { this.idMar = idMar;}
     public String getLibelleMar() {return libelleMar;}
     public void setLibelleMar(String libelleMar) { this.libelleMar = libelleMar;}
+
+    public Set<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
+    }
     
     //Méthodes.
     //Méthodes surchargées.
