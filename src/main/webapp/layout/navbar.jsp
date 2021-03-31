@@ -21,27 +21,39 @@
             </div>
             <div class="col-md-3">
                 <div class="btn-group" role="group" aria-label="Basic example">  
-                    
+
+                    <%-- btn Compte --%>
                     <%
                         if (request.getSession().getAttribute("idClient") == null) {
                     %>
-                        <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modalConnexion" style="padding-top:12px;">
-                            <img src="${pageContext.request.contextPath}/css/image/user.png" alt="logo_neopro" width="35px"/>
-                        </a>
+                    <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modalConnexion" style="padding-top:12px;">
+                        <img src="${pageContext.request.contextPath}/css/image/user.png" alt="logo_neopro" width="35px"/>
+                    </a>
                     <% } else if (request.getSession().getAttribute("idClient") != null) { %>
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#logOut" style="padding-top:12px;">
-                            <img src="${pageContext.request.contextPath}/css/image/user.png" alt="logo_neopro" width="35px"/>
-                        </a>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#logOut" style="padding-top:12px;">
+                        <img src="${pageContext.request.contextPath}/css/image/user.png" alt="logo_neopro" width="35px"/>
+                    </a>
                     <% }%>
-                    
+
+                    <%-- btn Liste --%>
+                    <%
+                        if (request.getSession().getAttribute("idClient") == null) {
+                    %>
+                    <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modalConnexion" style="padding-top:12px;">
+                        <img src="${pageContext.request.contextPath}/css/image/liste.png" alt="logo_neopro" width="35px"/>
+                    </a>
+                    <% } else if (request.getSession().getAttribute("idClient") != null) { %>
                     <a class="btn btn-primary" href="CtrlMenu?method=Liste" style="padding-top:14px;">
                         <img src="${pageContext.request.contextPath}/css/image/liste.png" alt="logo_neopro" width="35px"/>
+                    </a>  
+                    <% }%>
 
-                    </a>                
+                    <%-- btn Accueil --%>
                     <a href="Accueil" class="btn btn-primary" style="padding-top:14px;">
                         <img src="${pageContext.request.contextPath}/css/image/accueil.png" alt="logo_neopro" width="35px"/>
                     </a>
 
+                    <%-- btn Panier --%>
                     <%
                         if (request.getSession().getAttribute("idClient") != null) {
                     %>

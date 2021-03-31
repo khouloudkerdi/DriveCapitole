@@ -27,28 +27,23 @@ public class CtrlMenu extends HttpServlet {
         switch (m)
             {
             case "Liste" :
-                if (request.getSession().getAttribute("idClient")==null){
-                    request.getRequestDispatcher("Connexion").forward(request, response);
-                }else{
-                // Chainage vers la page ListeCourses.jsp
-                    request.getRequestDispatcher("ListeCourses").forward(request, response);   
+                if (request.getSession().getAttribute("idClient")!=null){
+                    request.getRequestDispatcher("ListeCourses").forward(request, response);  
                 }
                     break; 
-          
-            case "Connexion" :
-                if (request.getSession().getAttribute("idClient")==null){
-                    // Chainage vers la page Connexion.jsp
-                    request.getRequestDispatcher("Connexion").forward(request, response);
-                   
-                }else{
-                   request.getRequestDispatcher("Accueil").forward(request, response);
-                }
-               break;
+//          
+//            case "Connexion" :
+//                if (request.getSession().getAttribute("idClient")==null){
+//                    // Chainage vers la page Connexion.jsp
+//                    request.getRequestDispatcher("Connexion").forward(request, response);
+//                   
+//                }else{
+//                   request.getRequestDispatcher("Accueil").forward(request, response);
+//                }
+//               break;
             
             case "Panier" :
-                if (request.getSession().getAttribute("idClient")==null){
-                     request.getRequestDispatcher("Connexion").forward(request, response);
-                }else{
+                if (request.getSession().getAttribute("idClient")!=null){
                      request.getRequestDispatcher("Panier").forward(request, response);
                 }
                 break;

@@ -31,10 +31,10 @@
                     List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
                     List<Article> listeSearch = MethodesDAO.listRecherche(search);
                     List<Article> listeArticles = new ArrayList();
-                    listeArticles.addAll(listeSearch); 
+                    listeArticles.addAll(listeSearch);
                     int nbRes = listeArticles.size();
-                    if (nbRes==0){
-                    out.println("<h3>" + nbRes + " Résultat...</h3>");
+                    if (nbRes == 0) {
+                        out.println("<h3>" + nbRes + " Résultat...</h3>");
                     } else {
                         out.println("<h3>" + nbRes + " Résultats</h3>");
                     }
@@ -54,40 +54,38 @@
                     } %>
                 <div class="col-md-4 cardProduit">
                     <div class="card">
-                          <%if (listeArticlesPromo.contains(a)) {
+                        <%if (listeArticlesPromo.contains(a)) {
                                 out.print("<span class='spanPromo'>Promotion </span>");
                                 produitPromo = MethodesDAO.calculerPrixPromo(a.getIdArt());
                             } else {
                                 out.print("<span class='spanNonPromo'>&nbsp</span>");
                             }
-                        
-                             if (request.getSession().getAttribute("idClient")!=null){
-                                  long id = ((Number) request.getSession().getAttribute("idClient")).longValue();
-                       List<Article> liste_articlesPref = MethodesDAO.listePref(id);
-                        if (liste_articlesPref.contains(a) ) {
-                                out.print("<span class='spanPref'>&#10084;</i> </span>");
-                               
-                                }   
-                    }
+
+                            if (request.getSession().getAttribute("idClient") != null) {
+                                long id = ((Number) request.getSession().getAttribute("idClient")).longValue();
+                                List<Article> liste_articlesPref = MethodesDAO.listePref(id);
+                                if (liste_articlesPref.contains(a)) {
+                                    out.print("<span class='spanPref'>&#10084;</i> </span>");
+
+                                }
+                            }
                         %>
                         <div>
-                              <img class="card-img imgProduit float-left" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="imageProduit">
-                           
-                         <%
-                             List<Label> listeLabels = MethodesDAO.getLabelsArticle(a.getIdArt());
-                             if(listeLabels.size()!=0)
-                             {
-                                for (Label l: listeLabels)
-                             { %>
-                                 <img class="imgLabel" src="${pageContext.request.contextPath}/image/<%out.print(l.getLibelleLab()+".JPG");%>" >
-                          <% } 
-                             } 
-                          %>
-                            
+                            <img class="card-img imgProduit float-left" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="imageProduit">
+
+                            <%
+                                List<Label> listeLabels = MethodesDAO.getLabelsArticle(a.getIdArt());
+                                if (listeLabels.size() != 0) {
+                                    for (Label l : listeLabels) { %>
+                            <img class="imgLabel" src="${pageContext.request.contextPath}/image/<%out.print(l.getLibelleLab() + ".JPG");%>" >
+                            <% }
+                                }
+                            %>
+
                         </div> 
-                      
-                         
-                         <div class="card-body">
+
+
+                        <div class="card-body">
                             <a> <h5 class="card-title"><% out.print(a.getLibelleArt());%></h5></a>
                             <P>
                                 <span class="infosproduits"><% out.print(a.getFormatArt());%></span>
@@ -130,8 +128,16 @@
                                         }%>
                                 </div>
                                 <div class="btnAccueil">
+                                    <%
+                                        if (request.getSession().getAttribute("idClient") == null) {
+                                    %>
+                                    <a class="btn btn-secondary btn-sm" href="#" data-toggle="modal" data-target="#modalConnexion">
+                                        Panier
+                                    </a>
+                                    <% } else if (request.getSession().getAttribute("idClient") != null) { %>
                                     <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" 
                                        class="btn btn-secondary btn-sm">Panier</a>
+                                    <% }%>
                                     <%
                                         if (request.getSession().getAttribute("idClient") != null) {
                                             //long idClient=(long) request.getSession().getAttribute("idClient");
@@ -156,7 +162,7 @@
                                         </li>
                                     </ul>
                                     <%  }
-                                    } %>
+                                        } %>
                                 </div>
 
 
@@ -171,5 +177,7 @@
             </div>
         </div>
     </div>
+    <%@include file="../layout/modalConnexion.jsp" %>
+    <%@include file="../layout/logOut.jsp" %>
 </body>
 <%@include file="../layout/footerFix.jsp" %>
