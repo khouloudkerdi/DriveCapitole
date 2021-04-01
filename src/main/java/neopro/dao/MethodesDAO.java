@@ -739,7 +739,38 @@ public class MethodesDAO {
         }        
     }
     
-    
+    // Fonction pour mettre à jour les points fedelité d'un client à partir de son idCli.
+    public static void updatePoints(long idCli, int pointGagne){
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Client c = session.get(Client.class, idCli);
+            int oldPoint = c.getPointFedelitéCli();
+            int newPoint = oldPoint + pointGagne;
+            System.out.println(newPoint);
+            c.setPointFedelitéCli(newPoint);
+            t.commit();
+        }
+    }
+  
+    // Fonction pour mettre à jour l'état d'un panier EnCour d'un client à partir de son idCli.
+    public static void updateEtatPanier(long idCli){
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Client c = session.get(Client.class, idCli);
+            String hql = "select p.idPan "
+                    + "from Panier p "
+                    + "where p.client.idCli = :id "
+                    + "and p.etatPan = 'EnCours' ";
+            Query query = session.createQuery(hql);
+            query.setParameter("id", idCli);
+            List<Long> list = query.list();
+            long idPanierEnCour = list.get(0);
+            System.out.println(idPanierEnCour);
+            Panier p = session.get(Panier.class, idPanierEnCour);
+            p.setEtatPan(EtatPanier.Finalisée);
+            t.commit();
+        }
+    }
        
 }
 
