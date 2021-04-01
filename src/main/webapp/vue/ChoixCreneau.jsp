@@ -188,4 +188,5 @@
 
 
 </body>
+<script src="${pageContext.request.contextPath}/js/choixMagasinCreneau.js"></script>
 <%@include file="../layout/footerFix.jsp" %>
