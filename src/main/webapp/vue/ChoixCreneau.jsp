@@ -125,21 +125,16 @@
                         </div>
 
                         <div class="row" id="msgIndispo" style="display:<% if (listeC.size() != 0) {
-                        out.print("none");
-                    } else {
-                        out.print("block");
-                    } %>;">
+                                out.print("none");
+                            } else {
+                                out.print("block");
+                            } %>;">
 
                             <div class="recapPanierInfo msgDesole">
-
                                 Désolé les Créneaux pour ce jour ne sont plus disponibles !
-
                             </div>     
-                        </div>                       
-
-                    </div>
-
-
+                        </div>  
+                    </div>                                         
                 </div>
             </div>
 
@@ -207,7 +202,7 @@
                 </div>
                 <%--Button Confirmer--%>
                 <div class="btnContainer">
-                    <a href="ConfirmRetrait" class="btn btn-info">Confirmer</a>
+                    <button type="button" id="btnConfirmerChoix" class="btn btn-info">Confirmer</button>
                     <a href="Panier" class="btn btn-info">Retour</a>
                 </div>
                 <div class="messageErreur">${requestScope.msg_erreur}</div>

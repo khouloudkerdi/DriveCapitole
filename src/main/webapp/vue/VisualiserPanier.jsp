@@ -153,7 +153,9 @@
                     </div>
                     <%--Button Valider--%>
                     <div class="btnContainer">
-                        <a href="ChoixCreneau" class="btn btn-info">Valider</a>
+                        <%if(montant!=0){ %>
+                            <a href="ChoixCreneau" class="btn btn-info">Valider</a>
+                        <% }%>
                         <a href="Accueil" class="btn btn-info">Retour</a>
                     </div>
                     <div class="messageErreur">${requestScope.msg_erreur}</div>

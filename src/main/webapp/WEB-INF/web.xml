@@ -123,10 +123,14 @@
     <servlet>
         <servlet-name>CtrlChoixCreneau</servlet-name>
         <servlet-class>neopro.ctrl.CtrlChoixCreneau</servlet-class>
-        </servlet>
+    </servlet>
     <servlet>
         <servlet-name>ServletPostit</servlet-name>
         <servlet-class>neopro.action.ServletPostit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CtrlConfirmChoix</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlConfirmChoix</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>VisualiserPanier</servlet-name>
@@ -251,10 +255,14 @@
     <servlet-mapping>
         <servlet-name>CtrlChoixCreneau</servlet-name>
         <url-pattern>/CtrlChoixCreneau</url-pattern>
-         </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletPostit</servlet-name>
         <url-pattern>/ServletPostit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlConfirmChoix</servlet-name>
+        <url-pattern>/CtrlConfirmChoix</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
