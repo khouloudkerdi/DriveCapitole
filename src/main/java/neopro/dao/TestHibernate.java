@@ -10,6 +10,7 @@ import com.google.protobuf.TypeProto;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -25,6 +26,7 @@ import neopro.metier.AvoirQuantitePanierID;
 import neopro.metier.Categorie;
 import neopro.metier.Client;
 import neopro.metier.Creneau;
+import neopro.metier.DateCreneau;
 import neopro.metier.EtatPanier;
 import neopro.metier.Label;
 import neopro.metier.ListeCourses;
@@ -61,13 +63,13 @@ public class TestHibernate {
         }
     }
      //Function pour ajouter un creneau.
-    public static void ajouterCreneau() {
+    public static void ajouterDate() throws ParseException {
         /*----- Ouverture de la session -----*/
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
-            Creneau c1 = new Creneau("08:00-0830");
-            session.save(c1);
+            DateCreneau d1 = new DateCreneau(DF.parse("01-04-2021"));
+            session.save(d1);
             t.commit(); // Commit et flush automatique de la session.
         }
     }
@@ -195,12 +197,19 @@ public class TestHibernate {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
-            Proposer p = new Proposer(new ProposerID(1l,1l),DF.parse("04-01-2021"),15,5);
+            Proposer p = new Proposer(new ProposerID(1l,1l,DF.parse("01-04-2021")),15,5);
+            
             session.save(p);
             Creneau crenau = session.get(Creneau.class,1l);
             Magasin magasin = session.get(Magasin.class,1l );
+            DateCreneau date = session.get(DateCreneau.class,DF.parse("01-04-2021"));
+            
             crenau.getCreneaux().put(magasin, p);
+            crenau.getDates().put(date, p);
+            
             magasin.getCreneaux().put(crenau, p);
+            magasin.getDates().put(date, p);
+            
             t.commit(); // Commit et flush automatique de la session.
         }
     }
@@ -289,6 +298,8 @@ public class TestHibernate {
             t.commit(); // Commit et flush automatique de la session.
         }
     }
+    
+    
     
     //Function pour ajouter un panier
     
@@ -418,6 +429,7 @@ public class TestHibernate {
         }
         
     }
+ 
     // Recupertaion de la liste des magasins 
     public static  List<Magasin> getListeMagasin(String code){
      try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -431,6 +443,19 @@ public class TestHibernate {
         } 
     }
     
+     // Recupertaion de la liste de crenau
+    public static  Proposer getListeProposer(long idMag , String date){
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            LocalDate d = LocalDate.parse(date);
+            DateCreneau dateC=session.get(DateCreneau.class, d);
+            Magasin magasin =session.get(Magasin.class, 1l);
+            Proposer p=dateC.getCreneaux().get(magasin);   
+            return p;
+        }
+    }
+    
+    
         
     /**
      * Programme de test.
@@ -440,8 +465,8 @@ public class TestHibernate {
 //        TestHibernate.ajouterPromoArticle(1l,2l,DF.parse("23-03-2021"),DF.parse("30-03-2021"));
 //        TestHibernate.ajouterArticle();
 //        TestHibernate.ListeArticlesParRayon("2" );
-//        TestHibernate.ajouterClient();
-          TestHibernate.ajouterCreneauMagasin();
+ TestHibernate.ajouterCreneauMagasin();
+//          TestHibernate.ajouterCreneauMagasin();
    
 
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
@@ -454,7 +479,7 @@ public class TestHibernate {
 //        for (Postit p:MethodesDAO.loadPostIt(id)){
 //            System.out.println(p.getIdPos());
 //        };
-      
+         System.out.println(getListeProposer(2l,"2021-04-01").getCreneau().getHeure());
         /*----- Exit -----*/
         System.exit(0);
     }

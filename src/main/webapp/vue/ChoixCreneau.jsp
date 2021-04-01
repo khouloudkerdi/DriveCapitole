@@ -4,6 +4,10 @@
     Author     : Xinyan
 --%>
 
+<%@page import="neopro.metier.Creneau"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="neopro.metier.Magasin"%>
 <%@page import="neopro.metier.Client"%>
 <%@page import="java.math.BigDecimal"%>
@@ -46,6 +50,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="recapPanierInfo">
+                                    <input type="hidden" id="idMag" name="idMag" value="<% out.print(mag.getIdMag());%>">
                                     <span class="titreValeurPanier"><% out.print(mag.getNomMag());%></span>
                                 </div>
                                 <div class="recapPanierInfo">
@@ -72,7 +77,35 @@
                 <%-- Choix du Creneau--%>
                 <div class="row">
                     <h4>Créneau</h4>
+                    <p>Sélectionnez une date </p> 
+                    <% 
+                        SimpleDateFormat formatt = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                        Date d = new java.util.Date(); 
+                        Calendar c = Calendar.getInstance();
+                        c.setTime(d);
+                        c.add(Calendar.DAY_OF_MONTH,7);
+                        Date d2 = c.getTime();
+                        String strDate = formatt.format(d).toString();  
+                        String strDate2 = formatt.format(d2).toString(); 
+                            
+                    %>
+                    <input type="date" id="choixdateCre" name="choixdateCre" value="<% out.print(strDate);%>" min="<% out.print(strDate);%>" max="<% out.print(strDate2);%>">
+               
+                    <div id="afficherCrenaux" ">
+                        <p>choisir un créneau </P>
+                        <select id="listeCreneau">
+                            <% List<Creneau> listeC = MethodesDAO.getCreneau(mag.getIdMag(), strDate);
+                           for(Creneau cre :listeC ){
+                        %>
+                            <option value="<% out.print(cre.getIdCre());%>"><% out.print(cre.getHeure());%></option>
+                        <%
+                            }
+                        %>
+                        </select>
+                    </div>
+                 
                 </div>
+                
             </div>
 
             <%-- Detail Commande --%>

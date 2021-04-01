@@ -42,6 +42,10 @@ public class Magasin {
     @MapKeyJoinColumn(name = "idCre")
     private Map<Creneau, Proposer> creneaux = new HashMap<>();
     
+    @OneToMany(mappedBy = "magasin", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "date")
+    private Map<DateCreneau, Proposer> dates = new HashMap<>();
+    
     //Constructeurs. 
 
     public Magasin() {
@@ -67,6 +71,12 @@ public class Magasin {
     public void setClients(Set<Client> clients) { this.clients = clients;}
     public Map<Creneau, Proposer> getCreneaux() {return creneaux;}
     public void setCreneaux(Map<Creneau, Proposer> creneaux) { this.creneaux = creneaux;}
+    public Map<DateCreneau, Proposer> getDates() {
+        return dates;
+    }
+    public void setDates(Map<DateCreneau, Proposer> dates) {
+        this.dates = dates;
+    }
    
     //Méthodes.
     //Méthodes surchargées.

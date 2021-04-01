@@ -109,7 +109,45 @@ function modifierMagasin()
     document.getElementById("rechercheMag").style.display = "block";
     document.getElementById("btnModifierMag").style.display = "none";
 }
+function listeCrenaux()
+{   
+     // Recuperation de la date choisie
+     var date = document.getElementById("choixdateCre").value;
+     var idMag = document.getElementById("idMag").value ;
+     var elt = document.getElementById("listeCreneau");
+     var xhr = new XMLHttpRequest();
+     // Requête au serveur avec les paramètres éventuels.
+     xhr.open("GET", "CtrlChoixCreneau?idMag="+ idMag+"&date="+date);
+     // On précise ce que l'on va faire quand on aura reçu la réponse du serveur.
+    xhr.onload = function () {
+        
+            //Si la requête http s'est bien passée.
+            if (xhr.status === 200)
+            {
+                // mettre les données recuperés dans un fichier 
+                var donnee = xhr.responseXML;
 
+                //Recueperer les magasins
+                var listeCre = donnee.getElementsByTagName("Creneau");
+                //remplacer lmagasins par ""   
+                elt.innerHTML = "";
+                // mettre les noms dans l'element 
+                for (i = 0; i < listeCre.length; i++)
+                {
+                    var idCre = listeCre[i].getElementsByTagName("idCre")[0];
+                    var heure = listeCre[i].getElementsByTagName("heure")[0];
+                    var text ="<option value =\""+idCre+"\">"+heure.firstChild.nodeValue+"</option>";
+                    elt.insertAdjacentHTML('beforeend',text);
+                }
+                if (listeCre.length >0)
+                { document.getElementById("afficherCrenaux").style.display = "block";}  
+            }
+    };
+     // Envoie de la requête.
+     xhr.send();
+     
+     
+}
 function validerChoixMag()
 {
     console.log(event.target.value);
@@ -132,6 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
     panierProduitOptions();
     document.getElementById("validerchoix").addEventListener("click", listeMagasins);
     document.getElementById("btnModifierMag").addEventListener("click", modifierMagasin);
+    document.getElementById("choixdateCre").addEventListener("change",listeCrenaux);
 
 });
 

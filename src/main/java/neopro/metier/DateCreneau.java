@@ -8,6 +8,7 @@ package neopro.metier;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,58 +23,60 @@ import javax.persistence.Temporal;
  * @author khoul
  */
 @Entity
-public class Creneau {
-    
+public class DateCreneau {
     //Proprietes.
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idCre;
-    private String heure; 
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date date; 
     
     //relation Proposer
-    @OneToMany(mappedBy = "creneau", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "date", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = "idMag")
     private Map<Magasin, Proposer> creneaux = new HashMap<>();
      
-    @OneToMany(mappedBy = "creneau", cascade = CascadeType.ALL)
-    @MapKeyJoinColumn(name = "date")
-    private Map<DateCreneau, Proposer> dates = new HashMap<>();
+    @OneToMany(mappedBy = "date", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "idCre")
+    private Map<Creneau, Proposer> dates = new HashMap<>();
     //Constructeurs.
 
-    public Creneau() {
+    public DateCreneau() {
     }
 
-    public Creneau(String heure) {
-        this.heure = heure;
+    public DateCreneau(Date date) {
+        this.date = date;
     }
+
     
     //Getters /Setters.
-
-    public long getIdCre() {return idCre;}
-    public void setIdCre(long idCre) { this.idCre = idCre;}
-    public String getHeure() {return heure;}
-    public void setHeure(String heure) { this.heure = heure;}
-    public Map<Magasin, Proposer> getCreneaux() {return creneaux;}
-    public void setCreneaux(Map<Magasin, Proposer> creneaux) { this.creneaux = creneaux;}
-    public Map<DateCreneau, Proposer> getDates() {
-        return dates;
+    
+    public Date getDate() {
+        return date;
     }
-    public void setDates(Map<DateCreneau, Proposer> dates) {
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Map<Magasin, Proposer> getCreneaux() {
+        return creneaux;
+    }
+    public void setDates(Map<Creneau, Proposer> dates) {
         this.dates = dates;
     }
-   
-    //Methodes.
-    //Methodes Surchargées.
-
-    @Override
-    public String toString() {
-        return "Creneau{" + "idCre=" + idCre + ", heure=" + heure + '}';
+    public Map<Creneau, Proposer> getDates() {
+        return dates;
     }
+
+    public void setCreneaux(Map<Magasin, Proposer> creneaux) {
+        this.creneaux = creneaux;
+    }
+    
+    //Methodes Surchargés.
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + (int) (this.idCre ^ (this.idCre >>> 32));
+        hash = 23 * hash + Objects.hashCode(this.date);
         return hash;
     }
 
@@ -88,14 +91,11 @@ public class Creneau {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Creneau other = (Creneau) obj;
-        if (this.idCre != other.idCre) {
+        final DateCreneau other = (DateCreneau) obj;
+        if (!Objects.equals(this.date, other.date)) {
             return false;
         }
         return true;
     }
-    
-    
-    
     
 }

@@ -24,8 +24,6 @@ public class Proposer implements Serializable{
     // Propriétés.
     @EmbeddedId
     private ProposerID id;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date date;
     private int nbPlaceDispoCre ; 
     private int nbPlaceTotal; 
     
@@ -37,14 +35,17 @@ public class Proposer implements Serializable{
     @JoinColumn(name = "idCre", insertable = false, updatable = false)
     private Creneau creneau;
     
+    @ManyToOne
+    @JoinColumn(name = "date", insertable = false, updatable = false)
+    private DateCreneau date;
+    
     //Constructeurs.
 
     public Proposer() {
     }
 
-    public Proposer(ProposerID id, Date date, int nbPlaceDispoCre, int nbPlaceTotal) {
+    public Proposer(ProposerID id, int nbPlaceDispoCre, int nbPlaceTotal) {
         this.id = id;
-        this.date = date;
         this.nbPlaceDispoCre = nbPlaceDispoCre;
         this.nbPlaceTotal = nbPlaceTotal;
     }
@@ -52,8 +53,6 @@ public class Proposer implements Serializable{
 
     public ProposerID getId() {return id;}
     public void setId(ProposerID id) { this.id = id;}
-    public Date getDate() {return date;}
-    public void setDate(Date date) { this.date = date;}
     public int getNbPlaceDispoCre() {return nbPlaceDispoCre;}
     public void setNbPlaceDispoCre(int nbPlaceDispoCre) { this.nbPlaceDispoCre = nbPlaceDispoCre;}
     public int getNbPlaceTotal() { return nbPlaceTotal; }
@@ -62,13 +61,15 @@ public class Proposer implements Serializable{
     public void setMagasin(Magasin magasin) { this.magasin = magasin;}
     public Creneau getCreneau() {return creneau;}
     public void setCreneau(Creneau creneau) { this.creneau = creneau;}
+    public DateCreneau getDate() { return date;}
+    public void setDate(DateCreneau date) { this.date = date;}
     
     //Methodes.
     //Methodes Surchargées.
 
     @Override
     public String toString() {
-        return "Proposer{" + "id=" + id + ", date=" + date + ", nbPlaceDispoCre=" + nbPlaceDispoCre + ", nbPlaceTotal=" + nbPlaceTotal + ", magasin=" + magasin + ", creneau=" + creneau + '}';
+        return "Proposer{" + "id=" + id  + ", nbPlaceDispoCre=" + nbPlaceDispoCre + ", nbPlaceTotal=" + nbPlaceTotal + ", magasin=" + magasin + ", creneau=" + creneau + '}';
     }
 
     @Override

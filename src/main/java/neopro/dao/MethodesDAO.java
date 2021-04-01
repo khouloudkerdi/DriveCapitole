@@ -2,7 +2,9 @@ package neopro.dao;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -771,7 +773,29 @@ public class MethodesDAO {
             t.commit();
         }
     }
-    
+   // recuperer la liste des creneaus selon idMag et la date choisi 
+    public static List<Creneau> getCreneau(long idMag, String strDate) throws ParseException {
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction(); 
+            // transformer le string a une date
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
+            // HQL
+            String hql = "select c "
+                    + "from Proposer p, Creneau c "
+                    + "where p.creneau.idCre = c.idCre "
+                    + "and p.date = :date "
+                    + "and p.magasin.idMag = :idMag ";
+            Query query = session.createQuery(hql);
+            query.setParameter("idMag", idMag);
+            query.setParameter("date", date);
+            // le resultat de HQL
+            List<Creneau> list = query.list();
+
+            return list;
+        }
+    } 
     
        
 }
