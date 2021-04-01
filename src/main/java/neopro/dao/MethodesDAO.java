@@ -699,12 +699,34 @@ public class MethodesDAO {
                 }
             }
             return listeR;
+        }
+    }
 
+    public static Article listeArticleHauteNutri(List<Article> listeRechercher) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            ArrayList<NutriscoreArticle> ordreScore = new ArrayList<>();
+            ordreScore.add(NutriscoreArticle.A);
+            ordreScore.add(NutriscoreArticle.B);
+            ordreScore.add(NutriscoreArticle.C);
+            ordreScore.add(NutriscoreArticle.D);
+            ordreScore.add(NutriscoreArticle.E);
+            for (int i = 0; i < 5; i++) {
+                for (Article a : listeRechercher) {
+                    if (a.getNutriscoreArt() != null) {
+                        if (a.getNutriscoreArt().equals(ordreScore.get(i))) {
+                            return a;
+                        }
+                    }
+
+                }
+            }
+            return null;
         }
     }
 
     public static List<Article> produitPostIt(List<Article> listeRechercher, long idClient) {
-        if (listeRechercher.size()<=3){
+        if (listeRechercher.size() <= 3) {
             return listeRechercher;
         }
         List<Article> listeR = new ArrayList<>();
@@ -801,8 +823,8 @@ public class MethodesDAO {
             }
         }
 
-        //exmainer s'il existe une articles de label  préférées
-        boolean nutriscore = false;
+        //exmainer s'il existe une articles de nutriscore  préférées
+        /*boolean nutriscore = false;
         for (Article a : listeRechercher) {
             if (listeNutriPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
                 listeR.add(a);
@@ -818,8 +840,9 @@ public class MethodesDAO {
                     break;
                 }
             }
-        }
-
+        }*/
+        
+        
         if (listeR.size() < 3) {
             for (Article a : listeRechercher) {
                 if (!listeR.contains(a)) {
@@ -832,9 +855,9 @@ public class MethodesDAO {
         }
         return listeR;
     }
-    
-     public static List<Article> postitArticleRechercher(String search) {
-          try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+
+    public static List<Article> postitArticleRechercher(String search) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             String var = search;
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
@@ -848,15 +871,15 @@ public class MethodesDAO {
             Query queryCat = session.createQuery(hqlCat);
             queryCat.setParameter("rollNumber", "%" + var + "%");
             List<Categorie> resultCat = queryCat.list();
-            for (Categorie c:resultCat){
-                for (Article a:c.getArticles()){
-                    if (!resultArt.contains(a)){
-                        resultArt.add(a); 
+            for (Categorie c : resultCat) {
+                for (Article a : c.getArticles()) {
+                    if (!resultArt.contains(a)) {
+                        resultArt.add(a);
                     }
                 }
             }
             // Envoi du résultat de la requête.
             return resultArt;
         }
-     }
+    }
 }

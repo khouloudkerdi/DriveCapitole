@@ -403,41 +403,46 @@ public class TestHibernate {
         //TestHibernate.ListeArticlesParRayon("2" );
         // TestHibernate.ListeArticlesNonPromoParRayon(1);
         
-        /*List<Article> liste = new ArrayList<>();
+        List<Article> liste = new ArrayList<>();
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
 
-            Article a1 = session.get(Article.class, 2l);
-            Article a2 = session.get(Article.class, 2l);
-            Article a3 = session.get(Article.class, 3l);
+            //Article a1 = session.get(Article.class, 1l);
+           //Article a2 = session.get(Article.class, 2l);
+            //Article a3 = session.get(Article.class, 3l);
             Article a4 = session.get(Article.class, 4l);
             Article a5 = session.get(Article.class, 5l);
-            Article a6 = session.get(Article.class, 6l);
-            Article a7 = session.get(Article.class, 7l);
+            //Article a6 = session.get(Article.class, 6l);
+            //Article a7 = session.get(Article.class, 7l);
             Article a8 = session.get(Article.class, 8l);
             Article a9 = session.get(Article.class, 9l);
             Article a10 = session.get(Article.class, 10l);
             Article a11 = session.get(Article.class, 11l);
             Article a12 = session.get(Article.class, 12l);
             
-            liste.add(a1);
-            liste.add(a2);
-            liste.add(a3);
+            //liste.add(a1);
+            //liste.add(a2);
+            //liste.add(a3);
             liste.add(a4);
             liste.add(a5);
-            liste.add(a6);
-            liste.add(a7);
+            //liste.add(a6);
+            //liste.add(a7);
             liste.add(a8);
             liste.add(a9);
             liste.add(a10);
             liste.add(a11);
             liste.add(a12);
-        }*/
-        List<Article> liste=MethodesDAO.postitArticleRechercher("beurre");
-        for (Article a : MethodesDAO.produitPostIt(liste, 1l)) {
-            System.out.println("article"+a.getIdArt());
+        }
+        if (MethodesDAO.listeArticleHauteNutri(liste)!=null){
+          System.out.println(MethodesDAO.listeArticleHauteNutri(liste).getIdArt());  
         }
         
+        
+        /*List<Article> liste=MethodesDAO.postitArticleRechercher("beurre");
+        for (Article a : MethodesDAO.produitPostIt(liste, 1l)) {
+            System.out.println("article"+a.getIdArt());
+        }*/
+
         
 
         /*----- Exit -----*/
