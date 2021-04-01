@@ -11,11 +11,11 @@
 }
 
 #bodyAccueil .imgProduit{ 
-    width:120px;
-    height:100px;
-
-
+    max-height: 100px;
+    width: auto;
+    max-width: 100%;
 }
+
 #bodyAccueil .infosproduits{
     border-radius: 4px;
     padding: 3px ;
@@ -24,25 +24,24 @@
 }
 #bodyAccueil .spanPromo{
     float: right;
-    margin: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     color: red;
-    background-color: yellow;
+    text-shadow: 3px 4px 2px yellow;
+    font-weight: bold;
     width: 50%;
     font-weight: bold;
     text-align: center;
-
 }
 
 #bodyAccueil .spanPref{
     position: absolute;
-    right: 5px;
-    top:5px;
+    right: 15px;
+    top: 17px;
     color: red;
 }
 #bodyAccueil .spanNonPromo{
-    margin: 15px;
-   
-
+    margin: 15px;  
 }
 #bodyAccueil .spanPrixSansPromo{
     text-decoration: line-through;
@@ -88,17 +87,22 @@
     font-size: 1.25rem;
     color: red;
     font-weight: bold;
+    position: absolute;
+    bottom: 10px;
+    margin-right: 80px;
 }
+
 #bodyAccueil .prixProduit .spanPrixSansPromo{
     font-size: 1rem;
     color: #555;
     font-weight: 300;
+    margin-left: 10px;
     
   
 }
 #bodyAccueil .imgNutriScore{
-  margin-top: 3px;
- width: 25%;
+  margin-top: 5px;
+  width: 60px;
   height: auto;
 }
 #bodyAccueil .cardProduit {
@@ -118,8 +122,8 @@
 #bodyAccueil .imgLabel{
     width: 25px;
     height: 25px;
-    float: right;
-    margin-right: 6px;
+    position: absolute;
+    right: 10px;
 }
 
 #bodyAccueil .imgStyle{
@@ -219,7 +223,7 @@
     height: 100%;
 }
 
-#bodyPanier .atCenterHorizontal{
+.atCenterHorizontal{
     display: flex;
     justify-content: center;
 }
@@ -328,17 +332,6 @@
   margin-left: 5px;
 }
 
-.texte_centrer {
-  position: absolute;
-  top: 20%;
-  left: 80%;
-  transform: translate(-50%, -50%);
-  font: bond;
-  color: red;
-  font-size: large; 
-}
-
-
 .contenant {
   position: relative;
   text-align: center;
@@ -413,4 +406,19 @@
 btn-valider{
     color: #0dcaf0;
     border-color: #0dcaf0;
+}
+
+div.msgDesole {
+    display: flex;
+    justify-content: center;
+    color: #006699;
+}
+
+
+p.nutriScore{
+    position: absolute;
+}
+
+div.label{
+    padding-bottom: 90px;
 }

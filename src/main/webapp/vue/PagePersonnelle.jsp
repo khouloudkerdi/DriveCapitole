@@ -77,7 +77,7 @@
 
                                 }   %>
                         </div>
-                        <div>
+                        <div class="atCenterHorizontal">
                             <img class="card-img imgProduit float-left" src="${pageContext.request.contextPath}/image/<%out.print(a.getUrlImageArt());%>" alt="imageProduit">
 
                             <%
@@ -94,42 +94,43 @@
 
                         <div class="card-body">
                             <a> <h5 class="card-title"><% out.print(a.getLibelleArt());%></h5></a>
-                            <P>
+                            <div class="label">
                                 <span class="infosproduits"><% out.print(a.getFormatArt());%></span>
                                 <% if (a.getCondArt() != null) {
                                 %>
                                 <span class="infosproduits"><% out.print(a.getCondArt()); %> </span>
                                 <% } %>
-                                <span >
+                                <span class="spanPrixKGArt" >
                                     <%
                                         out.print(a.getPrixKgArt());
                                     %>
                                 </span>  
-                            </P>
-                            <p>
-                                <% if (a.getNutriscoreArt() == NutriscoreArticle.A) {%>
-                                <img class="card-img imgNutriScore" src="${pageContext.request.contextPath}/image/nutri_a.png" alt="imgNutriScore">
-                                <%}%>
-                                <% if (a.getNutriscoreArt() == NutriscoreArticle.B) {%>
-                                <img class="card-img imgNutriScore" src="${pageContext.request.contextPath}/image/nutri_b.png" alt="imgNutriScore">
-                                <%}%>
-                                <% if (a.getNutriscoreArt() == NutriscoreArticle.C) {%>
-                                <img class="card-img imgNutriScore" src="${pageContext.request.contextPath}/image/nutri_c.png" alt="imgNutriScore">
-                                <%}%>
-                                <% if (a.getNutriscoreArt() == NutriscoreArticle.D) {%>
-                                <img class="card-img imgNutriScore" src="${pageContext.request.contextPath}/image/nutri_d.png" alt="imgNutriScore">
-                                <%}%>
-                                <% if (a.getNutriscoreArt() == NutriscoreArticle.E) {%>
-                                <img class="card-img imgNutriScore" src="${pageContext.request.contextPath}/image/nutri_e.png" alt="imgNutriScore">
-                                <%}%>  
 
-                            </p>
+                                <p class="nutriScore">
+                                    <% if (a.getNutriscoreArt() == NutriscoreArticle.A) {%>
+                                    <img class="card-img imgNutriScore" src="${pageContext.request.contextPath}/image/nutri_a.png" alt="imgNutriScore">
+                                    <%}%>
+                                    <% if (a.getNutriscoreArt() == NutriscoreArticle.B) {%>
+                                    <img class="card-img imgNutriScore" src="${pageContext.request.contextPath}/image/nutri_b.png" alt="imgNutriScore">
+                                    <%}%>
+                                    <% if (a.getNutriscoreArt() == NutriscoreArticle.C) {%>
+                                    <img class="card-img imgNutriScore" src="${pageContext.request.contextPath}/image/nutri_c.png" alt="imgNutriScore">
+                                    <%}%>
+                                    <% if (a.getNutriscoreArt() == NutriscoreArticle.D) {%>
+                                    <img class="card-img imgNutriScore" src="${pageContext.request.contextPath}/image/nutri_d.png" alt="imgNutriScore">
+                                    <%}%>
+                                    <% if (a.getNutriscoreArt() == NutriscoreArticle.E) {%>
+                                    <img class="card-img imgNutriScore" src="${pageContext.request.contextPath}/image/nutri_e.png" alt="imgNutriScore">
+                                    <%}%>  
+                                </p>
+                            </div>
+
                             <div>
                                 <div class="prixProduit">                  
                                     <%if (!listeArticlesPromo.contains(a)) {
                                             out.print(a.getPrixArt() + " €");
                                         } else {
-                                            out.print("<span class='spanPrixAvecPromo'>" + (a.getPrixArt() - produitPromo) + " € </span><br>");
+                                            out.print("<span class='spanPrixAvecPromo'>" + (a.getPrixArt() - produitPromo) + " € </span>");
                                             out.print("<span class='spanPrixSansPromo'>" + a.getPrixArt() + "€ </span>");
 
                                         }%>
