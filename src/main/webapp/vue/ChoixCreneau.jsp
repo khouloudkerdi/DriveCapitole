@@ -38,7 +38,7 @@
                         long idClient = (long) request.getSession().getAttribute("idClient");
                         Magasin mag;
                         if (request.getSession(false).getAttribute("idMag") != null) {
-                            mag = MethodesDAO.getMagByIdMag((long)request.getSession(false).getAttribute("idMag"));
+                            mag = MethodesDAO.getMagByIdMag((long) request.getSession(false).getAttribute("idMag"));
                             //out.print("idMag = "+mag);
                         } else {
                             mag = MethodesDAO.getMagByIdCli(idClient);
@@ -70,8 +70,8 @@
                 </div>
                 <div id="rechercheMag" class="rechercheCP">
                     <div class="recapPanierInfo"> Code postal : <input type="Text" name="codepostal" id="codepostal" >
-                        <button class="btn btn-outline-success" id="validerchoix">Valider</button>
-                        <button class="btn btn-info" id="annulerchoix">Annuler</button>
+                        <button class="btn btn-info" id="validerchoix">Valider</button>
+                        <button class="btn btn-secondary" id="annulerchoix">Annuler</button>
                     </div>
                     <div id="lmagasins"></div>
                 </div>
@@ -79,39 +79,68 @@
                 <%-- Choix du Creneau--%>
                 <div class="row">
                     <h4>Créneau</h4>
-                    <p>Sélectionnez une date </p> 
-                    <% 
-                        SimpleDateFormat formatt = new java.text.SimpleDateFormat("yyyy-MM-dd");
-                        Date d = new java.util.Date(); 
-                        Calendar c = Calendar.getInstance();
-                        c.setTime(d);
-                        c.add(Calendar.DAY_OF_MONTH,7);
-                        Date d2 = c.getTime();
-                        String strDate = formatt.format(d).toString();  
-                        String strDate2 = formatt.format(d2).toString(); 
-                            
-                    %>
-                    <input type="date" id="choixdateCre" name="choixdateCre" value="<% out.print(strDate);%>" min="<% out.print(strDate);%>" max="<% out.print(strDate2);%>">
-                    
-                    <% List<Creneau> listeC = MethodesDAO.getCreneau(mag.getIdMag(), strDate); %>
-                    <div id="afficherCrenaux"  style="display:<% if (listeC.size()!=0){out.print("block");}else{out.print("none");} %>;">
-                        <p>Sélectionnez un créneau </P>                       
-                        
-                        <select id="listeCreneau">
-                         <%   
-                           for(Creneau cre :listeC ){
-                        %>
-                            <option value="<% out.print(cre.getIdCre());%>"><% out.print(cre.getHeure());%></option>
-                        <%
-                            }
-                        %>
-             
-                        
-                        </select>
+
+                    <div class="recapPanier" id="divmonDrive">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="recapPanierInfo">
+                                    <p>Sélectionnez une date </p> 
+                                    <%
+                                        SimpleDateFormat formatt = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                                        Date d = new java.util.Date();
+                                        Calendar c = Calendar.getInstance();
+                                        c.setTime(d);
+                                        c.add(Calendar.DAY_OF_MONTH, 7);
+                                        Date d2 = c.getTime();
+                                        String strDate = formatt.format(d).toString();
+                                        String strDate2 = formatt.format(d2).toString();
+
+                                    %>
+                                    <input type="date" id="choixdateCre" name="choixdateCre" value="<% out.print(strDate);%>" min="<% out.print(strDate);%>" max="<% out.print(strDate2);%>">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <% List<Creneau> listeC = MethodesDAO.getCreneau(mag.getIdMag(), strDate); %>
+                                <div class="recapPanierInfo">
+
+                                    <div id="afficherCrenaux"  style="display:<%if (listeC.size() != 0) {
+                                            out.print("block");
+                                        } else {
+                                            out.print("none");
+                                        } %>;">
+                                        <p>Sélectionnez un créneau </P>   
+                                        <select id="listeCreneau">
+                                            <%
+                                                for (Creneau cre : listeC) {
+                                            %>
+                                            <option value="<% out.print(cre.getIdCre());%>"><% out.print(cre.getHeure());%></option>
+                                            <%
+                                                }
+                                            %>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" id="msgIndispo" style="display:<% if (listeC.size() != 0) {
+                        out.print("none");
+                    } else {
+                        out.print("block");
+                    } %>;">
+
+                            <div class="recapPanierInfo msgDesole">
+
+                                Désolé les Créneaux pour ce jour ne sont plus disponibles !
+
+                            </div>     
+                        </div>                       
+
                     </div>
-                    <p id="msgIndispo"  style="display:<% if (listeC.size()!=0){out.print("none");}else{out.print("block");} %>;"> Désolé les Créneaux pour ce jour ne sont plus disponibles !</p>
+
+
                 </div>
-                
             </div>
 
             <%-- Detail Commande --%>
