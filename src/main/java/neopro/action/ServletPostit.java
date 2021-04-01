@@ -30,8 +30,8 @@ public class ServletPostit extends HttpServlet {
 
             /*----- Récupération des paramètres -----*/
             String postit = request.getParameter("postit");
-            long idClient = Long.parseLong((String) request.getSession().getAttribute("idClient"));
-
+            //long idClient = Long.parseLong((String) request.getSession().getAttribute("idClient"));
+            long idClient=1l;
 
             /*----- Lecture de liste de mots dans la BD -----*/
             List<Article> listeRecherche = MethodesDAO.postitArticleRechercher(postit);

@@ -30,9 +30,8 @@
                 <h4>Liste des post'it </h4>
                 <%-- Carousel --%>
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="background: #4ea8f4;">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="new_html_code"></div>
+                    <div id="carousContenu"  class="carousel-inner">
+                        <div class="carousel-item active new_html_code">
                             <div class="carousel-caption">
                                 <h4>Liste post'it</h4>
                             </div>
@@ -45,10 +44,10 @@
                                 // out.println("<p>" + p1.getContenuPos() + "</p>");
                         %>
 
-                        <div class="carousel-item">
-                            <div class="new_html_code"></div>
+                        <div class="carousel-item new_html_code">
+                           
                             <div class="carousel-caption">
-                                <h4><%out.println(p.getContenuPos());%></h4>
+                                <button><%out.println(p.getContenuPos());%></button>
 
                             </div>
                         </div> 
@@ -60,11 +59,11 @@
 
 
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" style="background: blue;" >
+                    <a id="btnCaroPrev" class="carousel-control-prev" href="#carouselExampleControls"  data-slide="prev" style="background: blue;" >
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" style="background: blue;">
+                    <a id="btnCaroNext" class="carousel-control-next" href="#carouselExampleControls" data-slide="next" style="background: blue;">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </a>
@@ -103,6 +102,13 @@
             <%-- Produits --%>
             <div class="col-md-6">
                 <h4>Liste des produits proposés </h4>
+               
+                    <form action='#' method='get' id="produitProposes">
+                        
+                        <% out.println("<input type=hidden name=ListeCourse value="+idListeCourses);%>
+              
+                        </form>
+                
             </div>
 
             <%-- Boutton <Ajouter au panier> --%>

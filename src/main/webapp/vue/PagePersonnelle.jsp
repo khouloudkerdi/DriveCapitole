@@ -22,7 +22,8 @@
         <div class="row">
             <%@include file="../layout/navbar.jsp" %>
             <%
-                long id = (long) request.getSession().getAttribute("idClient");
+                long id = ((Number) request.getSession().getAttribute("idClient")).longValue();
+                //long id = (long) request.getSession().getAttribute("idClient");
                 Client client = MethodesDAO.infosClient(id);
 
             %>
