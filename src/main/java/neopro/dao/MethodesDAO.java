@@ -913,5 +913,14 @@ public class MethodesDAO {
             t.commit();
         }
     }
+    
+    public static Creneau getCreneauByIdCre(long idCre){
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Creneau cre = session.get(Creneau.class, idCre);
+            return cre;
+        }
+    }
        
 }

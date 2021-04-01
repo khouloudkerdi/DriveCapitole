@@ -38,6 +38,8 @@
                             //out.print("idMag = "+mag);
                         } else {
                             mag = MethodesDAO.getMagByIdCli(idClient);
+                            long idMag = mag.getIdMag();
+                            request.getSession().setAttribute("idMag", idMag);
                         }
 
                     %>
@@ -139,7 +141,7 @@
                 </div>
                 <%--Button Confirmer--%>
                 <div class="btnContainer">
-                    <button type="submit" class="btn btn-info">Confirmer</button>
+                    <a href="ConfirmRetrait" class="btn btn-info">Confirmer</a>
                     <a href="Panier" class="btn btn-info">Retour</a>
                 </div>
                 <div class="messageErreur">${requestScope.msg_erreur}</div>
