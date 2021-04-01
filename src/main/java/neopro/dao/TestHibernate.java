@@ -441,7 +441,9 @@ public class TestHibernate {
 //        TestHibernate.ajouterArticle();
 //        TestHibernate.ListeArticlesParRayon("2" );
 //        TestHibernate.ajouterClient();
-          TestHibernate.ajouterCreneauMagasin();
+          for (Article a:MethodesDAO.produitPostIt(MethodesDAO.postitArticleRechercher("beurre"),1l)){
+              System.out.println(a.getIdArt());
+          }
    
 
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
