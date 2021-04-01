@@ -121,6 +121,10 @@
         <servlet-class>neopro.ctrl.CtrlSetMag</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CtrlChoixCreneau</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlChoixCreneau</servlet-class>
+        </servlet>
+    <servlet>
         <servlet-name>ServletPostit</servlet-name>
         <servlet-class>neopro.action.ServletPostit</servlet-class>
     </servlet>
@@ -244,6 +248,10 @@
         <servlet-name>CtrlSetMag</servlet-name>
         <url-pattern>/CtrlSetMag</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlChoixCreneau</servlet-name>
+        <url-pattern>/CtrlChoixCreneau</url-pattern>
+         </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletPostit</servlet-name>
         <url-pattern>/ServletPostit</url-pattern>

@@ -6,7 +6,10 @@
 package neopro.metier;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -18,15 +21,18 @@ public class ProposerID implements Serializable{
     
     private long idMag ;
     private long idCre;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date date ;
     
     //Constructeurs.
 
     public ProposerID() {
     }
-    
-    public ProposerID(long idMag, long idCre) {
+
+    public ProposerID(long idMag, long idCre, Date date) {
         this.idMag = idMag;
         this.idCre = idCre;
+        this.date = date;
     }
     
     //Getters /Setters.
@@ -35,15 +41,23 @@ public class ProposerID implements Serializable{
     public void setIdMag(long idMag) { this.idMag = idMag;}
     public long getIdCre() {return idCre;}
     public void setIdCre(long idCre) { this.idCre = idCre;}
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
     
     //Methodes.
     //Methodes Surchargées.
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 23 * hash + (int) (this.idMag ^ (this.idMag >>> 32));
-        hash = 23 * hash + (int) (this.idCre ^ (this.idCre >>> 32));
+        int hash = 7;
+        hash = 89 * hash + (int) (this.idMag ^ (this.idMag >>> 32));
+        hash = 89 * hash + (int) (this.idCre ^ (this.idCre >>> 32));
+        hash = 89 * hash + Objects.hashCode(this.date);
         return hash;
     }
 
@@ -63,6 +77,9 @@ public class ProposerID implements Serializable{
             return false;
         }
         if (this.idCre != other.idCre) {
+            return false;
+        }
+        if (!Objects.equals(this.date, other.date)) {
             return false;
         }
         return true;

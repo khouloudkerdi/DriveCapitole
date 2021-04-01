@@ -147,7 +147,7 @@ function listeProduitProposes(e){
    // divProduitProposes.innerHTML="<p>"+contenuPos+"</p>";
     if(e.target.textContent!== "Previous" || e.target.textContent!== "Next"){
         var xhr = new XMLHttpRequest();
-       // divProduitProposes.innerHTML="";
+        //divProduitProposes.innerHTML="";
     // Requête au serveur avec les paramètres éventuels.
     xhr.open("GET", "ServletPostit?postit="+e.target.textContent);
     // On précise ce que l'on va faire quand on aura reçu la réponse du serveur.
@@ -159,7 +159,7 @@ function listeProduitProposes(e){
            
            var listeArticle = xhr.responseXML.getElementsByTagName("Article");
            if (listeArticle.length>0){
-           console.log("size---------"+listeArticle.length);
+           
                for (i = 0; i < listeArticle.length; i++)
                 {
                     var idArt =  listeArticle[i].getElementsByTagName("IdArt")[0];

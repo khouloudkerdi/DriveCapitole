@@ -2,7 +2,9 @@ package neopro.dao;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -620,39 +622,6 @@ public class MethodesDAO {
         }
     }
 
-    // Fonction pour mettre à jour les points fedelité d'un client à partir de son idCli.
-    public static void updatePoints(long idCli, int pointGagne) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            Transaction t = session.beginTransaction();
-            Client c = session.get(Client.class, idCli);
-            int oldPoint = c.getPointFedelitéCli();
-            int newPoint = oldPoint + pointGagne;
-            System.out.println(newPoint);
-            c.setPointFedelitéCli(newPoint);
-            t.commit();
-        }
-    }
-
-    // Fonction pour mettre à jour l'état d'un panier EnCour d'un client à partir de son idCli.
-    public static void updateEtatPanier(long idCli) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            Transaction t = session.beginTransaction();
-            Client c = session.get(Client.class, idCli);
-            String hql = "select p.idPan "
-                    + "from Panier p "
-                    + "where p.client.idCli = :id "
-                    + "and p.etatPan = 'EnCours' ";
-            Query query = session.createQuery(hql);
-            query.setParameter("id", idCli);
-            List<Long> list = query.list();
-            long idPanierEnCour = list.get(0);
-            System.out.println(idPanierEnCour);
-            Panier p = session.get(Panier.class, idPanierEnCour);
-            p.setEtatPan(EtatPanier.Finalisée);
-            t.commit();
-        }
-    }
-
     public static List<Postit> loadPostIt(long idlisteCourses) {
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
@@ -756,6 +725,29 @@ public class MethodesDAO {
 
         }
     }
+    
+    public static Article listeArticleHauteNutri(List<Article> listeRechercher) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            ArrayList<NutriscoreArticle> ordreScore = new ArrayList<>();
+            ordreScore.add(NutriscoreArticle.A);
+            ordreScore.add(NutriscoreArticle.B);
+            ordreScore.add(NutriscoreArticle.C);
+            ordreScore.add(NutriscoreArticle.D);
+            ordreScore.add(NutriscoreArticle.E);
+            for (int i = 0; i < 5; i++) {
+                for (Article a : listeRechercher) {
+                    if (a.getNutriscoreArt() != null) {
+                        if (a.getNutriscoreArt().equals(ordreScore.get(i))) {
+                            return a;
+                        }
+                    }
+
+                }
+            }
+            return null;
+        }
+    }
 
     public static List<Article> produitPostIt(List<Article> listeRechercher, long idClient) {
         if (listeRechercher.size() <= 3) {
@@ -817,25 +809,6 @@ public class MethodesDAO {
             }
         }
 
-        //exmainer s'il existe une articles des catégorie préférées
-        boolean categorie = false;
-        for (Article a : listeRechercher) {
-            if (listeCatPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
-                listeR.add(a);
-                categorie = true;
-                break;
-            }
-        }
-        if (!categorie) {
-            for (Article a : listeRechercher) {
-                if (listeCat.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
-                    listeR.add(a);
-                    categorie = true;
-                    break;
-                }
-            }
-        }
-
         //exmainer s'il existe une articles de label  préférées
         boolean label = false;
         for (Article a : listeRechercher) {
@@ -855,8 +828,8 @@ public class MethodesDAO {
             }
         }
 
-        //exmainer s'il existe une articles de label  préférées
-        boolean nutriscore = false;
+        //exmainer s'il existe une articles de nutriscore  préférées
+        /*boolean nutriscore = false;
         for (Article a : listeRechercher) {
             if (listeNutriPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
                 listeR.add(a);
@@ -869,6 +842,29 @@ public class MethodesDAO {
                 if (listeNutri.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
                     listeR.add(a);
                     nutriscore = true;
+                    break;
+                }
+            }
+        }*/
+        
+        if (listeR.size() < 3 & listeArticleHauteNutri(listeRechercher)!=null & !listeR.contains(listeArticleHauteNutri(listeRechercher))){
+            listeR.add(listeArticleHauteNutri(listeRechercher));
+        }
+        
+        //exmainer s'il existe une articles des catégorie préférées
+        boolean categorie = false;
+        for (Article a : listeRechercher) {
+            if (listeCatPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                listeR.add(a);
+                categorie = true;
+                break;
+            }
+        }
+        if (!categorie) {
+            for (Article a : listeRechercher) {
+                if (listeCat.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                    listeR.add(a);
+                    categorie = true;
                     break;
                 }
             }
@@ -913,5 +909,81 @@ public class MethodesDAO {
             return resultArt;
         }
     }
+       
+    // Fonction pour mettre à jour les points fedelité d'un client à partir de son idCli.
+    public static void updatePoints(long idCli, int pointGagne){
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Client c = session.get(Client.class, idCli);
+            int oldPoint = c.getPointFedelitéCli();
+            int newPoint = oldPoint + pointGagne;
+            System.out.println(newPoint);
+            c.setPointFedelitéCli(newPoint);
+            t.commit();
+        }
+    }
+  
+    // Fonction pour mettre à jour l'état d'un panier EnCour d'un client à partir de son idCli.
+    public static void updateEtatPanier(long idCli){
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Client c = session.get(Client.class, idCli);
+            String hql = "select p.idPan "
+                    + "from Panier p "
+                    + "where p.client.idCli = :id "
+                    + "and p.etatPan = 'EnCours' ";
+            Query query = session.createQuery(hql);
+            query.setParameter("id", idCli);
+            List<Long> list = query.list();
+            long idPanierEnCour = list.get(0);
+            System.out.println(idPanierEnCour);
+            Panier p = session.get(Panier.class, idPanierEnCour);
+            p.setEtatPan(EtatPanier.Finalisée);
+            t.commit();
+        }
+    }
+   // recuperer la liste des creneaus selon idMag et la date choisi 
+    public static List<Creneau> getCreneau(long idMag, String strDate) throws ParseException {
+        /*----- Ouverture de la session -----*/
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction(); 
+            // transformer le string a une date
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
+            // HQL
+            String hql = "select c "
+                    + "from Proposer p, Creneau c "
+                    + "where p.creneau.idCre = c.idCre "
+                    + "and p.date = :date "
+                    + "and p.magasin.idMag = :idMag ";
+            Query query = session.createQuery(hql);
+            query.setParameter("idMag", idMag);
+            query.setParameter("date", date);
+            // le resultat de HQL
+            List<Creneau> list = query.list();
 
+            return list;
+        }
+    } 
+    
+    
+    public static Creneau getCreneauByIdCre(long idCre){
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Creneau cre = session.get(Creneau.class, idCre);
+            return cre;
+        }
+    }
+    
+    public static void supprimerPostit(long id) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Postit p = session.get(Postit.class, id);
+            session.delete(p);
+            t.commit();
+        }
+    }
+       
 }
