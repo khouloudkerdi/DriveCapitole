@@ -12,16 +12,17 @@ public class CtrlInserer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (request.getSession().getAttribute("idClient") == null) {
-            String idA = request.getParameter("idArt");
-            // Conversion using parseLong(String) method
-            long idArt = Long.parseLong(idA);
-            // Connexion
-            // Ajouter 'idArt' au session
-            request.getSession().setAttribute("idArt", idArt);
-            // Chainage ver la connexion
-            request.getRequestDispatcher("Connexion").forward(request, response);
-        } else if (request.getParameter("idListeCourses") != null) {
+//        if (request.getSession().getAttribute("idClient") == null) {
+//            //String idA = request.getParameter("idArt");
+//            // Conversion using parseLong(String) method
+//            //long idArt = Long.parseLong(idA);
+//            // Connexion
+//            // Ajouter 'idArt' au session
+//            //request.getSession().setAttribute("idArt", idArt);
+//            // Chainage ver la connexion
+//            request.getRequestDispatcher("Connexion").forward(request, response);
+//        } else 
+            if (request.getParameter("idListeCourses") != null) {
             String l = request.getParameter("idListeCourses");
             String[] ls = l.split(",");
             Long idArticle = Long.parseLong(ls[0]);
@@ -34,7 +35,7 @@ public class CtrlInserer extends HttpServlet {
             long idArt = Long.parseLong(idA);
 
             // Ajouter au panier    
-            long idClient = (long) request.getSession().getAttribute("idClient");
+            long idClient = (long) request.getSession(false).getAttribute("idClient");
             MethodesDAO.insererArticlePanier(idArt, MethodesDAO.loadPanierClient(idClient));
             response.sendRedirect("Accueil");
         }

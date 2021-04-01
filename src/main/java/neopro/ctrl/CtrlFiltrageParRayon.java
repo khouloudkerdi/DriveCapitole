@@ -33,8 +33,7 @@ public class CtrlFiltrageParRayon extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+       
            //recupere le parametre "idRay"
            String id = request.getParameter("idRay");
 
@@ -42,17 +41,19 @@ public class CtrlFiltrageParRayon extends HttpServlet {
                List<Article> listeArticles = MethodesDAO.ListeArticlesParRayon(id);
                //Chainnage vers la vue "afficher.jsp"  avec la liste de messages 
                request.setAttribute("liste_articles", listeArticles);
+             // request.getSession(true).setAttribute("liste_articles",listeArticles);
+             
            
               if (request.getSession().getAttribute("idClient")==null) {
                     
                     request.getRequestDispatcher("filtrerArticlesParRayon").forward(request, response);
-                } else {
+               } else {
                     
                      request.getRequestDispatcher("filtrerArticlesParRayonConnexion").forward(request, response);
                 }
            
 
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

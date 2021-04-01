@@ -134,16 +134,8 @@
                                         }%>
                                 </div>
                                 <div class="btnAccueil">
-                                    <%
-                                        if (request.getSession().getAttribute("idClient") == null) {
-                                    %>
-                                    <a class="btn btn-secondary btn-sm" href="#" data-toggle="modal" data-target="#modalConnexion">
-                                        Panier
-                                    </a>
-                                    <% } else if (request.getSession().getAttribute("idClient") != null) { %>
                                     <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" 
                                        class="btn btn-secondary btn-sm">Panier</a>
-                                    <% }%>
                                     <%
 
                                         //long idClient=(long) request.getSession().getAttribute("idClient");
@@ -183,7 +175,6 @@
             </div>
         </div>
     </div>
-    <%@include file="../layout/modalConnexion.jsp" %>
     <%@include file="../layout/logOut.jsp" %>
 </body>
 <%@include file="../layout/footerFix.jsp" %>
