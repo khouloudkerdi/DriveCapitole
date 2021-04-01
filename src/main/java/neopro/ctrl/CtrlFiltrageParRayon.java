@@ -40,7 +40,7 @@ public class CtrlFiltrageParRayon extends HttpServlet {
 
                // Recupere la liste des articles par rayon.
                List<Article> listeArticles = MethodesDAO.ListeArticlesParRayon(id);
-               //Chainnage vers la vue "afficher.jsp"  avec la liste de messages 
+            
                request.setAttribute("liste_articles", listeArticles);
            
               if (request.getSession().getAttribute("idClient")==null) {

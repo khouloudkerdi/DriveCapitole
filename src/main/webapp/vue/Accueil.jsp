@@ -63,8 +63,6 @@
                                 %>
 
                             </div> 
-
-
                             <div class="card-body">
                                 <a> <h5 class="card-title"><% out.print(a.getLibelleArt());%></h5></a>
                                 <P>

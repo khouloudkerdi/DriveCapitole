@@ -26,7 +26,7 @@
                 <%@include file="../layout/menu.jsp" %>
             </div>
             <div class="col-md-10">
-                <%                    List<Article> liste_articles = (List<Article>) request.getAttribute("liste_articles");
+                <%  List<Article> liste_articles = (List<Article>) request.getAttribute("liste_articles");
                     List<Article> listeArticles = new ArrayList();
                     List<Article> listeArticlesPromo = MethodesDAO.listePromo();
                     List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
