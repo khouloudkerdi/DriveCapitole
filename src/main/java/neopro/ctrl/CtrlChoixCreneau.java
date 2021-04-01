@@ -57,6 +57,7 @@ public class CtrlChoixCreneau extends HttpServlet {
 				for (Creneau cre : lcreneaux){
                                     out.println("<Creneau>");                                    
                                     out.println("<idCre>"+cre.getIdCre()+"</idCre>");
+                                    System.out.println("<idCre>"+cre.getIdCre()+"</idCre>");
                                     out.println("<heure>"+cre.getHeure()+"</heure>");
                           
                                     out.println("</Creneau>");

@@ -179,12 +179,40 @@ function validerChoixMag()
 
 }
 
+function confirmerChoixMagCre(){
+    var date = document.getElementById("choixdateCre").value;
+    var obj = document.getElementById("listeCreneau");
+    var index = document.getElementById("listeCreneau").selectedIndex;
+    //alert(index);
+    var opt = obj[index].innerHTML;
+    //alert('value:'+obj[index].value+'&option:'+obj[index].innerHTML);
+    //var creneau = obj.options[index].value;
+    //alert(creneau);
+//    var i = creneau.nodeValue;
+//    alert(i);
+    //console.log(index);
+    //alert(creneau);
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "CtrlConfirmChoix?date=" + date + "&creneau=" + opt);  
+    xhr.onload = function () {
+                //Si la requête http s'est bien passée.
+        if (xhr.status === 200)
+        {//alert("200");
+            // Recharge la page actuelle
+            window.location.href = "ConfirmRetrait";
+        }
+    };
+    xhr.send();
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
     panierProduitOptions();
     document.getElementById("validerchoix").addEventListener("click", listeMagasins);
     document.getElementById("annulerchoix").addEventListener("click", annulerChoixMag);
     document.getElementById("btnModifierMag").addEventListener("click", modifierMagasin);
     document.getElementById("choixdateCre").addEventListener("change",listeCrenaux);
+    document.getElementById("btnConfirmerChoix").addEventListener("click",confirmerChoixMagCre);
 
 });
 

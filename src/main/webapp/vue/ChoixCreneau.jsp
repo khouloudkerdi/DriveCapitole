@@ -100,7 +100,7 @@
                            for(Creneau cre :listeC ){
                         %>
                             <option value="<% out.print(cre.getIdCre());%>"><% out.print(cre.getHeure());%></option>
-                        <%
+                        <%                            
                             }
                         %>
                         </select>
@@ -174,7 +174,7 @@
                 </div>
                 <%--Button Confirmer--%>
                 <div class="btnContainer">
-                    <a href="ConfirmRetrait" class="btn btn-info">Confirmer</a>
+                    <button type="button" id="btnConfirmerChoix" class="btn btn-info">Confirmer</button>
                     <a href="Panier" class="btn btn-info">Retour</a>
                 </div>
                 <div class="messageErreur">${requestScope.msg_erreur}</div>

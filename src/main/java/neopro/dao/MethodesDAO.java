@@ -19,7 +19,7 @@ public class MethodesDAO {
     // Fonction pour obtenir tous les rayons est les categories
     public static List<Rayon> getListRayon() throws ParseException {
         /*----- Ouverture de la session -----*/
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             /**
@@ -32,7 +32,7 @@ public class MethodesDAO {
 
     // Fonction pour obtenir tous les articles.
     public static List<Article> listeArticle() {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             List<Article> liste1 = session.createQuery("from Article ").list();
             return liste1;
@@ -41,7 +41,7 @@ public class MethodesDAO {
 
     // Fonction pour obtenir tous les articles en promotion.
     public static List<Article> listePromo() {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
 
             List<Article> liste1 = session.createQuery("select distinct a "
@@ -55,7 +55,7 @@ public class MethodesDAO {
 
     // Fonction pour obtenir tous les articles qui ne sont pas en promotion.
     public static List<Article> listeNonPromo() {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
 
             List<Article> liste1 = session.createQuery("select distinct a "
@@ -72,7 +72,7 @@ public class MethodesDAO {
 
     // Fonction pour calculer l'économie sur un article en promotion.
     public static float calculerPrixPromo(Long idArt) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Article a = session.get(Article.class, idArt);
             Float prix = a.getPrixArt();
@@ -96,7 +96,7 @@ public class MethodesDAO {
 
     // Fonction pour obtenir le pourcentage d'un article en promotion
     public static Integer getPromoPourcentage(Long idArt) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Article a = session.get(Article.class, idArt);
             Float prix = a.getPrixArt();
@@ -117,7 +117,7 @@ public class MethodesDAO {
 
     // Fonction pour obtenir la liste de préférence d'un client (*ICI c'est CHOLE)
     public static List<Article> listePref(long idClient) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Set<Preferences> liste1 = session.get(Client.class, idClient).getPreferences();
             List<Article> liste2 = new ArrayList<Article>();
@@ -133,7 +133,7 @@ public class MethodesDAO {
 
     // Fonction qui récupère la liste des articles d'un panier pour un client donné.
     public static ArrayList<Article> listeArtcilesPanierClient(long idcli) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             Client c = session.get(Client.class, idcli);
@@ -160,7 +160,7 @@ public class MethodesDAO {
 
     // Fonction pour récupérer le montant d'un panier.
     public static float montantPanier(long idcli) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
 
@@ -191,7 +191,7 @@ public class MethodesDAO {
 
     // Fonction pour récupérer le idPanier qui est enCours d'un client à partir de son idCli.
     public static long getIdPanierByIdCli(long idCli) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
 
@@ -218,7 +218,7 @@ public class MethodesDAO {
 
     // Fonction pour récupérer la quantite d'un article dans un panier.
     public static int QuantiteArticlePanier(long idp, long idArt) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             Panier p = session.get(Panier.class, idp);
@@ -239,7 +239,7 @@ public class MethodesDAO {
 
     // Fonction pour recuperer le montant total d'un article dans un panier d'un client.
     public static float montantTotaleArticlePanier(long idp, long idArt) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             Panier p = session.get(Panier.class, idp);
@@ -263,7 +263,7 @@ public class MethodesDAO {
     // Fonction pour supprimer un produit d'un panier
     public static void insererArticlePanier(long idA, long idP) {
         /*----- Ouverture de la session -----*/
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
 
@@ -292,7 +292,7 @@ public class MethodesDAO {
     // Fonction pour supprimer un produit d'un panier
     public static void supprimerArticlePanier(long idA, long idP) {
         /*----- Ouverture de la session -----*/
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
 
@@ -324,7 +324,7 @@ public class MethodesDAO {
 
     public static void ajouterArticleListeCourse(long id_art, long id_lis) {
         /*----- Ouverture de la session -----*/
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             ListeCourses l = session.get(ListeCourses.class, id_lis);
@@ -337,7 +337,7 @@ public class MethodesDAO {
 
     // Fonction pour obtenir l'identifiant de panier d'un client
     public static long loadPanierClient(long idCli) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Client c = session.get(Client.class, idCli);
             Set<Panier> listeP = c.getPaniers();
@@ -352,7 +352,7 @@ public class MethodesDAO {
 
     // Fonction pour obtenir la liste de courses d'un client
     public static ArrayList<ListeCourses> getListeCourses(long id) throws ParseException {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             Client c = session.get(Client.class, id);
@@ -368,7 +368,7 @@ public class MethodesDAO {
     // Fonction pour ajouter une liste de courses
     public static void ajouterListeCourses(long idClient, String NomListe) {
         /*----- Ouverture de la session -----*/
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             Client c1 = session.get(Client.class, idClient);
@@ -381,7 +381,7 @@ public class MethodesDAO {
     // Fonction pour supprimer une liste de courses
     public static void supprimerListeCourses(long id) {
         /*----- Ouverture de la session -----*/
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             ListeCourses l = session.get(ListeCourses.class, id);
@@ -401,7 +401,7 @@ public class MethodesDAO {
     // Fonction pour obtenir les informations d'un client à partir de son id.
     public static Client infosClient(long id_cli) {
         /*----- Ouverture de la session -----*/
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             Client c = session.get(Client.class, id_cli);
@@ -413,7 +413,7 @@ public class MethodesDAO {
     // calcule le nombre d'article dans un panier 
     public static long nbArt(long idCli) {
         /*----- Ouverture de la session -----*/
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             String hql = "select sum(aqp.quantite) "
@@ -435,7 +435,7 @@ public class MethodesDAO {
     // recherche dans libelle court des articles 
     public static List<Article> listRecherche(String search) {
         /*----- Ouverture de la session -----*/
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             String var = search;
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
@@ -452,7 +452,7 @@ public class MethodesDAO {
     //verifier l'adresse de mail et mot de passe et retourner l'identifiant de client
     //si l'adresse de mail et mot de passe n'est pas correst, retourner 0
     public static long verifierCompte(String mail, String mdp) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             List<Client> listeC = session.createQuery("from Client ").list();
             for (Client c : listeC) {
@@ -467,7 +467,7 @@ public class MethodesDAO {
 
     //Recuperation de la liste d'articles par rayon.
     public static List<Article> ListeArticlesParRayon(String idRay) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             long id = Long.parseLong(idRay);
@@ -488,7 +488,7 @@ public class MethodesDAO {
 
     //obtenir tous les produit d'une liste de courses
     public static ArrayList<Article> articleListeCourses(long idListe) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Set<Article> lc = session.get(ListeCourses.class, idListe).getArticles();
             ArrayList<Article> liste2 = new ArrayList<Article>();
@@ -501,7 +501,7 @@ public class MethodesDAO {
     //Recuperation de la liste d'articles par Categorie.
 
     public static List<Article> ListeArticlesParCategorie(String idRay, String idCat) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             // Caster identifiant Rayon et Categorie.
@@ -530,7 +530,7 @@ public class MethodesDAO {
     }
 
     public static ListeCourses loadListeCourses(long idListe) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             return session.get(ListeCourses.class, idListe);
@@ -540,7 +540,7 @@ public class MethodesDAO {
 
     public static List<Label> getLabelsArticle(long idArt) {
         Set<Label> labArticle = new HashSet<>(0);
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Article art = session.get(Article.class, idArt);
             List<Label> listelabels = new ArrayList<Label>();
@@ -573,7 +573,7 @@ public class MethodesDAO {
 
     // Recupertaion de la liste des magasins 
     public static List<Magasin> getListeMagasin(String code) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             int cp = Integer.parseInt(code);
             List<Magasin> listeMAg = session.createQuery("from Magasin m where m.codePostaleMag =\"" + cp + "\" ").list();
@@ -601,7 +601,7 @@ public class MethodesDAO {
 
     // Fonction pour récupérer le Magasin par defaut d'un client à partir de son idCli.
     public static Magasin getMagByIdCli(long idClient) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             Client c = session.get(Client.class, idClient);
@@ -614,7 +614,7 @@ public class MethodesDAO {
 
     // Fonction pour récupérer le Magasin par defaut d'un client à partir de son idCli.
     public static Magasin getMagByIdMag(long idMagasin) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             Magasin mag = session.get(Magasin.class, idMagasin);
@@ -623,7 +623,7 @@ public class MethodesDAO {
     }
 
     public static List<Postit> loadPostIt(long idlisteCourses) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             List<Postit> listePostit = new ArrayList<Postit>();
             for (Postit p : session.get(ListeCourses.class, idlisteCourses).getPostit()) {
@@ -634,7 +634,7 @@ public class MethodesDAO {
     }
 
     public static void ajouterPostIt(long idListe, String nom) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             ListeCourses lc = session.get(ListeCourses.class, idListe);
             Postit pi = new Postit(nom, lc);
@@ -644,7 +644,7 @@ public class MethodesDAO {
     }
 
     public static List<Article> listeArticlePrefMarque(long idClient) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Client c = session.get(Client.class, idClient);
             List<Article> listeR = new ArrayList<>();
@@ -664,7 +664,7 @@ public class MethodesDAO {
     }
 
     public static List<Article> listeArticlePrefCat(long idClient) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Client c = session.get(Client.class, idClient);
             List<Article> listeR = new ArrayList<>();
@@ -684,7 +684,7 @@ public class MethodesDAO {
     }
 
     public static List<Article> listeArticlePrefLabel(long idClient) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Client c = session.get(Client.class, idClient);
             List<Article> listeR = new ArrayList<>();
@@ -704,7 +704,7 @@ public class MethodesDAO {
     }
 
     public static List<Article> listeArticlePrefLNutri(long idClient) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Client c = session.get(Client.class, idClient);
             List<Article> listeR = new ArrayList<>();
@@ -857,7 +857,7 @@ public class MethodesDAO {
     }
 
     public static List<Article> postitArticleRechercher(String search) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             String var = search;
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
@@ -882,10 +882,10 @@ public class MethodesDAO {
             return resultArt;
         }
     }
-       
+
     // Fonction pour mettre à jour les points fedelité d'un client à partir de son idCli.
-    public static void updatePoints(long idCli, int pointGagne){
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+    public static void updatePoints(long idCli, int pointGagne) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Client c = session.get(Client.class, idCli);
             int oldPoint = c.getPointFedelitéCli();
@@ -895,10 +895,10 @@ public class MethodesDAO {
             t.commit();
         }
     }
-  
+
     // Fonction pour mettre à jour l'état d'un panier EnCour d'un client à partir de son idCli.
-    public static void updateEtatPanier(long idCli){
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+    public static void updateEtatPanier(long idCli) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             Client c = session.get(Client.class, idCli);
             String hql = "select p.idPan "
@@ -915,12 +915,13 @@ public class MethodesDAO {
             t.commit();
         }
     }
-   // recuperer la liste des creneaus selon idMag et la date choisi 
+    // recuperer la liste des creneaus selon idMag et la date choisi 
+
     public static List<Creneau> getCreneau(long idMag, String strDate) throws ParseException {
         /*----- Ouverture de la session -----*/
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
-            Transaction t = session.beginTransaction(); 
+            Transaction t = session.beginTransaction();
             // transformer le string a une date
             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
             // HQL
@@ -937,16 +938,37 @@ public class MethodesDAO {
 
             return list;
         }
-    } 
-    
-    
-    public static Creneau getCreneauByIdCre(long idCre){
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+    }
+
+    public static Creneau getCreneauByIdCre(long idCre) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             Creneau cre = session.get(Creneau.class, idCre);
             return cre;
         }
     }
-       
+
+    public static void updateNbPlaceDispoCre(long idCre, long idMag, Date date) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            String hql = "select p.nbPlaceDispoCre "
+                    + "from Proposer p "
+                    + "where p.date = :date "
+                    + "and p.creneau.idCre = :idCre "
+                    + "and p.magasin.idMag = :idMag";
+            Query query = session.createQuery(hql);
+            query.setParameter("date", date);
+            query.setParameter("idMag", idMag);
+            query.setParameter("idCre", idCre);
+            List<Integer> list = query.list();
+            Integer nb = list.get(0);
+            Integer newNb = nb - 1;
+            ProposerID idProposer = new ProposerID(idMag, idCre, date);
+            session.get(Proposer.class, idProposer).setNbPlaceDispoCre(newNb);
+            t.commit();
+        }
+    }
+
 }

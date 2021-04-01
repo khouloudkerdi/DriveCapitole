@@ -31,7 +31,7 @@
                 <%-- Choix du Magain --%>
                 <div class="panierProduit">
                     <div class="row">
-                        <h4>Magagin</h4>
+                        <h4>Magasin</h4>
                         <%
                             long idMag = (long) request.getSession().getAttribute("idMag");
                             Magasin mag = MethodesDAO.getMagByIdMag((long) request.getSession(false).getAttribute("idMag"));
@@ -49,15 +49,14 @@
                     <div class="row">
                         <h4>Créneau</h4>
                         <%
-                            //String date = (String) request.getSession().getAttribute("date");
-                            //long idCre = (long) request.getSession().getAttribute("idCre");
-                            //Creneau cre = MethodesDAO.getCreneauByIdCre(idCre);
+                            String date = (String) request.getSession().getAttribute("date");
+                            String creneau = (String) request.getSession().getAttribute("creneau");
                         %>
                         <div class="recapPanierInfo nomMag atCenterAll">
-                            <% //out.print(date); %>
+                            <% out.print(date); %>
                         </div>
                         <div class="recapPanierInfo atCenterAll">
-                            <% //out.print(cre.getHeure()); %>
+                            <% out.print(creneau); %>
                         </div>
                     </div>
                 </div>

@@ -455,8 +455,8 @@ public class TestHibernate {
         }
     }
     
-    
         
+
     /**
      * Programme de test.
      */
