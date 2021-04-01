@@ -33,6 +33,17 @@
                     <%-- Choix du Creneau--%>
                     <div class="row">
                         <h4>Créneau</h4>
+                        <%
+                            //String date = (String) request.getSession().getAttribute("date");
+                            //long idCre = (long) request.getSession().getAttribute("idCre");
+                            //Creneau cre = MethodesDAO.getCreneauByIdCre(idCre);
+                        %>
+                        <div class="recapPanierInfo nomMag atCenterAll">
+                            <% out.print(request.getAttribute("date")); %>
+                        </div>
+                        <div class="recapPanierInfo atCenterAll">
+                            <% out.print(request.getAttribute("creneau")); %>
+                        </div>
                     </div>
                 </div>
 

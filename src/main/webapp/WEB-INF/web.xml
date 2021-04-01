@@ -113,8 +113,20 @@
         <servlet-class>neopro.ctrl.CtrlPostIt</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CtrlSetMag</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlSetMag</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CtrlChoixCreneau</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlChoixCreneau</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ServletPostit</servlet-name>
         <servlet-class>neopro.action.ServletPostit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CtrlConfirmer</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlConfirmer</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>VisualiserPanier</servlet-name>
@@ -229,8 +241,20 @@
         <url-pattern>/CtrlPostIt</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>CtrlSetMag</servlet-name>
+        <url-pattern>/CtrlSetMag</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlChoixCreneau</servlet-name>
+        <url-pattern>/CtrlChoixCreneau</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ServletPostit</servlet-name>
         <url-pattern>/ServletPostit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlConfirmer</servlet-name>
+        <url-pattern>/CtrlConfirmer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
