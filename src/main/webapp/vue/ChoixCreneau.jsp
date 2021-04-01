@@ -51,7 +51,7 @@
                     <div class="recapPanier" id="divmonDrive">
                         <div class="row">
                             <div class="col-md-8">
-                                <div class="recapPanierInfo">
+                                <div class="recapPanierInfo nomMag">
                                     <input type="hidden" id="idMag" name="idMag" value="<% out.print(mag.getIdMag());%>">
                                     <span class="titreValeurPanier"><% out.print(mag.getNomMag());%></span>
                                 </div>
