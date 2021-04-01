@@ -455,8 +455,8 @@ public class TestHibernate {
         }
     }
     
+    
         
-
     /**
      * Programme de test.
      */
@@ -471,7 +471,7 @@ public class TestHibernate {
           for (Article a:MethodesDAO.produitPostIt(MethodesDAO.postitArticleRechercher("beurre"),1l)){
               System.out.println(a.getIdArt());
           }
-   
+
 
      // TestHibernate.ListeArticlesNonPromoParRayon(1);
         /*long id=1;

@@ -725,9 +725,9 @@ public class MethodesDAO {
 
         }
     }
-    
+
     public static Article listeArticleHauteNutri(List<Article> listeRechercher) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             ArrayList<NutriscoreArticle> ordreScore = new ArrayList<>();
             ordreScore.add(NutriscoreArticle.A);
@@ -846,11 +846,10 @@ public class MethodesDAO {
                 }
             }
         }*/
-        
-        if (listeR.size() < 3 & listeArticleHauteNutri(listeRechercher)!=null & !listeR.contains(listeArticleHauteNutri(listeRechercher))){
+        if (listeR.size() < 3 & listeArticleHauteNutri(listeRechercher) != null & !listeR.contains(listeArticleHauteNutri(listeRechercher))) {
             listeR.add(listeArticleHauteNutri(listeRechercher));
         }
-        
+
         //exmainer s'il existe une articles des catégorie préférées
         boolean categorie = false;
         for (Article a : listeRechercher) {
@@ -1004,9 +1003,9 @@ public class MethodesDAO {
             return cre;
         }
     }
-    
+
     public static void supprimerPostit(long id) {
-        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
             Postit p = session.get(Postit.class, id);
@@ -1014,7 +1013,6 @@ public class MethodesDAO {
             t.commit();
         }
     }
-       
 
     public static void updateNbPlaceDispoCre(long idCre, long idMag, Date date) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -1038,4 +1036,33 @@ public class MethodesDAO {
         }
     }
 
+    // Fonction pour récupérer idCre à partir d'une heure.
+    public static long getIdCreByHeure(String heure) {
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            String hql = "select c.idCre "
+                    + "from Creneau c "
+                    + "where c.heure = :h";
+            Query query = session.createQuery(hql);
+            query.setParameter("h", heure);
+            List<Long> list = query.list();
+            Long id = list.get(0);
+            System.out.println(id);
+            return id;
+        }
+    }
+
+    // Fonction pour ajouter un nouveau panier pour un client.
+    public static void ajouterPanier(long idCli) {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Client c = session.get(Client.class, idCli);
+            Panier p = new Panier(EtatPanier.EnCours, c);
+            session.save(p);
+            t.commit(); // Commit et flush automatique de la session.
+        }
+    }
 }

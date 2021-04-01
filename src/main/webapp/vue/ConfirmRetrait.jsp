@@ -4,6 +4,7 @@
     Author     : Xinyan
 --%>
 
+<%@page import="java.util.Enumeration"%>
 <%@page import="neopro.metier.Creneau"%>
 <%@page import="neopro.metier.Magasin"%>
 <%@page import="neopro.metier.Client"%>
@@ -121,18 +122,22 @@
                         <span class="titrePointsFidelite">Gain sur cette commande :</span>
                         <% float m = ((float) montantTotalPanier / 10);
                         %>
-                        <span class="valeurPointsFidelite"><% out.print((int) (m));%></span>                         
+                        <span class="valeurPointsFidelite"><% out.print((int) (m));%></span>   
+                        <% request.getSession().setAttribute("pointGagne", (int)m);%>
                     </div>
                 </div>
                 <%--Button Confirmer--%>
                 <div class="btnContainer">
-                    <button type="submit" class="btn btn-info">Confirmer</button>
+                    <%-- <a href="CtrlFinaliser" class="btn btn-info">Confirmer</a> --%>
+                    <a class="btn btn-info" href="#" data-toggle="modal" data-target="#msgFinaliserCmd">
+                        Confirmer
+                    </a>                    
                     <a href="ChoixCreneau" class="btn btn-info">Retour</a>
                 </div>
                 <div class="messageErreur">${requestScope.msg_erreur}</div>
             </div>
         </div>
     </div>
-
+<%@include file="../layout/msgFinaliserCommande.jsp" %>
 </body>
 <%@include file="../layout/footerFix.jsp" %>

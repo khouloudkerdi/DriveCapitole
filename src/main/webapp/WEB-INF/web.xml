@@ -132,6 +132,10 @@
         <servlet-name>CtrlConfirmChoix</servlet-name>
         <servlet-class>neopro.ctrl.CtrlConfirmChoix</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CtrlFinaliser</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlFinaliser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>VisualiserPanier</servlet-name>
         <url-pattern>/Panier</url-pattern>
@@ -263,6 +267,10 @@
     <servlet-mapping>
         <servlet-name>CtrlConfirmChoix</servlet-name>
         <url-pattern>/CtrlConfirmChoix</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlFinaliser</servlet-name>
+        <url-pattern>/CtrlFinaliser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -36,6 +36,7 @@ public class CtrlConnexion extends HttpServlet {
                 MethodesDAO.insererArticlePanier(idArt, MethodesDAO.loadPanierClient(idClient));
                 request.getSession().removeAttribute("idArt");
             }
+            MethodesDAO.getIdPanierByIdCli(idClient);
             response.sendRedirect("Accueil");
         }
 
