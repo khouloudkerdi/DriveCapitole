@@ -785,25 +785,6 @@ public class MethodesDAO {
             }
         }
 
-        //exmainer s'il existe une articles des catégorie préférées
-        boolean categorie = false;
-        for (Article a : listeRechercher) {
-            if (listeCatPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
-                listeR.add(a);
-                categorie = true;
-                break;
-            }
-        }
-        if (!categorie) {
-            for (Article a : listeRechercher) {
-                if (listeCat.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
-                    listeR.add(a);
-                    categorie = true;
-                    break;
-                }
-            }
-        }
-
         //exmainer s'il existe une articles de label  préférées
         boolean label = false;
         for (Article a : listeRechercher) {
@@ -842,7 +823,29 @@ public class MethodesDAO {
             }
         }*/
         
+        if (listeR.size() < 3 & listeArticleHauteNutri(listeRechercher)!=null){
+            listeR.add(listeArticleHauteNutri(listeRechercher));
+        }
         
+        //exmainer s'il existe une articles des catégorie préférées
+        boolean categorie = false;
+        for (Article a : listeRechercher) {
+            if (listeCatPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                listeR.add(a);
+                categorie = true;
+                break;
+            }
+        }
+        if (!categorie) {
+            for (Article a : listeRechercher) {
+                if (listeCat.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                    listeR.add(a);
+                    categorie = true;
+                    break;
+                }
+            }
+        }
+
         if (listeR.size() < 3) {
             for (Article a : listeRechercher) {
                 if (!listeR.contains(a)) {
