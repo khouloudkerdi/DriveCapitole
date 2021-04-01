@@ -45,8 +45,8 @@
                     <div class="recapPanier" id="divmonDrive">
                         <div class="row">
                             <div class="col-md-8">
-                                <div class="recapPanierInfo">
-                                    <span class="titreValeurPanier"><% out.print(mag.getNomMag());%></span>
+                                <div class="recapPanierInfo nomMag">
+                                    <% out.print(mag.getNomMag());%>
                                 </div>
                                 <div class="recapPanierInfo">
                                     <span class="titreValeurPanier"><% out.print(mag.getAdresseMag());%></span>         
@@ -55,13 +55,13 @@
                             </div>
 
                             <div class="col-md-4 atCenterAll">
-                                <button class="btn btn-info" id="btnModifierMag"  >Modifier</button>
+                                <button class="btn btn-info btnChoixMag" id="btnModifierMag"  >Modifier</button>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div id="rechercheMag" class="recapPanier" style="display: none; ">
+                <div id="rechercheMag" class="rechercheCP">
                     <div class="recapPanierInfo"> Code postal : <input type="Text" name="codepostal" id="codepostal" >
                         <button class="btn btn-outline-success" id="validerchoix">Valider</button>
                         <button class="btn btn-default" id="annulerchoix">Annuler</button>
