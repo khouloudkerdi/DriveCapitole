@@ -725,6 +725,29 @@ public class MethodesDAO {
 
         }
     }
+    
+    public static Article listeArticleHauteNutri(List<Article> listeRechercher) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            ArrayList<NutriscoreArticle> ordreScore = new ArrayList<>();
+            ordreScore.add(NutriscoreArticle.A);
+            ordreScore.add(NutriscoreArticle.B);
+            ordreScore.add(NutriscoreArticle.C);
+            ordreScore.add(NutriscoreArticle.D);
+            ordreScore.add(NutriscoreArticle.E);
+            for (int i = 0; i < 5; i++) {
+                for (Article a : listeRechercher) {
+                    if (a.getNutriscoreArt() != null) {
+                        if (a.getNutriscoreArt().equals(ordreScore.get(i))) {
+                            return a;
+                        }
+                    }
+
+                }
+            }
+            return null;
+        }
+    }
 
     public static List<Article> produitPostIt(List<Article> listeRechercher, long idClient) {
         if (listeRechercher.size() <= 3) {
@@ -786,25 +809,6 @@ public class MethodesDAO {
             }
         }
 
-        //exmainer s'il existe une articles des catégorie préférées
-        boolean categorie = false;
-        for (Article a : listeRechercher) {
-            if (listeCatPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
-                listeR.add(a);
-                categorie = true;
-                break;
-            }
-        }
-        if (!categorie) {
-            for (Article a : listeRechercher) {
-                if (listeCat.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
-                    listeR.add(a);
-                    categorie = true;
-                    break;
-                }
-            }
-        }
-
         //exmainer s'il existe une articles de label  préférées
         boolean label = false;
         for (Article a : listeRechercher) {
@@ -824,8 +828,8 @@ public class MethodesDAO {
             }
         }
 
-        //exmainer s'il existe une articles de label  préférées
-        boolean nutriscore = false;
+        //exmainer s'il existe une articles de nutriscore  préférées
+        /*boolean nutriscore = false;
         for (Article a : listeRechercher) {
             if (listeNutriPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
                 listeR.add(a);
@@ -838,6 +842,29 @@ public class MethodesDAO {
                 if (listeNutri.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
                     listeR.add(a);
                     nutriscore = true;
+                    break;
+                }
+            }
+        }*/
+        
+        if (listeR.size() < 3 & listeArticleHauteNutri(listeRechercher)!=null & !listeR.contains(listeArticleHauteNutri(listeRechercher))){
+            listeR.add(listeArticleHauteNutri(listeRechercher));
+        }
+        
+        //exmainer s'il existe une articles des catégorie préférées
+        boolean categorie = false;
+        for (Article a : listeRechercher) {
+            if (listeCatPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                listeR.add(a);
+                categorie = true;
+                break;
+            }
+        }
+        if (!categorie) {
+            for (Article a : listeRechercher) {
+                if (listeCat.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                    listeR.add(a);
+                    categorie = true;
                     break;
                 }
             }
@@ -922,21 +949,50 @@ public class MethodesDAO {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
+
+            Date today = new Date();
+            // le format de jour
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String strToday = dateFormat.format(today);
+            Date JourNow = dateFormat.parse(strToday);
+            Date JourChoisi = dateFormat.parse(strDate);
+
+            // le format d'heure
+            SimpleDateFormat heureFormat = new SimpleDateFormat("HH:mm");
+            String strHeure = heureFormat.format(today);
+            Date heureNow = heureFormat.parse(strHeure);
+
             // transformer le string a une date
             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
+            List<Creneau> list;
+
             // HQL
             String hql = "select c "
                     + "from Proposer p, Creneau c "
                     + "where p.creneau.idCre = c.idCre "
                     + "and p.date = :date "
-                    + "and p.magasin.idMag = :idMag ";
+                    + "and p.magasin.idMag = :idMag "
+                    + "and p.nbPlaceDispoCre>0 ";
             Query query = session.createQuery(hql);
             query.setParameter("idMag", idMag);
             query.setParameter("date", date);
             // le resultat de HQL
-            List<Creneau> list = query.list();
+            list = query.list();
+            List<Creneau> listCre = new ArrayList<>();
 
-            return list;
+            if (JourChoisi.compareTo(JourNow) == 0) {
+                for (Creneau c : list) {
+                    Date heureDebut = heureFormat.parse(c.getHeure().substring(0, 5));
+                    if (heureNow.compareTo(heureDebut) < 0) {
+                        listCre.add(c);
+                    }
+                }
+            } else {
+                for (Creneau c : list) {
+                    listCre.add(c);
+                }
+            }
+            return listCre;
         }
     }
 
@@ -948,6 +1004,17 @@ public class MethodesDAO {
             return cre;
         }
     }
+    
+    public static void supprimerPostit(long id) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Postit p = session.get(Postit.class, id);
+            session.delete(p);
+            t.commit();
+        }
+    }
+       
 
     public static void updateNbPlaceDispoCre(long idCre, long idMag, Date date) {
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {

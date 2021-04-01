@@ -71,7 +71,7 @@
                 <div id="rechercheMag" class="rechercheCP">
                     <div class="recapPanierInfo"> Code postal : <input type="Text" name="codepostal" id="codepostal" >
                         <button class="btn btn-outline-success" id="validerchoix">Valider</button>
-                        <button class="btn btn-default" id="annulerchoix">Annuler</button>
+                        <button class="btn btn-info" id="annulerchoix">Annuler</button>
                     </div>
                     <div id="lmagasins"></div>
                 </div>
@@ -92,20 +92,24 @@
                             
                     %>
                     <input type="date" id="choixdateCre" name="choixdateCre" value="<% out.print(strDate);%>" min="<% out.print(strDate);%>" max="<% out.print(strDate2);%>">
-               
-                    <div id="afficherCrenaux" ">
-                        <p>choisir un créneau </P>
+                    
+                    <% List<Creneau> listeC = MethodesDAO.getCreneau(mag.getIdMag(), strDate); %>
+                    <div id="afficherCrenaux"  style="display:<% if (listeC.size()!=0){out.print("block");}else{out.print("none");} %>;">
+                        <p>Sélectionnez un créneau </P>                       
+                        
                         <select id="listeCreneau">
-                            <% List<Creneau> listeC = MethodesDAO.getCreneau(mag.getIdMag(), strDate);
+                         <%   
                            for(Creneau cre :listeC ){
                         %>
                             <option value="<% out.print(cre.getIdCre());%>"><% out.print(cre.getHeure());%></option>
                         <%                            
                             }
                         %>
+             
+                        
                         </select>
                     </div>
-                 
+                    <p id="msgIndispo"  style="display:<% if (listeC.size()!=0){out.print("none");}else{out.print("block");} %>;"> Désolé les Créneaux pour ce jour ne sont plus disponibles !</p>
                 </div>
                 
             </div>
@@ -184,4 +188,5 @@
 
 
 </body>
+<script src="${pageContext.request.contextPath}/js/choixMagasinCreneau.js"></script>
 <%@include file="../layout/footerFix.jsp" %>

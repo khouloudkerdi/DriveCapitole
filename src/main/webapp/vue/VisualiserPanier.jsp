@@ -23,7 +23,8 @@
             <div class="row" >
                 <div class="col-md-8">
                     <h4>Détails panier</h4>
-                    <% long idcli = (long) request.getSession().getAttribute("idClient");
+                    <%  long idcli = ((Number) request.getSession().getAttribute("idClient")).longValue();
+                        //long idcli = (long) request.getSession().getAttribute("idClient");
                         ArrayList<Article> listeArt = MethodesDAO.listeArtcilesPanierClient(idcli);
                         Client client = MethodesDAO.infosClient(idcli);
                     %>
