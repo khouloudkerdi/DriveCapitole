@@ -725,6 +725,29 @@ public class MethodesDAO {
 
         }
     }
+    
+    public static Article listeArticleHauteNutri(List<Article> listeRechercher) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            ArrayList<NutriscoreArticle> ordreScore = new ArrayList<>();
+            ordreScore.add(NutriscoreArticle.A);
+            ordreScore.add(NutriscoreArticle.B);
+            ordreScore.add(NutriscoreArticle.C);
+            ordreScore.add(NutriscoreArticle.D);
+            ordreScore.add(NutriscoreArticle.E);
+            for (int i = 0; i < 5; i++) {
+                for (Article a : listeRechercher) {
+                    if (a.getNutriscoreArt() != null) {
+                        if (a.getNutriscoreArt().equals(ordreScore.get(i))) {
+                            return a;
+                        }
+                    }
+
+                }
+            }
+            return null;
+        }
+    }
 
     public static List<Article> produitPostIt(List<Article> listeRechercher, long idClient) {
         if (listeRechercher.size() <= 3) {
@@ -786,25 +809,6 @@ public class MethodesDAO {
             }
         }
 
-        //exmainer s'il existe une articles des catégorie préférées
-        boolean categorie = false;
-        for (Article a : listeRechercher) {
-            if (listeCatPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
-                listeR.add(a);
-                categorie = true;
-                break;
-            }
-        }
-        if (!categorie) {
-            for (Article a : listeRechercher) {
-                if (listeCat.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
-                    listeR.add(a);
-                    categorie = true;
-                    break;
-                }
-            }
-        }
-
         //exmainer s'il existe une articles de label  préférées
         boolean label = false;
         for (Article a : listeRechercher) {
@@ -824,8 +828,8 @@ public class MethodesDAO {
             }
         }
 
-        //exmainer s'il existe une articles de label  préférées
-        boolean nutriscore = false;
+        //exmainer s'il existe une articles de nutriscore  préférées
+        /*boolean nutriscore = false;
         for (Article a : listeRechercher) {
             if (listeNutriPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
                 listeR.add(a);
@@ -838,6 +842,29 @@ public class MethodesDAO {
                 if (listeNutri.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
                     listeR.add(a);
                     nutriscore = true;
+                    break;
+                }
+            }
+        }*/
+        
+        if (listeR.size() < 3 & listeArticleHauteNutri(listeRechercher)!=null & !listeR.contains(listeArticleHauteNutri(listeRechercher))){
+            listeR.add(listeArticleHauteNutri(listeRechercher));
+        }
+        
+        //exmainer s'il existe une articles des catégorie préférées
+        boolean categorie = false;
+        for (Article a : listeRechercher) {
+            if (listeCatPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                listeR.add(a);
+                categorie = true;
+                break;
+            }
+        }
+        if (!categorie) {
+            for (Article a : listeRechercher) {
+                if (listeCat.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                    listeR.add(a);
+                    categorie = true;
                     break;
                 }
             }
@@ -946,6 +973,16 @@ public class MethodesDAO {
             Transaction t = session.beginTransaction();
             Creneau cre = session.get(Creneau.class, idCre);
             return cre;
+        }
+    }
+    
+    public static void supprimerPostit(long id) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Postit p = session.get(Postit.class, id);
+            session.delete(p);
+            t.commit();
         }
     }
        
