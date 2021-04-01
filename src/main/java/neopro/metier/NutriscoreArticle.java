@@ -10,10 +10,11 @@ package neopro.metier;
  * @author khoul
  */
 public enum NutriscoreArticle {
-    A, 
+    A,
     B,
     C,
     D,
     E,
     NULL;
+    
 }

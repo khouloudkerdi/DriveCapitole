@@ -24,6 +24,7 @@ import neopro.metier.AvoirQuantitePanier;
 import neopro.metier.AvoirQuantitePanierID;
 import neopro.metier.Categorie;
 import neopro.metier.Client;
+import neopro.metier.Creneau;
 import neopro.metier.EtatPanier;
 import neopro.metier.Label;
 import neopro.metier.ListeCourses;
@@ -35,6 +36,8 @@ import neopro.metier.Panier;
 import neopro.metier.Postit;
 import neopro.metier.Preferences;
 import neopro.metier.Promotion;
+import neopro.metier.Proposer;
+import neopro.metier.ProposerID;
 import neopro.metier.Rayon;
 import neopro.metier.TypePreference;
 import org.hibernate.Session;
@@ -57,7 +60,17 @@ public class TestHibernate {
             t.commit(); // Commit et flush automatique de la session.
         }
     }
-    
+     //Function pour ajouter un creneau.
+    public static void ajouterCreneau() {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Creneau c1 = new Creneau("08:00-0830");
+            session.save(c1);
+            t.commit(); // Commit et flush automatique de la session.
+        }
+    }
     //Function pour ajouter une categorie.
     public static void ajouterCategorie() {
         /*----- Ouverture de la session -----*/
@@ -175,7 +188,22 @@ public class TestHibernate {
         }
     }
     
-
+    //Function pour ajouter un Label a un article 
+    
+    public static void ajouterCreneauMagasin(  ) throws ParseException {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Proposer p = new Proposer(new ProposerID(1l,1l),DF.parse("04-01-2021"),15,5);
+            session.save(p);
+            Creneau crenau = session.get(Creneau.class,1l);
+            Magasin magasin = session.get(Magasin.class,1l );
+            crenau.getCreneaux().put(magasin, p);
+            magasin.getCreneaux().put(crenau, p);
+            t.commit(); // Commit et flush automatique de la session.
+        }
+    }
     
       //Function pour ajouter un Label a un article 
     
@@ -413,7 +441,9 @@ public class TestHibernate {
 //        TestHibernate.ajouterArticle();
 //        TestHibernate.ListeArticlesParRayon("2" );
 //        TestHibernate.ajouterClient();
-
+          for (Article a:MethodesDAO.produitPostIt(MethodesDAO.postitArticleRechercher("beurre"),1l)){
+              System.out.println(a.getIdArt());
+          }
    
 
      // TestHibernate.ListeArticlesNonPromoParRayon(1);

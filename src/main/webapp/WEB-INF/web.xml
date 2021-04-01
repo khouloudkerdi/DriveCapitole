@@ -117,8 +117,12 @@
         <servlet-class>neopro.ctrl.CtrlPostIt</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Teste</servlet-name>
-        <jsp-file>/vue/Teste.jsp</jsp-file>
+        <servlet-name>CtrlSetMag</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlSetMag</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletPostit</servlet-name>
+        <servlet-class>neopro.action.ServletPostit</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>VisualiserPanier</servlet-name>
@@ -237,8 +241,12 @@
         <url-pattern>/CtrlPostIt</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Teste</servlet-name>
-        <url-pattern>/Teste</url-pattern>
+        <servlet-name>CtrlSetMag</servlet-name>
+        <url-pattern>/CtrlSetMag</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletPostit</servlet-name>
+        <url-pattern>/ServletPostit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

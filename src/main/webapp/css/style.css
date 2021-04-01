@@ -152,8 +152,8 @@
 #bodyPanier .recapFidelite{
     background: #fff;
     margin-bottom: 20px;
-
 }
+
 #bodyPanier .panierProduit{
     padding: 5px 15px;
 }
@@ -360,3 +360,57 @@
     font-weight: bold;
 }
 
+ div.new_html_code {
+      height:150px;
+    }
+ div.new_html_code h4{
+        font-size: 16px;
+        
+    }
+
+.boite {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	display: none;
+	width: 198px; /* BUG : Si le texte est plus long il déborde. A corriger en css ! */
+	border-width: 1px;
+	border-style: solid;
+	border-color: #7F9DB9;
+	margin-top: 1px;
+	padding: 2px;
+}
+    
+.btnChoixMag {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#bodyPanier .rechercheCP{
+    background: #fff;
+    margin-bottom: 20px;
+    display: none;    
+}
+
+#lmagasins {
+    padding-bottom: 10px;
+    
+}
+
+.magInfo{
+    margin: 20px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    border-color: lightgrey;
+    
+}
+
+.nomMag {
+    color: #0099cc;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+btn-valider{
+    color: #0dcaf0;
+    border-color: #0dcaf0;
+}
