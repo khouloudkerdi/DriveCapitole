@@ -915,31 +915,58 @@ public class MethodesDAO {
             t.commit();
         }
     }
-   // recuperer la liste des creneaus selon idMag et la date choisi 
+ // recuperer la liste des creneaus selon idMag et la date choisi 
     public static List<Creneau> getCreneau(long idMag, String strDate) throws ParseException {
         /*----- Ouverture de la session -----*/
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
-            Transaction t = session.beginTransaction(); 
+            Transaction t = session.beginTransaction();
+
+            Date today = new Date();
+            // le format de jour
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String strToday = dateFormat.format(today);
+            Date JourNow = dateFormat.parse(strToday);
+            Date JourChoisi = dateFormat.parse(strDate);
+
+            // le format d'heure
+            SimpleDateFormat heureFormat = new SimpleDateFormat("HH:mm");
+            String strHeure = heureFormat.format(today);
+            Date heureNow = heureFormat.parse(strHeure);
+
             // transformer le string a une date
             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
+            List<Creneau> list;
+
             // HQL
             String hql = "select c "
                     + "from Proposer p, Creneau c "
                     + "where p.creneau.idCre = c.idCre "
                     + "and p.date = :date "
-                    + "and p.magasin.idMag = :idMag ";
+                    + "and p.magasin.idMag = :idMag "
+                    + "and p.nbPlaceDispoCre>0 ";
             Query query = session.createQuery(hql);
             query.setParameter("idMag", idMag);
             query.setParameter("date", date);
             // le resultat de HQL
-            List<Creneau> list = query.list();
+            list = query.list();
+            List<Creneau> listCre = new ArrayList<>();
 
-            return list;
+            if (JourChoisi.compareTo(JourNow) == 0) {
+                for (Creneau c : list) {
+                    Date heureDebut = heureFormat.parse(c.getHeure().substring(0, 5));
+                    if (heureNow.compareTo(heureDebut) < 0) {
+                        listCre.add(c);
+                    }
+                }
+            } else {
+                for (Creneau c : list) {
+                    listCre.add(c);
+                }
+            }
+            return listCre;
         }
-    } 
-    
-    
+    }
     public static Creneau getCreneauByIdCre(long idCre){
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/

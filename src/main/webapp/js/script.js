@@ -143,7 +143,13 @@ function listeCrenaux()
                     elt.insertAdjacentHTML('beforeend',text);
                 }
                 if (listeCre.length >0)
-                { document.getElementById("afficherCrenaux").style.display = "block";}  
+                { 
+                    document.getElementById("afficherCrenaux").style.display = "block";
+                    document.getElementById("msgIndispo").style.display = "none";                    
+                }else{
+                    document.getElementById("afficherCrenaux").style.display = "none";
+                    document.getElementById("msgIndispo").style.display = "block";         
+                }  
             }
     };
      // Envoie de la requête.
