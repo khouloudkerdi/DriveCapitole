@@ -42,6 +42,8 @@
                             //out.print("idMag = "+mag);
                         } else {
                             mag = MethodesDAO.getMagByIdCli(idClient);
+                            long idMag = mag.getIdMag();
+                            request.getSession().setAttribute("idMag", idMag);
                         }
 
                     %>
@@ -60,13 +62,13 @@
                             </div>
 
                             <div class="col-md-4 atCenterAll">
-                                <button class="btn btn-info" id="btnModifierMag"  >Modifier</button>
+                                <button class="btn btn-info btnChoixMag" id="btnModifierMag"  >Modifier</button>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div id="rechercheMag" class="recapPanier" style="display: none; ">
+                <div id="rechercheMag" class="rechercheCP">
                     <div class="recapPanierInfo"> Code postal : <input type="Text" name="codepostal" id="codepostal" >
                         <button class="btn btn-outline-success" id="validerchoix">Valider</button>
                         <button class="btn btn-default" id="annulerchoix">Annuler</button>
@@ -172,7 +174,7 @@
                 </div>
                 <%--Button Confirmer--%>
                 <div class="btnContainer">
-                    <button type="submit" class="btn btn-info">Confirmer</button>
+                    <a href="ConfirmRetrait" class="btn btn-info">Confirmer</a>
                     <a href="Panier" class="btn btn-info">Retour</a>
                 </div>
                 <div class="messageErreur">${requestScope.msg_erreur}</div>

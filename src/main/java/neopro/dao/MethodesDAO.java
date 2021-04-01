@@ -188,10 +188,10 @@ public class MethodesDAO {
             return montantfinal;
         }
     }
-    
+
     // Fonction pour récupérer le idPanier qui est enCours d'un client à partir de son idCli.
     public static long getIdPanierByIdCli(long idCli) {
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
 
@@ -599,48 +599,70 @@ public class MethodesDAO {
         return listeArticle;
     }
 
-    public static void ajouterPostIt(long idListe,String nom) {
+    // Fonction pour récupérer le Magasin par defaut d'un client à partir de son idCli.
+    public static Magasin getMagByIdCli(long idClient) {
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
-            ListeCourses lc=session.get(ListeCourses.class, idListe);
-            Postit pi=new Postit(nom,lc);
-            session.save(pi);
-            t.commit();
+            Client c = session.get(Client.class, idClient);
+            long idmag = c.getMagasin().getIdMag();
+            Magasin mag = session.get(Magasin.class, idmag);
+
+            return mag;
         }
     }
-    
-    public static List<Article> listeArticlePrefMarque(long idClient) {
+
+    // Fonction pour récupérer le Magasin par defaut d'un client à partir de son idCli.
+    public static Magasin getMagByIdMag(long idMagasin) {
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
-            Client c=session.get(Client.class, idClient);
-            List<Article> listeR=new ArrayList<>();
-            Marque m;
-            for(Preferences p:c.getPreferences()){
-                long id=p.getIdMar();
-                long f=0;
-                if (id!=f){
-                    m=session.get(Marque.class,p.getIdMar());
-                    for (Article a:m.getArticles()){
-                        listeR.add(a);
-                    }
-                }  
-            }
-            return listeR;
+            Magasin mag = session.get(Magasin.class, idMagasin);
+            return mag;
         }
     }
-        
-     public static List<Postit> loadPostIt(long idlisteCourses) {
+
+    public static List<Postit> loadPostIt(long idlisteCourses) {
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-            List<Postit> listePostit=new ArrayList<Postit>();
-            for (Postit p : session.get(ListeCourses.class, idlisteCourses).getPostit()){
+            List<Postit> listePostit = new ArrayList<Postit>();
+            for (Postit p : session.get(ListeCourses.class, idlisteCourses).getPostit()) {
                 listePostit.add(p);
             }
             return listePostit;
         }
     }
 
-  
+    public static void ajouterPostIt(long idListe, String nom) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            ListeCourses lc = session.get(ListeCourses.class, idListe);
+            Postit pi = new Postit(nom, lc);
+            session.save(pi);
+            t.commit();
+        }
+    }
+
+    public static List<Article> listeArticlePrefMarque(long idClient) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Client c = session.get(Client.class, idClient);
+            List<Article> listeR = new ArrayList<>();
+            Marque m;
+            for (Preferences p : c.getPreferences()) {
+                long id = p.getIdMar();
+                long f = 0;
+                if (id != f) {
+                    m = session.get(Marque.class, p.getIdMar());
+                    for (Article a : m.getArticles()) {
+                        listeR.add(a);
+                    }
+                }
+            }
+            return listeR;
+        }
+    }
+
     public static List<Article> listeArticlePrefCat(long idClient) {
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
@@ -660,7 +682,7 @@ public class MethodesDAO {
             return listeR;
         }
     }
-     
+
     public static List<Article> listeArticlePrefLabel(long idClient) {
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
@@ -700,47 +722,167 @@ public class MethodesDAO {
                 }
             }
             return listeR;
+
         }
     }
 
     public static List<Article> produitPostIt(List<Article> listeRechercher, long idClient) {
-        List<Article> listeR = new ArrayList<>();
-        List<Article> listeArticle = listePref(idClient);
-        List<Article> listepromo = listePromo();
-        List<Article> listeLabel = listeArticlePrefLabel(idClient);
-        List<Article> listeCat = listeArticlePrefCat(idClient);
-        List<Article> listeMar = listeArticlePrefMarque(idClient);
-        List<Article> listeNutri = listeArticlePrefLNutri(idClient);
-        for (Article a: listeRechercher){
+        if (listeRechercher.size() <= 3) {
+            return listeRechercher;
         }
-        
+        List<Article> listeR = new ArrayList<>();
+        //Produit promotionnels 
+        List<Article> listepromo = listePromo();
+        //Produit préféré 
+        List<Article> listeArticle = listePref(idClient);
+        //Produit préféré et promotionnels
+        List<Article> listeArticlePromo = communeListe(listeArticle, listepromo);
+        //Produit de la marque  préférée 
+        List<Article> listeMar = listeArticlePrefMarque(idClient);
+        //Produit promotionnels de la marque  préférée
+        List<Article> listeMarPromo = communeListe(listeMar, listepromo);
+        //Produit du categorie  préférée 
+        List<Article> listeCat = listeArticlePrefCat(idClient);
+        //Produit promotionnels du categorie  préférée 
+        List<Article> listeCatPromo = communeListe(listeCat, listepromo);
+        //Produit du label préférée 
+        List<Article> listeLabel = listeArticlePrefLabel(idClient);
+        //Produits promotionnels du label préférée 
+        List<Article> listeLabelPromo = communeListe(listepromo, listeLabel);
+        //Produit de le nutriscore  préférée 
+        List<Article> listeNutri = listeArticlePrefLNutri(idClient);
+        //Produit promotionnels de le nutriscore  préférée 
+        List<Article> listeNutriPromo = communeListe(listeNutri, listepromo);
+
+        //exmainer s'il existe les articles préférées
+        for (Article a : listeRechercher) {
+            if (listeArticlePromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                listeR.add(a);
+            }
+        }
+
+        for (Article a : listeRechercher) {
+            if (listeArticle.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                listeR.add(a);
+            }
+        }
+
+        //exmainer s'il existe une articles des maruqes préférées
+        boolean marque = false;
+        for (Article a : listeRechercher) {
+            if (listeMarPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                listeR.add(a);
+                marque = true;
+                break;
+            }
+        }
+        if (!marque) {
+            for (Article a : listeRechercher) {
+                if (listeMar.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                    listeR.add(a);
+                    marque = true;
+                    break;
+                }
+            }
+        }
+
+        //exmainer s'il existe une articles des catégorie préférées
+        boolean categorie = false;
+        for (Article a : listeRechercher) {
+            if (listeCatPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                listeR.add(a);
+                categorie = true;
+                break;
+            }
+        }
+        if (!categorie) {
+            for (Article a : listeRechercher) {
+                if (listeCat.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                    listeR.add(a);
+                    categorie = true;
+                    break;
+                }
+            }
+        }
+
+        //exmainer s'il existe une articles de label  préférées
+        boolean label = false;
+        for (Article a : listeRechercher) {
+            if (listeLabelPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                listeR.add(a);
+                label = true;
+                break;
+            }
+        }
+        if (!label) {
+            for (Article a : listeRechercher) {
+                if (listeLabel.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                    listeR.add(a);
+                    label = true;
+                    break;
+                }
+            }
+        }
+
+        //exmainer s'il existe une articles de label  préférées
+        boolean nutriscore = false;
+        for (Article a : listeRechercher) {
+            if (listeNutriPromo.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                listeR.add(a);
+                nutriscore = true;
+                break;
+            }
+        }
+        if (!nutriscore) {
+            for (Article a : listeRechercher) {
+                if (listeNutri.contains(a) & listeR.size() < 3 & !listeR.contains(a)) {
+                    listeR.add(a);
+                    nutriscore = true;
+                    break;
+                }
+            }
+        }
+
+        if (listeR.size() < 3) {
+            for (Article a : listeRechercher) {
+                if (!listeR.contains(a)) {
+                    listeR.add(a);
+                    if (listeR.size() == 3) {
+                        break;
+                    }
+                }
+            }
+        }
         return listeR;
     }
 
-    
-    // Fonction pour récupérer le Magasin par defaut d'un client à partir de son idCli.
-    public static Magasin getMagByIdCli (long idClient) {
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+    public static List<Article> postitArticleRechercher(String search) {
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            String var = search;
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
-            Client c = session.get(Client.class, idClient);
-            long idmag = c.getMagasin().getIdMag();
-            Magasin mag = session.get(Magasin.class, idmag);
-            
-            return mag;
-        }        
+            // Récupération des la liste de recherche.          
+            String hqlArt = "select a from Article a where a.libelleArt like :rollNumber";
+            Query queryArt = session.createQuery(hqlArt);
+            queryArt.setParameter("rollNumber", "%" + var + "%");
+            List<Article> resultArt = queryArt.list();
+            // Récupération des la liste de recherche.          
+            String hqlCat = "select c from Categorie c where c.libelleCat like :rollNumber";
+            Query queryCat = session.createQuery(hqlCat);
+            queryCat.setParameter("rollNumber", "%" + var + "%");
+            List<Categorie> resultCat = queryCat.list();
+            for (Categorie c : resultCat) {
+                for (Article a : c.getArticles()) {
+                    if (!resultArt.contains(a)) {
+                        resultArt.add(a);
+                    }
+                }
+            }
+            // Envoi du résultat de la requête.
+            return resultArt;
+        }
     }
-    
-    // Fonction pour récupérer le Magasin par defaut d'un client à partir de son idCli.
-    public static Magasin getMagByIdMag (long idMagasin) {
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            /*----- Ouverture d'une transaction -----*/
-            Transaction t = session.beginTransaction();
-            Magasin mag = session.get(Magasin.class, idMagasin);            
-            return mag;
-        }        
-    }
-    
+       
     // Fonction pour mettre à jour les points fedelité d'un client à partir de son idCli.
     public static void updatePoints(long idCli, int pointGagne){
         try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -797,6 +939,14 @@ public class MethodesDAO {
         }
     } 
     
+    
+    public static Creneau getCreneauByIdCre(long idCre){
+        try ( Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+            Creneau cre = session.get(Creneau.class, idCre);
+            return cre;
+        }
+    }
        
 }
-

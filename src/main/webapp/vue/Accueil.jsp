@@ -106,12 +106,13 @@
                                             }%>
                                     </div>
                                     <div class="btnAccueil">
-                                        <%
-                                            if (request.getSession().getAttribute("idClient") == null) {
-                                        %>
-                                        <a class="btn btn-secondary btn-sm" href="#" data-toggle="modal" data-target="#modalConnexion">
-                                            Panier
-                                        </a>
+                                    <%
+                                        if (request.getSession().getAttribute("idClient") == null) {
+                                            //request.getSession().setAttribute("idArt", a.getIdArt());
+                                    %>
+                                    <a href="#" class="btn btn-secondary btn-sm" data-href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>"  data-toggle="modal" data-target="#modalConnexion">
+                                        Panier
+                                    </a>
                                         <% } else if (request.getSession().getAttribute("idClient") != null) { %>
                                         <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" 
                                            class="btn btn-secondary btn-sm">Panier</a>

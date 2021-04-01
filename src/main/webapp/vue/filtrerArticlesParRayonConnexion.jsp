@@ -135,7 +135,7 @@
                                 </div>
                                 <div class="btnAccueil">
                                     <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" 
-                                       class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalConnexion">Panier</a>
+                                       class="btn btn-secondary btn-sm">Panier</a>
                                     <%
                                         if (request.getSession(false).getAttribute("idClient") != null) {
                                             //long idClient=(long) request.getSession().getAttribute("idClient");

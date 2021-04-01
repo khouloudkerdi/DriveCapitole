@@ -152,8 +152,8 @@
 #bodyPanier .recapFidelite{
     background: #fff;
     margin-bottom: 20px;
-
 }
+
 #bodyPanier .panierProduit{
     padding: 5px 15px;
 }
@@ -380,7 +380,37 @@
 	padding: 2px;
 }
     
-#btnModifierMag {
+.btnChoixMag {
     margin-top: 25px;
     margin-bottom: 25px;
+}
+
+#bodyPanier .rechercheCP{
+    background: #fff;
+    margin-bottom: 20px;
+    display: none;    
+}
+
+#lmagasins {
+    padding-bottom: 10px;
+    
+}
+
+.magInfo{
+    margin: 20px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    border-color: lightgrey;
+    
+}
+
+.nomMag {
+    color: #0099cc;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+btn-valider{
+    color: #0dcaf0;
+    border-color: #0dcaf0;
 }

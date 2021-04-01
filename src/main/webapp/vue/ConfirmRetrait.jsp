@@ -4,6 +4,8 @@
     Author     : Xinyan
 --%>
 
+<%@page import="neopro.metier.Creneau"%>
+<%@page import="neopro.metier.Magasin"%>
 <%@page import="neopro.metier.Client"%>
 <%@page import="java.math.BigDecimal"%>
 <%@page import="java.util.List"%>
@@ -30,12 +32,33 @@
                 <div class="panierProduit">
                     <div class="row">
                         <h4>Magagin</h4>
+                        <%
+                            long idMag = (long) request.getSession().getAttribute("idMag");
+                            Magasin mag = MethodesDAO.getMagByIdMag((long) request.getSession(false).getAttribute("idMag"));
+                        %>
+                        <div class="recapPanierInfo nomMag atCenterAll">
+                            <% out.print(mag.getNomMag());%>
+                        </div>
+                        <div class="recapPanierInfo atCenterAll">
+                            <span class="titreValeurPanier"><% out.print(mag.getAdresseMag());%></span>         
+                        </div>
                     </div>
                 </div>
                 <%-- Choix du Creneau--%>
                 <div class="panierProduit">
                     <div class="row">
                         <h4>Créneau</h4>
+                        <%
+                            //String date = (String) request.getSession().getAttribute("date");
+                            //long idCre = (long) request.getSession().getAttribute("idCre");
+                            //Creneau cre = MethodesDAO.getCreneauByIdCre(idCre);
+                        %>
+                        <div class="recapPanierInfo nomMag atCenterAll">
+                            <% //out.print(date); %>
+                        </div>
+                        <div class="recapPanierInfo atCenterAll">
+                            <% //out.print(cre.getHeure()); %>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -76,14 +99,14 @@
                     <div class="recapPanierInfo">
                         <span class="titreEconomiePanier">Economie :</span>
                         <% BigDecimal montantEconomieTotalD = new BigDecimal(montantEconomieTotal);
-                                float montantEcoTotalF = montantEconomieTotalD.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();%>
+                            float montantEcoTotalF = montantEconomieTotalD.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();%>
                         <span class="valeurEconomiePanier"><% out.print("<span class='spanPromo'>" + montantEcoTotalF + "€</span>");%>  </span>    
                     </div>
                     <div class="recapPanierInfo">
                         <span class="titreTotalPanier">Total à payer :</span>
                         <% float montantTotalPanier = montant - montantEconomieTotal;
-                                BigDecimal montantTotalPanierD = new BigDecimal(montantTotalPanier);
-                                float montantTotalAPayer = montantTotalPanierD.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();%>
+                            BigDecimal montantTotalPanierD = new BigDecimal(montantTotalPanier);
+                            float montantTotalAPayer = montantTotalPanierD.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();%>
                         <span class="valeurTotalPanier"> <% out.print(montantTotalAPayer);%> € </span>   
                     </div>
                 </div>
@@ -105,7 +128,7 @@
                 <%--Button Confirmer--%>
                 <div class="btnContainer">
                     <button type="submit" class="btn btn-info">Confirmer</button>
-                    <a href="" class="btn btn-info">Retour</a>
+                    <a href="ChoixCreneau" class="btn btn-info">Retour</a>
                 </div>
                 <div class="messageErreur">${requestScope.msg_erreur}</div>
             </div>
