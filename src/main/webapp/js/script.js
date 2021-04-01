@@ -112,23 +112,6 @@ function modifierMagasin()
     // faire dispaitre le bouton 'btnModifierMag'
     document.getElementById("btnModifierMag").style.display = "none";
 }
-function listeCrenaux()
-{   
-     // Recuperation de la date choisie
-     var date = document.getElementById("choixdateCre").value;
-     var idMag = document.getElementById("idMag").value ;
-     var elt = document.getElementById("listeCreneau");
-     var xhr = new XMLHttpRequest();
-     // Requête au serveur avec les paramètres éventuels.
-     xhr.open("GET", "CtrlChoixCreneau?idMag="+ idMag+"&date="+date);
-     // On précise ce que l'on va faire quand on aura reçu la réponse du serveur.
-    xhr.onload = function () {
-        
-            //Si la requête http s'est bien passée.
-            if (xhr.status === 200)
-            {
-                // mettre les données recuperés dans un fichier 
-                var donnee = xhr.responseXML;
 
                 //Recueperer les magasins
                 var listeCre = donnee.getElementsByTagName("Creneau");
@@ -184,14 +167,84 @@ function validerChoixMag()
     xhr.send();
 
 }
+function listeProduitProposes(e){
+    
+    //var contenuPos = document.getElementById("carousContenu").getElementsByClassName ('active')[0].getElementsByTagName('h4')[0].innerHTML;
+    var divProduitProposes = document.getElementById("produitProposes");
+   // divProduitProposes.innerHTML="<p>"+contenuPos+"</p>";
+    if(e.target.textContent!== "Previous" || e.target.textContent!== "Next"){
+        var xhr = new XMLHttpRequest();
+        //divProduitProposes.innerHTML="";
+    // Requête au serveur avec les paramètres éventuels.
+    xhr.open("GET", "ServletPostit?postit="+e.target.textContent);
+    // On précise ce que l'on va faire quand on aura reçu la réponse du serveur.
+    xhr.onload = function ()
+    {
+        // Si la requête http s'est bien passée.
+        if (xhr.status === 200)
+        {   
+           
+           var listeArticle = xhr.responseXML.getElementsByTagName("Article");
+           if (listeArticle.length>0){
+           
+               for (i = 0; i < listeArticle.length; i++)
+                {
+                    var idArt =  listeArticle[i].getElementsByTagName("IdArt")[0];
+                    var LibelleArt = listeArticle[i].getElementsByTagName("LibelleArt")[0];
+                    var imgArt = listeArticle[i].getElementsByTagName("UrlImageArt")[0];
+                    var prixArt = listeArticle[i].getElementsByTagName("PrixKgArt")[0];
+                    divProduitProposes.insertAdjacentHTML("beforeend","<div class='row'>\n\
+                    <div class='col-md-3'><input type='radio' name='article' value ='"+idArt.firstChild.nodeValue+"'>\n\
+                     <img src='/Drive_NeoPro/image/"+imgArt.firstChild.nodeValue+"'>\n\
+                    </div>\n\
+                    <div class='col-md-6'>"+LibelleArt.firstChild.nodeValue+"</div>\n\
+                    <div class='col-md-3'>"+prixArt.firstChild.nodeValue+"</div></div>");
+                }
+                divProduitProposes.insertAdjacentHTML("beforeend","<button class='btn btn-info' type='submit'>Choisir</button>");
+                
+                
+           }
+            
+           
+        }else{
+            divProduitProposes.innerHTML="";
+        }
+    };
+
+    // Envoie de la requête.
+    xhr.send();
+        
+    }else{
+         divProduitProposes.innerHTML="";
+    }
+     //divProduitProposes.innerHTML="<p>"+e.target.textContent+"</p>";
+    // Objet XMLHttpRequest.
+   
+}
+    
+    
+
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
     panierProduitOptions();
-    document.getElementById("validerchoix").addEventListener("click", listeMagasins);
-    document.getElementById("annulerchoix").addEventListener("click", annulerChoixMag);
-    document.getElementById("btnModifierMag").addEventListener("click", modifierMagasin);
-    document.getElementById("choixdateCre").addEventListener("change",listeCrenaux);
-
+    document.getElementById("carousContenu").addEventListener("click",function (){
+         var allBtn = this.querySelectorAll('button');
+            for (var i = 0; i < allBtn.length; i++) {
+                allBtn[i].addEventListener("click",function (e){ 
+                  listeProduitProposes(e);
+                });
+            }
+    });
+   // document.getElementById("btnCaroNext").addEventListener("click",listeProduitProposes);
+    // document.getElementById("btnCaroPrev").addEventListener("click",listeProduitProposes);
+    
+    document.getElementById("validerchoix").addEventListener("click",listeMagasins);
+    document.getElementById("annulerchoix").addEventListener("click",annulerChoixMag);
+    document.getElementById("btnModifierMag").addEventListener("click",modifierMagasin);
+    
+   
 });
 
 
