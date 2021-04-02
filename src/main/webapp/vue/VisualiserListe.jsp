@@ -29,7 +29,7 @@
             <div class="col-md-6">
                 <h4>Liste des post'it </h4>
                  <form action=CtrlPostIt method=get>
-                        <div class="btnContainer" style="margin: 10px 20px;">
+                        <div class="btnContainer" style="margin: 10px 0px;">
                             <input class="form-control" type="text" name="postit" required  style="width: 220px;">
 
                             <%
@@ -48,7 +48,7 @@
                                 // out.println("<p>" + p1.getContenuPos() + "</p>");
                         %>
                       
-                        <button style="height: 100px;width: 100px; margin-right: 5px;" value="<%out.println(p.getIdPos());%>"><%out.println(p.getContenuPos());%></button>
+                        <button style="height: 100px;width: 100px; margin-right: 5px; background: #ebff34;" value="<%out.println(p.getIdPos());%>"><%out.println(p.getContenuPos());%></button>
                         
                         <%
                             }
