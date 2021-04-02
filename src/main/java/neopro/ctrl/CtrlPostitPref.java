@@ -17,7 +17,16 @@ public class CtrlPostitPref extends HttpServlet {
         long idListe=Long.parseLong((String) request.getParameter("ListeCourse")); 
         if (request.getParameter("article")!=null){
             long idArticle=Long.parseLong((String) request.getParameter("article")); 
+            String idPostit=(String) request.getParameter("idPostIt"); 
+            String idPostit2="";
+            idPostit2 +=idPostit.charAt(0);
+            idPostit2 +=idPostit.charAt(1);
+            idPostit2 +=idPostit.charAt(2);
+            long idPostitL=Long.parseLong(idPostit2);
+            request.getSession().setAttribute("idP", "111"+idPostit2+"111");
+            
             MethodesDAO.ajouterArticleListeCourse(idArticle, idListe);
+           MethodesDAO.supprimerPostit(idPostitL);
         }
         request.getRequestDispatcher("VisualiserListe?idListe=" + idListe).forward(request, response);
             
