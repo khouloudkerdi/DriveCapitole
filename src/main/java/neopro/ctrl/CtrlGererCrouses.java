@@ -30,7 +30,7 @@ public class CtrlGererCrouses extends HttpServlet {
                           MethodesDAO.supprimerListeCourses(Long.parseLong(lc_sup));
                        }
 
-                        request.getRequestDispatcher("ListeCourses").forward(request, response);
+                       response.sendRedirect("ListeCourses");
                    }
 
     }
