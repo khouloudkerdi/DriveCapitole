@@ -137,8 +137,8 @@
                                         }%>
                                 </div>
                                 <div class="btnAccueil">
-                                    <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" 
-                                       class="btn btn-secondary btn-sm">Panier</a>
+                                    <input class="inputIdArt" value="<%out.print(a.getIdArt());%>" type="hidden">
+                                    <button name="btnPanierAccueil" class="btn btn-secondary btn-sm">Panier</button>
                                     <%
 
                                         //long idClient=(long) request.getSession().getAttribute("idClient");
@@ -154,8 +154,10 @@
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <%                                                        ArrayList<ListeCourses> listeListeCourses = MethodesDAO.getListeCourses(idClient);
-                                                        for (ListeCourses lc : listeListeCourses) {
-                                                            out.print("<li><a class=dropdown-item href=CtrlInserer?idListeCourses=" + a.getIdArt() + "," + lc.getIdLis() + ">" + lc.getNomLis() + "</a></li>");
+                                                        for (ListeCourses lc : listeListeCourses) { %>
+                                                        <input class="inputIdListe" value="<%out.print(lc.getIdLis());%>" type="hidden">
+                                                    <%
+                                                            out.print("<li><a class=\"dropdown-item\" name=\"idL\">" + lc.getNomLis() + "</a></li>");
                                                         }
                                                     %>
                                                 </ul>
@@ -179,5 +181,6 @@
         </div>
     </div>
     <%@include file="../layout/logOut.jsp" %>
+    <script type="text/JavaScript" src="${pageContext.request.contextPath}/js/scriptAccueil.js"></script>
 </body>
 <%@include file="../layout/footerFix.jsp" %>

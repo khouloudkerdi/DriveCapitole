@@ -48,12 +48,13 @@ function panierProduitOptions() {
 
 function listeProduitProposes(e) {
 
-    //var contenuPos = document.getElementById("carousContenu").getElementsByClassName ('active')[0].getElementsByTagName('h4')[0].innerHTML;
+   
     var divProduitProposes = document.getElementById("produitProposes");
-    // divProduitProposes.innerHTML="<p>"+contenuPos+"</p>";
+   
     if (e.target.textContent !== "Previous" || e.target.textContent !== "Next") {
         var xhr = new XMLHttpRequest();
-        //divProduitProposes.innerHTML="";
+        var inputIdListe= document.getElementById("idListe").value;
+        var idPost = e.target.value;
         // Requête au serveur avec les paramètres éventuels.
         xhr.open("GET", "ServletPostit?postit=" + e.target.textContent);
         // On précise ce que l'on va faire quand on aura reçu la réponse du serveur.
@@ -64,23 +65,28 @@ function listeProduitProposes(e) {
             {
 
                 var listeArticle = xhr.responseXML.getElementsByTagName("Article");
+                divProduitProposes.innerHTML="";
+               
                 if (listeArticle.length > 0) {
-
+                    
                     for (i = 0; i < listeArticle.length; i++)
                     {
                         var idArt = listeArticle[i].getElementsByTagName("IdArt")[0];
                         var LibelleArt = listeArticle[i].getElementsByTagName("LibelleArt")[0];
                         var imgArt = listeArticle[i].getElementsByTagName("UrlImageArt")[0];
                         var prixArt = listeArticle[i].getElementsByTagName("PrixKgArt")[0];
-                        divProduitProposes.insertAdjacentHTML("beforeend", "<div class='row'>\n\
-                    <div class='col-md-3'><input type='radio' name='article' value ='" + idArt.firstChild.nodeValue + "'>\n\
+                        divProduitProposes.insertAdjacentHTML("beforeend", "\
+                    <input type='hidden' name='idPostIt' value='"+idPost+"'>\n\
+                    <input type='hidden' name='ListeCourse' value='"+inputIdListe+"'>\n\
+                    <div class='row' style=' margin-bottom:10px; background-color: white;font-size: 16px;'>\n\
+                    <div class='col-md-4'><input type='radio' name='article' value ='" + idArt.firstChild.nodeValue + "'style='margin-right: 5px;font-size: 12px;'>\n\
                      <img src='/Drive_NeoPro/image/" + imgArt.firstChild.nodeValue + "'>\n\
                     </div>\n\
-                    <div class='col-md-6'>" + LibelleArt.firstChild.nodeValue + "</div>\n\
-                    <div class='col-md-3'>" + prixArt.firstChild.nodeValue + "</div></div>");
+                    <div class='col-md-4'style='margin-top: 5px;font-size: 16px;'>" + LibelleArt.firstChild.nodeValue + "</div>\n\
+                    <div class='col-md-4'style='margin-top: 5px;font-size: 16px;'>" + prixArt.firstChild.nodeValue + "</div></div>");
                     }
-                    divProduitProposes.insertAdjacentHTML("beforeend", "<button class='btn btn-info' type='submit'>Choisir</button>");
-
+                    divProduitProposes.insertAdjacentHTML("beforeend", "<div class='row justify-content-center'><button class='btn btn-info'style='width: 100px;'; type='submit'>Choisir</button></div>");
+                    
 
                 }
 

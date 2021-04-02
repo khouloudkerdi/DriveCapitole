@@ -735,7 +735,7 @@ public class MethodesDAO {
             ordreScore.add(NutriscoreArticle.C);
             ordreScore.add(NutriscoreArticle.D);
             ordreScore.add(NutriscoreArticle.E);
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 4; i++) {
                 for (Article a : listeRechercher) {
                     if (a.getNutriscoreArt() != null) {
                         if (a.getNutriscoreArt().equals(ordreScore.get(i))) {
