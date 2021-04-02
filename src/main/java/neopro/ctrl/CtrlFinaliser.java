@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import neopro.dao.MethodesDAO;
+import neopro.metier.Article;
 
 public class CtrlFinaliser extends HttpServlet {
 
@@ -33,10 +35,11 @@ public class CtrlFinaliser extends HttpServlet {
             request.getSession().removeAttribute("creneau");
             request.getSession().removeAttribute("date");
             request.getSession().removeAttribute("pointGagne");
-            
+            List<Article> liste_articles = MethodesDAO.listeArticle();
+            request.getSession().setAttribute("liste_articles", liste_articles);
             MethodesDAO.ajouterPanier(idCli);
             
-            response.sendRedirect("PagePersonnelle");
+            response.sendRedirect("Accueil");
         } catch (ParseException ex) {
             Logger.getLogger(CtrlFinaliser.class.getName()).log(Level.SEVERE, null, ex);
         }

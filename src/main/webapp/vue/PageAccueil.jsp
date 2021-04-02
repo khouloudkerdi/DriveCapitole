@@ -216,12 +216,15 @@
                                                         ArrayList<ListeCourses> listeListeCourses = MethodesDAO.getListeCourses(idClient);
                                                         for (ListeCourses lc : listeListeCourses) {
                                                     %>
-                                                    <input class="inputIdListe" value="<%out.print(lc.getIdLis());%>" type="hidden">
+                                                    
 
                                                     <%
-                                                            out.print("<li><a class=\"dropdown-item\" name=\"idL\">" + lc.getNomLis() + "</a></li>");
-                                                        }
+                                                            out.print("<li name=\"listeL\"><a class=\"dropdown-item\" name=\"idL\">" + lc.getNomLis());
                                                     %>
+                                                    <input class="inputIdArtL" value="<%out.print(a.getIdArt());%>" type="hidden">
+                                                    <input class="inputIdListe" value="<%out.print(lc.getIdLis());%>" type="hidden">
+                                                    </a></li>
+                                                    <%}%>
                                                 </ul>
                                             </div>    
                                         </li>
