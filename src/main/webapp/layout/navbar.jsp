@@ -58,7 +58,7 @@
                         if (request.getSession().getAttribute("idClient") != null) {
                     %>
                     <div class="btn btn-primary contenant">
-                        <a href="Panier"><img href="Panier" src="${pageContext.request.contextPath}/css/image/caddie.png" alt="logo_neopro" width="45px"/></a>
+                        <a href="Panier"><img src="${pageContext.request.contextPath}/css/image/caddie.png" alt="logo_neopro" width="45px"/></a>
                             <% long qte = MethodesDAO.nbArt( ((Number) request.getSession().getAttribute("idClient")).longValue()); %>
                         <div class="texte_centrer"><% out.print(qte); %></div>
                     </div>

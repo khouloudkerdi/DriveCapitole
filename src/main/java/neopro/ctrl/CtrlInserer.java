@@ -37,7 +37,7 @@ public class CtrlInserer extends HttpServlet {
             // Ajouter au panier    
             long idClient = (long) request.getSession(false).getAttribute("idClient");
             MethodesDAO.insererArticlePanier(idArt, MethodesDAO.loadPanierClient(idClient));
-            response.sendRedirect("Accueil");
+            //response.sendRedirect("Accueil");
         }
 
         
