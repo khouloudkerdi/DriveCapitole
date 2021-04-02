@@ -33,27 +33,18 @@ public class CtrlFiltrageParRayon extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-           //recupere le parametre "idRay"
-           String id = request.getParameter("idRay");
 
-               // Recupere la liste des articles par rayon.
-               List<Article> listeArticles = MethodesDAO.ListeArticlesParRayon(id);
-            
-               request.setAttribute("liste_articles", listeArticles);
-             // request.getSession(true).setAttribute("liste_articles",listeArticles);
-             
-           
-              if (request.getSession().getAttribute("idClient")==null) {
-                    
-                    request.getRequestDispatcher("filtrerArticlesParRayon").forward(request, response);
-               } else {
-                    
-                     request.getRequestDispatcher("filtrerArticlesParRayonConnexion").forward(request, response);
-                }
-           
+        //recupere le parametre "idRay"
+        String id = request.getParameter("idRay");
 
-        
+        // Recupere la liste des articles par rayon.
+        List<Article> listeArticles = MethodesDAO.ListeArticlesParRayon(id);
+
+        request.getSession().setAttribute("liste_articles", listeArticles);
+        // request.getSession(true).setAttribute("liste_articles",listeArticles);
+
+        request.getRequestDispatcher("Accueil").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

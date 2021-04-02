@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>Accueil</servlet-name>
-        <jsp-file>/vue/Accueil.jsp</jsp-file>
+        <jsp-file>/vue/PageAccueil.jsp</jsp-file>
     </servlet>
     <servlet>
         <servlet-name>CtrlAjouterCrouses</servlet-name>

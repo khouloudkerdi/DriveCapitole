@@ -8,11 +8,13 @@ package neopro.ctrl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import neopro.dao.MethodesDAO;
+import neopro.metier.Article;
 
 public class CtrlConnexion extends HttpServlet {
 
@@ -29,6 +31,11 @@ public class CtrlConnexion extends HttpServlet {
             //retour à la page accueil si c'est correst
             long idClient = MethodesDAO.verifierCompte(mail, mdp);
             request.getSession().setAttribute("idClient", idClient);
+            
+            // Mettre la liste de tous les articles au session
+            List<Article> liste_articles = MethodesDAO.listeArticle();
+            request.getSession().setAttribute("liste_articles", liste_articles);
+            
             if (request.getSession().getAttribute("idArt") != null) {
                 // Get idArt 
                 long idArt = (long) request.getSession().getAttribute("idArt");

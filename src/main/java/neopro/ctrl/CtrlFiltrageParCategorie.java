@@ -41,15 +41,10 @@ public class CtrlFiltrageParCategorie extends HttpServlet {
                 // Recupere la liste des articles par rayon.
                 List<Article> listeArticles = MethodesDAO.ListeArticlesParCategorie(idRayon, idCategorie);
                 //Chainnage vers la vue "afficher.jsp"  avec la liste de messages 
-                request.setAttribute("liste_articles", listeArticles);
-                
-                if (request.getSession().getAttribute("idClient")==null) {
-                    
-                    request.getRequestDispatcher("filtrerArticlesParRayon").forward(request, response);
-                } else {
-                    
-                     request.getRequestDispatcher("filtrerArticlesParRayonConnexion").forward(request, response);
-                }
+                request.getSession().setAttribute("liste_articles", listeArticles);
+
+                request.getRequestDispatcher("Accueil").forward(request, response);
+
             } catch (Exception ex) {
                 //Chainage vers "Acceuil.jsp"
                 request.setAttribute("msg_erreur", ex.getMessage());

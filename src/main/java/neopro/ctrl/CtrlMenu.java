@@ -7,10 +7,13 @@ package neopro.ctrl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import neopro.dao.MethodesDAO;
+import neopro.metier.Article;
 
 /**
  *
@@ -46,8 +49,16 @@ public class CtrlMenu extends HttpServlet {
                 if (request.getSession().getAttribute("idClient")!=null){
                      request.getRequestDispatcher("Panier").forward(request, response);
                 }
-                break;
-            
+                break;        
+                
+            case "Accueil" :
+                // Recupere la liste des articles par rayon.
+                List<Article> listeArticles = MethodesDAO.listeArticle();
+                // Chainnage vers la vue "afficher.jsp"  avec la liste de messages 
+                request.getSession().setAttribute("liste_articles", listeArticles);
+                // Chainage vers "Acceuil.jsp"
+                request.getRequestDispatcher("Accueil").forward(request, response);
+                break;                 
             }
             
     }
