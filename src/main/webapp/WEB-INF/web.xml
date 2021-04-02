@@ -136,6 +136,10 @@
         <servlet-name>CtrlFinaliser</servlet-name>
         <servlet-class>neopro.ctrl.CtrlFinaliser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CtrlPostitPref</servlet-name>
+        <servlet-class>neopro.ctrl.CtrlPostitPref</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>VisualiserPanier</servlet-name>
         <url-pattern>/Panier</url-pattern>
@@ -271,6 +275,10 @@
     <servlet-mapping>
         <servlet-name>CtrlFinaliser</servlet-name>
         <url-pattern>/CtrlFinaliser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlPostitPref</servlet-name>
+        <url-pattern>/CtrlPostitPref</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

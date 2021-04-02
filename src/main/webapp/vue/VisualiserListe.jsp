@@ -103,9 +103,9 @@
             <div class="col-md-6">
                 <h4>Liste des produits proposés </h4>
                
-                    <form action='#' method='get' id="produitProposes">
+                    <form action='CtrlPostitPref' method='get' id="produitProposes">
                         
-                        <% out.println("<input type=hidden name=ListeCourse value="+idListeCourses);%>
+                        <% out.println("<input type=hidden name=ListeCourse value="+idListeCourses+">");%>
               
                         </form>
                 
