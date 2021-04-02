@@ -77,7 +77,8 @@
                 </div>
 
                 <%-- Choix du Creneau--%>
-                <div class="row">
+                
+                <div>
                     <h4>Créneau</h4>
 
                     <div class="recapPanier" id="divmonDrive">
