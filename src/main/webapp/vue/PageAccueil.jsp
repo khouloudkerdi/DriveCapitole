@@ -182,7 +182,7 @@
                                     <%if (!listeArticlesPromo.contains(a)) {
                                             out.print(a.getPrixArt() + " €");
                                         } else {
-                                            out.print("<span class='spanPrixAvecPromo'>" + (a.getPrixArt() - produitPromo) + " € </span><br>");
+                                            out.print("<span class='spanPrixAvecPromo'>" + (a.getPrixArt() - produitPromo) + " € </span>");
                                             out.print("<span class='spanPrixSansPromo'>" + a.getPrixArt() + "€ </span>");
                                         }%>
                                 </div>
