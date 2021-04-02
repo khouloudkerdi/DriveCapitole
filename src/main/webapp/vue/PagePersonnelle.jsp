@@ -34,7 +34,8 @@
                 <%@include file="../layout/menu.jsp" %>
             </div>
             <div class="col-md-10">
-                <%                      List<Article> liste_articles = MethodesDAO.listeArticle();
+                <%                      
+                    List<Article> liste_articles = MethodesDAO.listeArticle();
                     List<Article> liste_articlesPref = MethodesDAO.listePref(id);
                     List<Article> listeArticlesPromo = MethodesDAO.listePromo();
                     List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
