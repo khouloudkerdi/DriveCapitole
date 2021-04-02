@@ -14,11 +14,13 @@ import neopro.dao.MethodesDAO;
 public class CtrlPostIt extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String nomPostit=(String) request.getParameter("postit");
+        
         String idl=(String) request.getParameter("idListe");
-        System.out.println(idl);
         long idListe=Long.parseLong(idl);
-        if (nomPostit!=null){
+        if ((String) request.getParameter("postit")!=null){
+            String nomPostit=(String) request.getParameter("postit");
+            
+            
             MethodesDAO.ajouterPostIt(idListe, nomPostit);
             request.getRequestDispatcher("VisualiserListe?idListe="+idListe).forward(request, response);
         }
