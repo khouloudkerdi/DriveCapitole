@@ -39,7 +39,7 @@
                         </div>           
                     </form>
               
-                <div id="carousContenu" style="background-color: #fff; padding: 5px;">
+                <div id="carousContenu">
                        
                         <%
                             List<Postit> listePostit = MethodesDAO.loadPostIt(idListeCourses);
@@ -69,7 +69,7 @@
         </div>
         <div class="row" >
             <div class="col-md-8">
-                <h4>Liste des produits </h4>
+                <h4 style="margin-top: 10px;">Liste des produits </h4>
                 <%
                     ArrayList<Article> listeArt = MethodesDAO.articleListeCourses(idListeCourses);
                     for (Article a : listeArt) {
@@ -78,18 +78,23 @@
                 <div class="panierProduit">
                     <div class="row">
                         <%--1ere partie: promo, image, cond--%>
-                        <div class="col-md-3"> 
+                        <div class="col-md-4"> 
                             <div class="atCenterHorizontal"><img src="${pageContext.request.contextPath}/image/<% out.print(a.getUrlImageArt()); %>"></div>
                             <div class="styleFontGris atCenterHorizontal"><% out.print(a.getCondArt()); %></div>
                         </div>
 
                         <%--2eme partie: libelle, format, typePromo(pourcentage), montantTotalArticle--%>
-                        <div class="col-md-6" >
+                        <div class="col-md-4" >
                             <div class="styleLib"><% out.print(a.getLibelleArt()); %></div>
                             <div class="row">
                                 <div class="col-sm-6 styleFontGris"><% out.print(a.getFormatArt()); %></div>
 
                             </div>
+                        </div>
+                         <div class="col-md-4" >
+                             <div style="color: red;"><% out.print(a.getPrixArt()+"€"); %></div>
+                           <div><% out.print(a.getPrixKgArt()); %></div>
+                            
                         </div>
 
                     </div>
@@ -99,13 +104,13 @@
                 %>
             </div>
         </div>
-            <div class="btnContainer">
+            <div class="d-flex justify-content-center" style="margin-bottom: 20px;">
                     <div class="atCenterHorizontal">
                         <%
                             out.println("<a role=\"button\" class=\"btn btn-info\"href=\"CtrlTransmettreListePanier?idListeCourses=" + idListeCourses + "\" >Ajouter au panier </a>");
                         %>
                     </div>
-                    <a href="Accueil" class="btn btn-info">Retour</a>
+                    <a href="Accueil" class="btn btn-info" style="margin-left: 30px;">Retour </a>
                 </div>
     </div>
 </body>

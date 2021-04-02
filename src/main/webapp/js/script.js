@@ -74,7 +74,8 @@ function listeProduitProposes(e) {
                         var idArt = listeArticle[i].getElementsByTagName("IdArt")[0];
                         var LibelleArt = listeArticle[i].getElementsByTagName("LibelleArt")[0];
                         var imgArt = listeArticle[i].getElementsByTagName("UrlImageArt")[0];
-                        var prixArt = listeArticle[i].getElementsByTagName("PrixKgArt")[0];
+                        var prixKgArt = listeArticle[i].getElementsByTagName("PrixKgArt")[0];
+                        var prixArt = listeArticle[i].getElementsByTagName("PrixArt")[0];
                         divProduitProposes.insertAdjacentHTML("beforeend", "\
                     <input type='hidden' name='idPostIt' value='"+idPost+"'>\n\
                     <input type='hidden' name='ListeCourse' value='"+inputIdListe+"'>\n\
@@ -83,13 +84,11 @@ function listeProduitProposes(e) {
                      <img src='/Drive_NeoPro/image/" + imgArt.firstChild.nodeValue + "'>\n\
                     </div>\n\
                     <div class='col-md-4'style='margin-top: 5px;font-size: 16px;'>" + LibelleArt.firstChild.nodeValue + "</div>\n\
-                    <div class='col-md-4'style='margin-top: 5px;font-size: 16px;'>" + prixArt.firstChild.nodeValue + "</div></div>");
+                    <div class='col-md-4'font-size: 16px;'><span style='color:red;'>"+prixArt.firstChild.nodeValue +" € </span><br>"+ prixKgArt.firstChild.nodeValue + "</div></div>");
                     }
                     divProduitProposes.insertAdjacentHTML("beforeend", "<div class='row justify-content-center'><button class='btn btn-info'style='width: 100px;'; type='submit'>Choisir</button></div>");
                     
-
                 }
-
 
             } else {
                 divProduitProposes.innerHTML = "";

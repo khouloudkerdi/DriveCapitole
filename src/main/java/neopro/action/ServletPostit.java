@@ -43,6 +43,7 @@ public class ServletPostit extends HttpServlet {
                 out.println("<LibelleArt>" + a.getLibelleArt() + "</LibelleArt>");
                 out.println("<CondArt>" + a.getCondArt() + "</CondArt>"); 
                 out.println("<FormatArt>" + a.getFormatArt()+ "</FormatArt>");
+                 out.println("<PrixArt>" + a.getPrixArt()+ "</PrixArt>");
                 out.println("<PrixKgArt>" + a.getPrixKgArt()+ "</PrixKgArt>");
                 out.println("<TypePrix>" + a.getTypePrix() + "</TypePrix>");
                 out.println("<UrlImageArt>" + a.getUrlImageArt()+ "</UrlImageArt>");
