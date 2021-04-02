@@ -113,5 +113,6 @@
                     <a href="Accueil" class="btn btn-info" style="margin-left: 30px;">Retour </a>
                 </div>
     </div>
+                      
 </body>
 <%@include file="../layout/footerFix.jsp" %>

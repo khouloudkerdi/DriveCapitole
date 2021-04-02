@@ -32,11 +32,11 @@
                                     ArrayList<ListeCourses> lc = MethodesDAO.getListeCourses(idClient);
                                     for (ListeCourses courses : lc) {
                                         out.println("<tr> <th><input type=checkbox name=supprimer value=" + courses.getIdLis() + "></th>  ");
-                                        if (MethodesDAO.articleListeCourses(courses.getIdLis()).size() == 0) {
+                                        /*if (MethodesDAO.articleListeCourses(courses.getIdLis()).size() == 0) {
                                             out.println("<th>" + courses.getNomLis() + "</th>");
-                                        } else {
+                                        } else {*/
                                             out.println("<th><a href=VisualiserListe?idListe=" + courses.getIdLis() + ">" + courses.getNomLis() + " </a></th>");
-                                        }
+                                        //}
 
                                         out.println("<th> <a href=\"CtrlTransmettreListePanier?idListeCourses=" + courses.getIdLis() + "\" >ajouter au panier </a> </th></tr>");
                                     }

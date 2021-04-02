@@ -12,7 +12,7 @@
             <div class="col-md-6">
                 <nav id="navbar_search" class="navbar sticky-top navbar-light justify-content-center" >
                     <div class="container-fluid justify-content-center">
-                        <form class="d-flex" id="search_form" action="Search" method="GET">
+                        <form class="d-flex" id="search_form" action="Accueil" method="GET">
                             <input id="search-input" name="searchWord" class="form-control me-2" type="search" placeholder="Rechercher un article ..." aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Rechercher</button>
                         </form>
@@ -49,7 +49,7 @@
                     <% }%>
 
                     <%-- btn Accueil --%>
-                    <a href="Accueil" class="btn btn-primary" style="padding-top:14px;">
+                    <a href="CtrlMenu?method=Accueil" class="btn btn-primary" style="padding-top:14px;">
                         <img src="${pageContext.request.contextPath}/css/image/accueil.png" alt="logo_neopro" width="35px"/>
                     </a>
 
@@ -58,7 +58,7 @@
                         if (request.getSession().getAttribute("idClient") != null) {
                     %>
                     <div class="btn btn-primary contenant">
-                        <a href="Panier"><img href="Panier" src="${pageContext.request.contextPath}/css/image/caddie.png" alt="logo_neopro" width="45px"/></a>
+                        <a href="Panier"><img src="${pageContext.request.contextPath}/css/image/caddie.png" alt="logo_neopro" width="45px"/></a>
                             <% long qte = MethodesDAO.nbArt( ((Number) request.getSession().getAttribute("idClient")).longValue()); %>
                         <div class="texte_centrer"><% out.print(qte); %></div>
                     </div>
