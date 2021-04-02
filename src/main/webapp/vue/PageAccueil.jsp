@@ -1,3 +1,4 @@
+<%@page import="neopro.metier.Client"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="neopro.metier.Label"%>
 <%@page import="java.util.Set"%>
@@ -13,7 +14,17 @@
     <div class="container">
         <div class="row">
             <%@include file="../layout/navbar.jsp" %>
-        </div>
+        
+            <%
+                if (request.getSession(false).getAttribute("idClient") != null) {
+                long id = ((Number) request.getSession().getAttribute("idClient")).longValue();
+                //long id = (long) request.getSession().getAttribute("idClient");
+                Client client = MethodesDAO.infosClient(id);
+
+            %>
+            <span style="margin-left: 5px;"><% out.print("Bonjour " + client.getPrenomCli());%></span>
+            <%}%>
+       </div>
         <div class="row">
             <div class="col-md-2">
                 <%@include file="../layout/menu.jsp" %>
@@ -25,6 +36,12 @@
 
                 <%                    
                     List<Article> liste_articles;
+                    List<Article> listeArticles = new ArrayList();
+                    List<Article> autresArticle;
+                    List<Article> listeArticlesPromo = MethodesDAO.listePromo();
+                    List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
+                    
+                    
                     if (request.getParameter("searchWord") != null) {
                         // SEARCH : mot clef
                         String search = request.getParameter("searchWord");
@@ -38,16 +55,29 @@
                         liste_articles = MethodesDAO.listeArticle();
                         request.getSession().setAttribute("liste_articles", liste_articles);
                     }
-                %>
+                    
+                    // articles preferes
+                    if (request.getSession(false).getAttribute("idClient") != null) {
+                        long id = ((Number) request.getSession().getAttribute("idClient")).longValue();
+                        Client client = MethodesDAO.infosClient(id);
+                        List<Article> tous_articlesPref = MethodesDAO.listePref(id);
+                        List<Article> liste_articlesPref = MethodesDAO.communeListe(liste_articles, tous_articlesPref);
+                        autresArticle = MethodesDAO.listeDansListe(liste_articles, liste_articlesPref);
+                        List<Article> ArticlePrefPromo = MethodesDAO.communeListe(listeArticlesPromo, liste_articlesPref);
+                        List<Article> ArticlePrefNonPromo = MethodesDAO.communeListe(listeArticlesNonPromo, liste_articlesPref);
+                        listeArticles.addAll(ArticlePrefPromo);
+                        listeArticles.addAll(ArticlePrefNonPromo);
+                    } else {
+                        autresArticle = liste_articles;
+                    }
 
-                <%
-                    List<Article> listeArticles = new ArrayList();
-                    List<Article> listeArticlesPromo = MethodesDAO.listePromo();
-                    List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
-                    List<Article> listeArticlesFlitrePromo = MethodesDAO.communeListe(listeArticlesPromo, liste_articles);
-                    List<Article> listeArticlesFlitreNonPromo = MethodesDAO.communeListe(listeArticlesNonPromo, liste_articles);
-                    listeArticles.addAll(listeArticlesFlitrePromo);
-                    listeArticles.addAll(listeArticlesFlitreNonPromo);                %>
+                    
+                    // autres articles 
+                    List<Article> autresArticlePromo = MethodesDAO.communeListe(listeArticlesPromo, autresArticle);
+                    List<Article> autresArticleNonPromo = MethodesDAO.communeListe(listeArticlesNonPromo, autresArticle);
+                    listeArticles.addAll(autresArticlePromo);
+                    listeArticles.addAll(autresArticleNonPromo);
+                %>
 
 
                 <%  // partie search : nb de resultat
