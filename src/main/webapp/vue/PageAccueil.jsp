@@ -14,17 +14,17 @@
     <div class="container">
         <div class="row">
             <%@include file="../layout/navbar.jsp" %>
-        
+
             <%
                 if (request.getSession(false).getAttribute("idClient") != null) {
-                long id = ((Number) request.getSession().getAttribute("idClient")).longValue();
-                //long id = (long) request.getSession().getAttribute("idClient");
-                Client client = MethodesDAO.infosClient(id);
+                    long id = ((Number) request.getSession().getAttribute("idClient")).longValue();
+                    //long id = (long) request.getSession().getAttribute("idClient");
+                    Client client = MethodesDAO.infosClient(id);
 
             %>
             <span style="margin-left: 5px;"><% out.print("Bonjour " + client.getPrenomCli());%></span>
             <%}%>
-       </div>
+        </div>
         <div class="row">
             <div class="col-md-2">
                 <%@include file="../layout/menu.jsp" %>
@@ -34,14 +34,12 @@
                 <!-- msg connexion -->
                 <div><font color="#FF0000">${requestScope.msg_connexion}</font></div>
 
-                <%                    
-                    List<Article> liste_articles;
+                <%                    List<Article> liste_articles;
                     List<Article> listeArticles = new ArrayList();
                     List<Article> autresArticle;
                     List<Article> listeArticlesPromo = MethodesDAO.listePromo();
                     List<Article> listeArticlesNonPromo = MethodesDAO.listeNonPromo();
-                    
-                    
+
                     if (request.getParameter("searchWord") != null) {
                         // SEARCH : mot clef
                         String search = request.getParameter("searchWord");
@@ -55,7 +53,7 @@
                         liste_articles = MethodesDAO.listeArticle();
                         request.getSession().setAttribute("liste_articles", liste_articles);
                     }
-                    
+
                     // articles preferes
                     if (request.getSession(false).getAttribute("idClient") != null) {
                         long id = ((Number) request.getSession().getAttribute("idClient")).longValue();
@@ -71,7 +69,6 @@
                         autresArticle = liste_articles;
                     }
 
-                    
                     // autres articles 
                     List<Article> autresArticlePromo = MethodesDAO.communeListe(listeArticlesPromo, autresArticle);
                     List<Article> autresArticleNonPromo = MethodesDAO.communeListe(listeArticlesNonPromo, autresArticle);
@@ -190,6 +187,7 @@
                                         }%>
                                 </div>
                                 <div class="btnAccueil">
+                                    <input class="inputIdArt" value="<%out.print(a.getIdArt());%>" type="hidden">
                                     <%
                                         if (request.getSession().getAttribute("idClient") == null) {
                                             //request.getSession().setAttribute("idArt", a.getIdArt());
@@ -198,8 +196,7 @@
                                         Panier
                                     </a>
                                     <% } else if (request.getSession().getAttribute("idClient") != null) { %>
-                                    <a href="CtrlInserer?idArt=<%out.print(a.getIdArt());%>" 
-                                       class="btn btn-secondary btn-sm">Panier</a>
+                                    <button name="btnPanierAccueil" class="btn btn-secondary btn-sm">Panier</button>
                                     <% } %>
                                     <%
                                         if (request.getSession().getAttribute("idClient") != null) {
@@ -215,9 +212,14 @@
                                                     Liste
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <%                                                    ArrayList<ListeCourses> listeListeCourses = MethodesDAO.getListeCourses(idClient);
+                                                    <%                                                    
+                                                        ArrayList<ListeCourses> listeListeCourses = MethodesDAO.getListeCourses(idClient);
                                                         for (ListeCourses lc : listeListeCourses) {
-                                                            out.print("<li><a class=dropdown-item href=CtrlInserer?idListeCourses=" + a.getIdArt() + "," + lc.getIdLis() + ">" + lc.getNomLis() + "</a></li>");
+                                                    %>
+                                                    <input class="inputIdListe" value="<%out.print(lc.getIdLis());%>" type="hidden">
+
+                                                    <%
+                                                            out.print("<li><a class=\"dropdown-item\" name=\"idL\">" + lc.getNomLis() + "</a></li>");
                                                         }
                                                     %>
                                                 </ul>
@@ -242,5 +244,6 @@
     </div>
     <%@include file="../layout/modalConnexion.jsp" %>
     <%@include file="../layout/logOut.jsp" %>
+    <script type="text/JavaScript" src="${pageContext.request.contextPath}/js/scriptAccueil.js"></script>
 </body>
 <%@include file="../layout/footerFix.jsp" %>
